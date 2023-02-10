@@ -5,3 +5,4 @@ const Arkisto = () => {
         </div>
     )
 }
+export {Arkisto};
