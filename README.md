@@ -15,7 +15,7 @@ Topi sai toimimaan 3.2.2023 kyseisen lisäosan
 npm install
 
 ja ehkä myös nämä riippuen miten paketti rakennetaan, kommentoin myöhemmin
-npm i react-router-dom
+npm install react-router-dom@5.2.0
 
 npm i reactstrap
 
