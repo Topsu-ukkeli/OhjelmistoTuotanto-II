@@ -14,14 +14,4 @@ Topi sai toimimaan 3.2.2023 kyseisen lisäosan
 // REACTIPAKETIN asennus
 npm install
 
-
-
-npm install react-router-dom@5.2.0
-
-
-
-npm i reactstrap
-
-
-
-npm i react-spinners
+npm install react-router-dom
