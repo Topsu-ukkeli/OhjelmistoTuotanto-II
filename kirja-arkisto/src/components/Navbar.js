@@ -15,6 +15,9 @@ export const Navbar = () => {
                 <li className="nav-item">
                     <Link to="/oma-kirjasto" className="nav-link">Oma kirjasto</Link>
                 </li>
+                <li className="nav-item">
+                    <Link to="/Testaus" className="nav-link">Testimielessä</Link>
+                </li>
             </ul>
         </nav>
     );

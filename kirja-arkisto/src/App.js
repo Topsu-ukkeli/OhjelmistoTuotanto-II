@@ -4,6 +4,7 @@ import './App.css';
 import { Navbar } from "./components/Navbar";
 import { Home } from './components/Home';
 import { OmaKirjasto } from './components/oma-kirjasto';
+import { Kukka } from './components/Testaus';
 
 
 
@@ -14,8 +15,9 @@ function App() {
       <Router>
         <Navbar />
         <Switch>
-          <Route path="/"><Home /></Route>
           <Route path="/oma-kirjasto"> <OmaKirjasto/></Route>
+          <Route path="/Testaus"> <Kukka/></Route>
+          <Route path="/"><Home /></Route>
         </Switch>
       </Router>
     </div>
