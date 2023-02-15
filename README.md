@@ -15,3 +15,6 @@ Topi sai toimimaan 3.2.2023 kyseisen lisäosan
 npm install
 
 npm install react-router-dom
+
+App.js tiedostossa kun renderöidään sivuja niin se minkä url on pisin tulee laittaa ylimmäiseksi 
+Tällä on väliä!
