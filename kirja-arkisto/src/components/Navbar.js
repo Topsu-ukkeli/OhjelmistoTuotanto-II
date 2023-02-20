@@ -13,6 +13,9 @@ export const Navbar = () => {
                     <Link to="/" className="nav-link">Etusivu</Link>
                 </li>
                 <li className="nav-item">
+                    <Link to="/Sarjat" className="nav-link">Sarjat</Link>
+                </li>
+                <li className="nav-item">
                     <Link to="/oma-kirjasto" className="nav-link">Oma kirjasto</Link>
                 </li>
                 <li className="nav-item">
