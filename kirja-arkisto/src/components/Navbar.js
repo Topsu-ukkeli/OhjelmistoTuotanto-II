@@ -20,12 +20,10 @@ export const Navbar = () => {
                     <li className="nav-item">
                         <Link to="/oma-kirjasto" className="nav-link">Oma kirjasto</Link>
                     </li>
-                </ul>
-                <ul className="navbar-links">
-                    <li className="nav-item">
-                        <Link to="/login" className="nav-login">Kirjaudu sisään</Link>
-                        <p>tähän joku boolean että teksti muuttuu "kirjaudu ulos"
-                            mikäli on kirjauduttu sisään jos jaksaa lmao</p>
+                    <li>
+                        <Link to="/login">Kirjaudu sisään</Link>
+                        {/* <p>tähän joku boolean että teksti muuttuu "kirjaudu ulos"
+                            mikäli on kirjauduttu sisään jos jaksaa lmao</p> */}
                     </li>
                 </ul>
             </nav>
