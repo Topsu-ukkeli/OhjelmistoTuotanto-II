@@ -1,23 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './login.css';
 
 const Login = () => {
     const [käyttäjä, setKäyttäjä] = useState('');
     const [salasana, setSalasana] = useState('');
-    //miten tätä dataa saa siirrettyä komponentista toiseen?
     const [kirjauduttu, setKirjauduttu] = useState(false);
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        setKirjauduttu(true);
-    };
+    //https://github.com/colbyfayock/my-welcome-banner/blob/main/pages/index.js
+    //https://www.youtube.com/watch?v=rWfhwW9forg
 
+    // tässä koitetaan tallentaa tietoa localstorageen kirjautumisesta mutta eihän se vittu toimi
+    useEffect(() => {
+        const kirjautumisdata = window.localStorage.getItem('KIRJAUDUTTU_DATA');
+        setKirjauduttu(JSON.parse(kirjautumisdata));
+    }, [] )
+
+    useEffect(() => {
+        window.localStorage.setItem('KIRJAUDUTTU_DATA', JSON.stringify(kirjauduttu));
+    }, [kirjauduttu]);
+
+
+    const handleKirjaudu = () => {
+        setKirjauduttu(true);
+    }
     const handleKirjauduulos = () => {
         setKirjauduttu(false);
     }
 
     return (
-        <form onSubmit={handleSubmit} className="login-container">
+        <form className="login-container">
             {!kirjauduttu &&
                 <div>
                     <div>
@@ -30,7 +41,7 @@ const Login = () => {
                         <input type="password" id="password"
                             value={salasana} onChange={(event) => setSalasana(event.target.value)} />
                     </div>
-                    <button type="submit">Kirjaudu</button>
+                    <button onClick={handleKirjaudu}>Kirjaudu</button>
                     <p>// Pitäiskö tähän tehä joku luo tili vai kovakoodataanko??</p>
                 </div>
             }

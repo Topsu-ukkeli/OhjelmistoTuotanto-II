@@ -4,7 +4,7 @@ import "./oma-kirjasto.css";
 //https://moog.antikvariaattimakedonia.fi/index.php?sivu=lehdet&moog_sarja_id=342
 const OmaKirjasto = () => {
 
-    const [kirjauduttu, setKirjauduttu] = useState();
+    const [kirjauduttu, setKirjauduttu] = useState(false);
 
     return (
         <>

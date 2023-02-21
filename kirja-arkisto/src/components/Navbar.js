@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import './Navbar.css';
 import logo from '../images/logo.png'
-import { Login } from './login'
 
 export const Navbar = () => {
-
-    const [kirjauduttu, setKirjauduttu] = useState();
+    const [kirjauduttu, setKirjauduttu] = useState(false);
 
 
     return (
@@ -27,7 +25,7 @@ export const Navbar = () => {
                     </li>
                     <li>
                         {!kirjauduttu &&
-                        <Link to="/login" className="nav-link">Kirjaudu sisään</Link>
+                            <Link to="/login" className="nav-link">Kirjaudu sisään</Link>
                         }
                     </li>
                 </ul>
