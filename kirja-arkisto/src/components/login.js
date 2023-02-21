@@ -11,12 +11,14 @@ const Login = () => {
 
     // tässä koitetaan tallentaa tietoa localstorageen kirjautumisesta mutta eihän se vittu toimi
     useEffect(() => {
-        const kirjautumisdata = window.localStorage.getItem('KIRJAUDUTTU_DATA');
+        const kirjautumisdata = localStorage.getItem('KIRJAUDUTTU_DATA');
         setKirjauduttu(JSON.parse(kirjautumisdata));
     }, [] )
 
     useEffect(() => {
-        window.localStorage.setItem('KIRJAUDUTTU_DATA', JSON.stringify(kirjauduttu));
+        setTimeout(() => {
+        localStorage.setItem('KIRJAUDUTTU_DATA', JSON.stringify(kirjauduttu));
+        }, 300);
     }, [kirjauduttu]);
 
 
@@ -37,7 +39,7 @@ const Login = () => {
                             value={käyttäjä} onChange={(event) => setKäyttäjä(event.target.value)} />
                     </div>
                     <div>
-                        <label >Salasana:</label>
+                        <label>Salasana:</label>
                         <input type="password" id="password"
                             value={salasana} onChange={(event) => setSalasana(event.target.value)} />
                     </div>
@@ -48,7 +50,6 @@ const Login = () => {
             {kirjauduttu &&
                 <div>
                     <h1>Hei käyttäjä!</h1>
-                    <p>Navbarin kirjaudu sisään pamahtaa simsalabim kirjaudu-ulos</p>
                     <button onClick={handleKirjauduulos}>Kirjaudu ulos</button>
                 </div>
             }

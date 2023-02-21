@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./oma-kirjasto.css";
 
 //https://moog.antikvariaattimakedonia.fi/index.php?sivu=lehdet&moog_sarja_id=342
 const OmaKirjasto = () => {
 
     const [kirjauduttu, setKirjauduttu] = useState(false);
+
+    useEffect(() => {
+        const kirjautumisdata = localStorage.getItem('KIRJAUDUTTU_DATA');
+        setKirjauduttu(JSON.parse(kirjautumisdata));
+    }, [] )
 
     return (
         <>

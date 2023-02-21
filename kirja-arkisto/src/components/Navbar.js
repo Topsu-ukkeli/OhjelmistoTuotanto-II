@@ -4,7 +4,19 @@ import './Navbar.css';
 import logo from '../images/logo.png'
 
 export const Navbar = () => {
-    const [kirjauduttu, setKirjauduttu] = useState(false);
+    const [kirjauduttu, setKirjauduttu] = useState();
+
+    useEffect(() => {
+        const kirjautumisdata = localStorage.getItem('KIRJAUDUTTU_DATA');
+        if(kirjautumisdata !== null)
+        setKirjauduttu(JSON.parse(kirjautumisdata));
+    }, [])
+
+    useEffect(() => {
+        setTimeout(() => {
+        localStorage.setItem('KIRJAUDUTTU_DATA', JSON.stringify(kirjauduttu));
+        }, 300);
+    }, [kirjauduttu]);
 
 
     return (
@@ -27,6 +39,10 @@ export const Navbar = () => {
                         {!kirjauduttu &&
                             <Link to="/login" className="nav-link">Kirjaudu sisään</Link>
                         }
+                        {kirjauduttu &&
+                            <Link to="/" className="nav-link" onClick={() => setKirjauduttu(false)}>Kirjaudu ulos</Link>
+                        }
+                        {/* kirjaudu ulos päivittyy vain refreshaamalla sivun, mitenhän tämän saisi korjattua */}
                     </li>
                 </ul>
             </nav>
