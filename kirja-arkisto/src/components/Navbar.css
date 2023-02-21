@@ -23,7 +23,6 @@ body{
     padding: 10px;
     gap:5px;
     color: black;
-    text-decoration: none;
     width: 96%;
 }
 
@@ -37,10 +36,13 @@ li {
 }
 
 
-
 li:last-of-type{
     margin-left: auto;
     gap: 10px;
     padding-left: 20px;
-    
+    text-decoration: none;
+}
+
+.nav-link{
+    text-decoration: none;
 }

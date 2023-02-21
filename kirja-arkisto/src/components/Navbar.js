@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
 import './Navbar.css';
 import logo from '../images/logo.png'
+import { Login } from './login'
 
 export const Navbar = () => {
+
+    const [kirjauduttu, setKirjauduttu] = useState();
+
+
     return (
         <div>
             <nav className="container-fluid">
@@ -21,9 +26,9 @@ export const Navbar = () => {
                         <Link to="/oma-kirjasto" className="nav-link">Oma kirjasto</Link>
                     </li>
                     <li>
-                        <Link to="/login">Kirjaudu sisään</Link>
-                        {/* <p>tähän joku boolean että teksti muuttuu "kirjaudu ulos"
-                            mikäli on kirjauduttu sisään jos jaksaa lmao</p> */}
+                        {!kirjauduttu &&
+                        <Link to="/login" className="nav-link">Kirjaudu sisään</Link>
+                        }
                     </li>
                 </ul>
             </nav>

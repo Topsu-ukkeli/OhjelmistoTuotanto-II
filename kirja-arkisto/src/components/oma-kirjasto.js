@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useState } from 'react';
 import "./oma-kirjasto.css";
 
 //https://moog.antikvariaattimakedonia.fi/index.php?sivu=lehdet&moog_sarja_id=342
 const OmaKirjasto = () => {
-    return(
+
+    const [kirjauduttu, setKirjauduttu] = useState();
+
+    return (
         <>
-        <h1>Oma kirjasto tähän</h1>
+            {!kirjauduttu &&
+                <h1>Kirjaudu sisään käyttääksesi omaa kirjastoa</h1>
+            }
+            {kirjauduttu &&
+                <h1>Oma kirjasto tähän</h1>
+            }
         </>
     )
 }
-export {OmaKirjasto};
+export { OmaKirjasto };
