@@ -8,18 +8,18 @@ const OmaKirjasto = () => {
 
     useEffect(() => {
         const kirjautumisdata = localStorage.getItem('KIRJAUDUTTU_DATA');
+        console.log(kirjautumisdata);
         setKirjauduttu(JSON.parse(kirjautumisdata));
     }, [] )
 
     return (
-        <>
-            {!kirjauduttu &&
+        <div>
+            {kirjauduttu ? (
+               <h1>Oma kirjasto tähän</h1>
+            ):(
                 <h1>Kirjaudu sisään käyttääksesi omaa kirjastoa</h1>
-            }
-            {kirjauduttu &&
-                <h1>Oma kirjasto tähän</h1>
-            }
-        </>
+            )}
+        </div>
     )
 }
 export { OmaKirjasto };
