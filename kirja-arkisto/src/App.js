@@ -10,14 +10,20 @@ import { Login } from './components/login';
 
 
 function App() {
+
+  //tällä muuttujalla viedään tietoa onko kirjauduttu vai ei komponentiltä toiselle
+  //jäi vähän kesken mut jotakuinkin tuolleen
+  const [kirjauduttuData, setKirjauduttuData] = useState();
+
+
   return (
     <div className="App">
       <Router>
-        <Navbar />
+      <Navbar login={kirjauduttuData} />
         <Switch>
           <Route path="/oma-kirjasto"> <OmaKirjasto/></Route>
           <Route path="/sarjat"><Sarjat /></Route>
-          <Route path="/login"><Login /></Route>
+          <Route path="/login"><Login login={setKirjauduttuData} /></Route>
           <Route path="/"><Home /></Route>
         </Switch>
       </Router>

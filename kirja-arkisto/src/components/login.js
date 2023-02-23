@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './login.css';
 
-const Login = () => {
+const Login = (setKirjauduttuData) => {
     const [käyttäjä, setKäyttäjä] = useState('');
     const [salasana, setSalasana] = useState('');
     const [kirjauduttu, setKirjauduttu] = useState(false);
+    
 
     //https://github.com/colbyfayock/my-welcome-banner/blob/main/pages/index.js
     //https://www.youtube.com/watch?v=rWfhwW9forg
@@ -24,9 +25,11 @@ const Login = () => {
 
     const handleKirjaudu = () => {
         setKirjauduttu(true);
+        // setKirjauduttuData(true);
     }
     const handleKirjauduulos = () => {
         setKirjauduttu(false);
+        // setKirjauduttuData(false);
     }
 
     return (

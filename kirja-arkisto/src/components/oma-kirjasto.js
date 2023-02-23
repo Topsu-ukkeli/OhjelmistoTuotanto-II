@@ -15,7 +15,7 @@ const OmaKirjasto = () => {
     return (
         <div>
             {kirjauduttu ? (
-               <h1>Oma kirjasto tähän</h1>
+                <h1>Oma kirjasto tähän</h1>
             ):(
                 <h1>Kirjaudu sisään käyttääksesi omaa kirjastoa</h1>
             )}

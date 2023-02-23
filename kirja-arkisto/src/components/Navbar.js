@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 import './Navbar.css';
 import logo from '../images/logo.png'
 
-export const Navbar = () => {
-    const [kirjauduttu, setKirjauduttu] = useState();
+export const Navbar = ({kirjauduttuData}) => {
+    const [kirjauduttu, setKirjauduttu] = useState(false);
 
     useEffect(() => {
         const kirjautumisdata = localStorage.getItem('KIRJAUDUTTU_DATA');
