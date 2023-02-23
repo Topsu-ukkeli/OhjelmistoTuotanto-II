@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import './Navbar.css';
 import logo from '../images/logo.png'
 
-export const Navbar = ({kirjauduttuData}) => {
+export const Navbar = ({login}) => {
     const [kirjauduttu, setKirjauduttu] = useState(false);
 
     useEffect(() => {

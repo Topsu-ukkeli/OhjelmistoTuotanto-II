@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './login.css';
 
-const Login = (setKirjauduttuData) => {
+const Login = ({login}) => {
     const [käyttäjä, setKäyttäjä] = useState('');
     const [salasana, setSalasana] = useState('');
     const [kirjauduttu, setKirjauduttu] = useState(false);
