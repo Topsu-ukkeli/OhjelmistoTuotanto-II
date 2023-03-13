@@ -13,7 +13,7 @@ function App() {
 
   //tällä muuttujalla viedään tietoa onko kirjauduttu vai ei komponentiltä toiselle
   //jäi vähän kesken mut jotakuinkin tuolleen
-  const [kirjauduttuData, setKirjauduttuData] = useState();
+  const [kirjauduttuData, setKirjauduttuData] = useState(false);
 
 
   return (
