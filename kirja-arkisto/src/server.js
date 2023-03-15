@@ -44,6 +44,7 @@ mongoose
     .connect('mongodb+srv://onnikumpulainen:niosonto@ohjii.9lvmrke.mongodb.net/OhjII?retryWrites=true&w=majority')
     .then(() => {
         app.listen(5000);
+        console.log("Päästiin sisään?")
     })
     .catch(error => {
         console.log("ei päästy sisään");
