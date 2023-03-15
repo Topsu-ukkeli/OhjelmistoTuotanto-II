@@ -17,7 +17,7 @@ npm install
 npm install react-router-dom
 
 npm install --save mongoose
-mongodb+srv://onnikumpulainen:<password>@ohjii.9lvmrke.mongodb.net/?retryWrites=true&w=majority
+mongodb+srv://onnikumpulainen:<niosonto>@ohjii.9lvmrke.mongodb.net/?retryWrites=true&w=majority
 mongo salasana: niosonto
 
 App.js tiedostossa kun renderöidään sivuja niin se minkä url on pisin tulee laittaa ylimmäiseksi 
