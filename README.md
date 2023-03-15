@@ -22,3 +22,9 @@ mongo salasana: niosonto
 
 App.js tiedostossa kun renderöidään sivuja niin se minkä url on pisin tulee laittaa ylimmäiseksi 
 Tällä on väliä!
+
+
+npm install --save nodemon
+npm install init
+npm install --save express body-parser
+npm install cors
