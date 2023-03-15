@@ -8,7 +8,6 @@ const OmaKirjasto = () => {
 
     useEffect(() => {
         const kirjautumisdata = localStorage.getItem('KIRJAUDUTTU_DATA');
-        console.log(kirjautumisdata);
         setKirjauduttu(JSON.parse(kirjautumisdata));
     }, [] )
 
