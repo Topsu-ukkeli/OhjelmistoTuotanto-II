@@ -1,5 +1,6 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
+const mongoose = require('mongoose');
 
 const app = express();
 app.use(express.json());
@@ -38,3 +39,12 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+
+mongoose
+    .connect('mongodb+srv://onnikumpulainen:niosonto@ohjii.9lvmrke.mongodb.net/OhjII?retryWrites=true&w=majority')
+    .then(() => {
+        app.listen(5000);
+    })
+    .catch(error => {
+        console.log("ei päästy sisään");
+    })
