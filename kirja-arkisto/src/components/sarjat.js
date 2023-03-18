@@ -90,6 +90,7 @@ const Card = ({ Serie }) => {
 				<p>Pages: {Serie.pages}</p>
 				<button onClick={togglePopup}>Lisätietoja</button>
 				{/* Tähän tulee toinen nappi jolla voit lisätä tämän kyseisen kirjan itsellesi jahka saadaan se mongo toimimaan -Topi */}
+				{/* Kyseinen nappi siis lisää tietokantaan tiedon kirjasta jonka halusi lisätä tämä on yksinkertainen Schema ratkasu */}
 				{isOpen && <OpenMore
 					handleClose={togglePopup}
 					content={<div>
