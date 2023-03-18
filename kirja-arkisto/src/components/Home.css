@@ -34,12 +34,12 @@ html {
 }
 
 .card {
-     overflow: hidden;
+    overflow: hidden;
     box-shadow: 0 2px 20px lightgrey;
     padding: 20px;
     cursor: pointer;
     margin: auto;
-    display:flex;
+    display:inline-flex; 
     width: 30%;
     
 }
@@ -114,7 +114,7 @@ html {
     padding: 10px;
     cursor: pointer;
   }
-  .popup-box{
+   .popup-box{
     position:fixed;
     background-color: rgba(0, 0, 0, 0.5);
     left: 0;
