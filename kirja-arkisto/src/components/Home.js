@@ -45,8 +45,22 @@ export const Home = () => {
 		</div>
 	)
 }
-
+const OpenMore = props => {
+	return(
+		<div className="popup-box">
+			<div className="box">
+				<button className="btn-close" onClick={props.handleClose}>sulje</button>
+				{props.content}
+			</div>
+		</div>
+	)
+}
 const Card = ({ book }) => {
+	const [isOpen, setIsOpen] = useState(false);
+
+	const togglePopup = () => {
+		setIsOpen(!isOpen);
+	}
 	return (
 		<div className="card" >
 			<img src={kirja} alt={kirja} className='card_img' />
@@ -55,6 +69,17 @@ const Card = ({ book }) => {
 				<p>Author: {book.author}</p>
 				<p>Published: {book.published}</p>
 				<p>Pages: {book.pages}</p>
+				<button onClick={togglePopup}>Lisätietoja</button>
+				{isOpen && <OpenMore
+				handleClose = {togglePopup}
+				content = {<div>
+					<h1>{book.title}</h1>
+					<h2>Author: {book.author}</h2>
+					<h2>Published: {book.published}</h2>
+					<h2>Pages: {book.pages}</h2>
+					<img src={kirja} alt={kirja} className='popupcard' />
+					</div>}
+				/>}
 			</div>
 		</div>
 	);
@@ -151,5 +176,5 @@ const FrontPage = () => {
 		</div>
 	);
 }
-export { SearchBar, FrontPage, Card };
+export { SearchBar, FrontPage, Card,OpenMore };
 
