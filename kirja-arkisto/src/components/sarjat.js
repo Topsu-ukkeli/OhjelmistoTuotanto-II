@@ -89,6 +89,7 @@ const Card = ({ Serie }) => {
 				<p>Published: {Serie.published}</p>
 				<p>Pages: {Serie.pages}</p>
 				<button onClick={togglePopup}>Lisätietoja</button>
+				{/* Tähän tulee toinen nappi jolla voit lisätä tämän kyseisen kirjan itsellesi jahka saadaan se mongo toimimaan -Topi */}
 				{isOpen && <OpenMore
 					handleClose={togglePopup}
 					content={<div>
