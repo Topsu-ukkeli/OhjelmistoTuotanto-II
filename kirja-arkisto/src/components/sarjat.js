@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-
+import {books} from './Home.js'
+import kirja from '../images/kirja.jpg'
+import "./sarjat.css";
 const mongoose = require('mongoose');
 
 
@@ -15,6 +17,7 @@ const Sarjat = () => {
 
     return (
         <>
+        <FrontPage/>
             <table>
                 <tbody >
                     <tr>
@@ -31,4 +34,48 @@ const Sarjat = () => {
         </>
     )
 }
-export { Sarjat };
+const Card = ({ book }) => {
+	return (
+		<div className="card" >
+			<img src={kirja} alt={kirja} className='card_img' />
+			<div className="card-info">
+				<h2>{book.title}</h2>
+				<p>Author: {book.author}</p>
+				<p>Published: {book.published}</p>
+				<p>Pages: {book.pages}</p>
+			</div>
+		</div>
+	);
+}
+const SearchBar = ({ onChange }) => {
+	return (
+		<div className="search-bar">
+			<label htmlFor="search-input">Search by ID:</label>
+			<input
+				id="search-input"
+				type="text"
+				onChange={(event) => onChange(event.target.value)}
+			/>
+		</div>
+	);
+}
+
+const FrontPage = () => {
+	const [searchTerm, setSearchTerm] = useState('');
+
+	const filteredBooks = books.filter((book) =>
+		book.id.toString().startsWith(searchTerm)
+	);
+
+	return (
+		<div >
+			<SearchBar onChange={setSearchTerm} />
+			<div>
+				{filteredBooks.map((book) => (
+					<Card key={book.id} book={book} />
+				))}
+			</div>
+		</div>
+	);
+}
+export { SearchBar, FrontPage, Card,Sarjat };

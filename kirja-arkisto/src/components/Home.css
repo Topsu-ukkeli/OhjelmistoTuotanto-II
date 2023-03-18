@@ -18,6 +18,8 @@ body {
 
 html {
     font-size: 62.5%;
+    overflow: -moz-scrollbars-vertical;
+    overflow-y: scroll;
 }
 
 .text-block {
@@ -39,20 +41,23 @@ html {
     flex-direction: column;
     justify-content: space-between;
     cursor: pointer;
+    width: 30%;
+    margin: auto;
+    
 }
-
 .card_img {
     height: 20rem;
-    width: 100%;
+    width: 40%;
     object-fit: cover;
+    margin: auto;
 }
 
 .card:hover {
-    border:2px solid rgb(6, 90, 247);  
-    box-shadow: 0 0 15px #333; 
-    -webkit-box-shadow: 0 0 15px #333;  
-    -moz-box-shadow: 0 0 15px #333;  
-    -o-box-shadow: 0 0 15px #333;  
+    border: 2px solid rgb(6, 90, 247);
+    box-shadow: 0 0 15px #333;
+    -webkit-box-shadow: 0 0 15px #333;
+    -moz-box-shadow: 0 0 15px #333;
+    -o-box-shadow: 0 0 15px #333;
     -ms-box-shadow: 0 0 15px #333;
 }
 
@@ -74,3 +79,40 @@ html {
     background-color: transparent;
 
 }
+
+.headers {
+    position: fixed;
+    top: 5%;
+    left: 25%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+  
+  .search-bar input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  .search-bar{
+    position: fixed;
+    top: 5%;
+    left: 25%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+  }
+  .search-bar button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+  }
