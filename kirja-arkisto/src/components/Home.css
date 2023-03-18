@@ -41,7 +41,6 @@ html {
     margin: auto;
     display:inline-flex; 
     width: 30%;
-    
 }
 .card_img {
     height: 20rem;
@@ -49,7 +48,6 @@ html {
     object-fit: cover;
     margin: auto;
 }
-
 .card:hover {
     border: 2px solid rgb(6, 90, 247);
     box-shadow: 0 0 15px #333;
@@ -98,7 +96,7 @@ html {
   }
   .search-bar{
     position: fixed;
-    top: 5%;
+    top: 3%;
     left: 25%;
     width: 50%;
     display: flex;
