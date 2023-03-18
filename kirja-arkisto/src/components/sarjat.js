@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { books } from './Home.js'
-import kirja from '../images/kirja.jpg'
-import kirja2 from	'../images/2.jpg'
+import React, { useState, useEffect } from "react";
+import sarja from '../images/kirja.jpg'
+import kirja2 from '../images/2.jpg'
 import "./sarjat.css";
 const mongoose = require('mongoose');
 
@@ -12,19 +11,60 @@ const orderSchema = new Schema({
 
 })
 
+export const Series = [
+	{
+		id: 1,
+		serie: 'Asterix',
+		author: 'Albert Uderzo',
+		published: '1959',
+		image: 'kirja.jpg',
+	},
+	{
+		id: 1,
+		serie: 'Asterix',
+		author: 'Albert Uderzo',
+		published: '1959',
+		image: 'kirja.jpg',
+	},
+	{
+		id: 1,
+		serie: 'Asterix',
+		author: 'Albert Uderzo',
+		published: '1959',
+		image: 'kirja.jpg',
+	},
+	{
+		id: 1,
+		serie: 'Asterix',
+		author: 'Albert Uderzo',
+		published: '1959',
+		image: 'kirja.jpg',
+	},
+];
 const Sarjat = () => {
 
-	const [tiedotTaulu, setTiedottaulu] = useState([]);
+	const [kirjauduttu, setKirjauduttu] = useState(false);
+
+	useEffect(() => {
+		const kirjautumisdata = localStorage.getItem('KIRJAUDUTTU_DATA');
+		setKirjauduttu(JSON.parse(kirjautumisdata));
+	}, [])
 
 	return (
 		<div>
-			<FrontPage />
+			{kirjauduttu ? (
+				<div id="custom-scrollbars__content" >
+					<FrontPage />
+				</div>
+			) : (
+				<h1>Kirjaudu sisään nähdäksesi sarjat</h1>
+			)}
 		</div>
 	)
 }
 
 const OpenMore = props => {
-	return(
+	return (
 		<div className="popup-box">
 			<div className="box">
 				<button className="btn-close" onClick={props.handleClose}>sulje</button>
@@ -33,7 +73,7 @@ const OpenMore = props => {
 		</div>
 	)
 }
-const Card = ({ book }) => {
+const Card = ({ Serie }) => {
 
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -42,21 +82,20 @@ const Card = ({ book }) => {
 	}
 	return (
 		<div className="card" >
-			<img src={kirja} alt={kirja} className='card_img' />
+			<img src={sarja} alt={sarja} className='card_img' />
 			<div className="card-info">
-				<h1>{book.title}</h1>
-				<p>Author: {book.author}</p>
-				<p>Published: {book.published}</p>
-				<p>Pages: {book.pages}</p>
+				<h1>{Serie.title}</h1>
+				<p>Author: {Serie.author}</p>
+				<p>Published: {Serie.published}</p>
+				<p>Pages: {Serie.pages}</p>
 				<button onClick={togglePopup}>Lisätietoja</button>
 				{isOpen && <OpenMore
-				handleClose = {togglePopup}
-				content = {<div>
-					<h1>{book.title}</h1>
-					<h2>Author: {book.author}</h2>
-					<h2>Published: {book.published}</h2>
-					<h2>Pages: {book.pages}</h2>
-					<img src={kirja} alt={kirja} className='popupcard' />
+					handleClose={togglePopup}
+					content={<div>
+						<h1>{Serie.title}</h1>
+						<h2>Author: {Serie.author}</h2>
+						<h2>Published: {Serie.published}</h2>
+						<img src={sarja} alt={sarja} className='popupcard' />
 					</div>}
 				/>}
 			</div>
@@ -80,19 +119,19 @@ const SearchBar = ({ onChange }) => {
 const FrontPage = () => {
 	const [searchTerm, setSearchTerm] = useState('');
 
-	const filteredBooks = books.filter((book) =>
-		book.id.toString().startsWith(searchTerm)
+	const Filterserie = Series.filter((Serie) =>
+		Serie.id.toString().startsWith(searchTerm)
 	);
 
 	return (
 		<div >
 			<SearchBar onChange={setSearchTerm} />
 			<div>
-				{filteredBooks.map((book) => (
-					<Card key={book.id} book={book} />
+				{Filterserie.map((Serie) => (
+					<Card key={Serie.id} Serie={Serie} />
 				))}
 			</div>
 		</div>
 	);
 }
-export { SearchBar, FrontPage, Card, Sarjat,OpenMore};
+export { SearchBar, FrontPage, Card, Sarjat, OpenMore };

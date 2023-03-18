@@ -39,14 +39,27 @@ export const books = [
 ];
 export const Home = () => {
 
+	const [kirjauduttu, setKirjauduttu] = useState(false);
+
+	useEffect(() => {
+		const kirjautumisdata = localStorage.getItem('KIRJAUDUTTU_DATA');
+		setKirjauduttu(JSON.parse(kirjautumisdata));
+	}, [])
+
 	return (
-		<div id="custom-scrollbars__content" >
-			<FrontPage />
+		<div>
+			{kirjauduttu ? (
+				<div id="custom-scrollbars__content" >
+					<FrontPage />
+				</div>
+			) : (
+				<h1>Kirjaudu sisään nähdäksesi kirjat</h1>
+			)}
 		</div>
 	)
 }
 const OpenMore = props => {
-	return(
+	return (
 		<div className="popup-box">
 			<div className="box">
 				<button className="btn-close" onClick={props.handleClose}>sulje</button>
@@ -71,13 +84,13 @@ const Card = ({ book }) => {
 				<p>Pages: {book.pages}</p>
 				<button onClick={togglePopup}>Lisätietoja</button>
 				{isOpen && <OpenMore
-				handleClose = {togglePopup}
-				content = {<div>
-					<h1>{book.title}</h1>
-					<h2>Author: {book.author}</h2>
-					<h2>Published: {book.published}</h2>
-					<h2>Pages: {book.pages}</h2>
-					<img src={kirja} alt={kirja} className='popupcard' />
+					handleClose={togglePopup}
+					content={<div>
+						<h1>{book.title}</h1>
+						<h2>Author: {book.author}</h2>
+						<h2>Published: {book.published}</h2>
+						<h2>Pages: {book.pages}</h2>
+						<img src={kirja} alt={kirja} className='popupcard' />
 					</div>}
 				/>}
 			</div>
@@ -176,5 +189,5 @@ const FrontPage = () => {
 		</div>
 	);
 }
-export { SearchBar, FrontPage, Card,OpenMore };
+export { SearchBar, FrontPage, Card, OpenMore };
 
