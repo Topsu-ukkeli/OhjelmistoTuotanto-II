@@ -43,8 +43,8 @@ html {
     width: 30%;
 }
 .card_img {
-    height: 20rem;
-    width: 40%;
+    height: 150px;
+    width: 150px;
     object-fit: cover;
     margin: auto;
 }

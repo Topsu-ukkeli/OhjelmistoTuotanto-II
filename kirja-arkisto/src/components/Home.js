@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import "./Home.css";
 import kirja from '../images/kirja.jpg'
 import harrypotter from '../images/HPotter.jpg'
+import harrypotter2 from '../images/HPotterC.jpg'
+import harrypotter3 from '../images/HPotterA.jpg'
+import tero from '../images/Tero.jpg'
 
 export const books = [
 	{
@@ -30,37 +33,54 @@ export const books = [
 	},
 	{
 		id: 4,
-		title: '2001',
-		author: 'Tero saa turpaan',
+		title: 'Tero saa turpaan',
+		author: 'Jukka',
 		published: '1995',
-		pages: '242',
-		image: kirja,
+		pages: '2',
+		image: tero,
 	},
 	{
 		id: 5,
-		title: 'Harry Potter and the chamber of secrets',
-		author: 'J.K.Rowling',
-		published: '1995',
-		pages: '242',
-		image: harrypotter	,
-		sarjaid: 2,
+		title: 'Tero saa turpaan2',
+		author: 'Jukka',
+		published: '2000',
+		pages: '666',
+		image: tero,
 	},
 	{
 		id: 6,
-		title: 'Harry Potter and the philosophers Stone',
-		author: 'J.K.Rowling',
-		published: '1995',
-		pages: '242',
-		image: harrypotter,
-		sarjaid: 2,
+		title: 'Tero saa turpaan3',
+		author: 'Jukka',
+		published: '2021',
+		pages: '69',
+		image: tero,
 	},
 	{
 		id: 7,
+		title: 'Harry Potter and the sorcerers Stone',
+		author: 'J.K.Rowling',
+		published: '1995',
+		pages: '400',
+		image: harrypotter,
+		sarjaid: 2,
+
+	},
+	{
+		id: 8,
+		title: 'Harry Potter and the chamber of secrets',
+		author: 'J.K.Rowling',
+		published: '1995',
+		pages: '452',
+		image: harrypotter2,
+		sarjaid: 2,
+	},
+	{
+		id: 9,
 		title: 'Harry Potter and the prisoner of Azkaban',
 		author: 'J.K.Rowling',
 		published: '1995',
-		pages: '242',
-		image: harrypotter,
+		pages: '652',
+		image: harrypotter3,
 		sarjaid: 2,
 	},
 ];
@@ -140,7 +160,7 @@ const FrontPage = () => {
 	const [searchTerm, setSearchTerm] = useState('');
 
 	const filteredBooks = books.filter(book => {
-		 return book.title.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase());
+		return book.title.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase());
 	})
 
 	return (
