@@ -3,16 +3,19 @@ const Kirjas = require("../models/Kirja");
 const mongoose = require("mongoose");
 
 const createdKirja = async (req, res, next) => {
-    const { Kirjanimi, Year, Kuvaus,sarjaid} = req.body;
+    const { title, author, published, page, image,sarjaid } = req.body;
 
     const newid = new mongoose.Types.ObjectId().toHexString();
-    const createdKirja = new Users({ //muuta kirja tiedot
+    const createdKirja = new Kirjas({ //muuta kirja tiedot
         _id: newid,
-        Julkaisuvuosi: Year,
-        Kirjanimi: Kirjanimi,
-        Kuvaus: Kuvaus,
+        title: title,
+        author: author,
+        published: published,
+        pages: page,
+        image: image,
         sarjaid: sarjaid,
     });
+    console.log("serverin päässä saa",createdKirja);
     try {
         console.log(createdKirja);
         await createdKirja.save();

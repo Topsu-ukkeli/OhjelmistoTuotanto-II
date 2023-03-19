@@ -5,98 +5,22 @@ import harrypotter from '../images/HPotter.jpg'
 import harrypotter2 from '../images/HPotterC.jpg'
 import harrypotter3 from '../images/HPotterA.jpg'
 import tero from '../images/Tero.jpg'
+import { Link } from 'react-router-dom'
 
-export const books = [
-	{
-		id: 1,
-		title: 'The Great Gatsby',
-		author: 'F. Scott Fitzgerald',
-		published: '1925',
-		pages: '180',
-		image: kirja,
-	},
-	{
-		id: 2,
-		title: 'To Kill a Mockingbird',
-		author: 'Harper Lee',
-		published: '1960',
-		pages: '281',
-		image: kirja,
-	},
-	{
-		id: 3,
-		title: '1984',
-		author: 'George Orwell',
-		published: '1949',
-		pages: '328',
-		image: kirja,
-	},
-	{
-		id: 4,
-		title: 'Tero saa turpaan',
-		author: 'Jukka',
-		published: '1995',
-		pages: '2',
-		image: tero,
-	},
-	{
-		id: 5,
-		title: 'Tero saa turpaan2',
-		author: 'Jukka',
-		published: '2000',
-		pages: '666',
-		image: tero,
-	},
-	{
-		id: 6,
-		title: 'Tero saa turpaan3',
-		author: 'Jukka',
-		published: '2021',
-		pages: '69',
-		image: tero,
-	},
-	{
-		id: 7,
-		title: 'Harry Potter and the sorcerers Stone',
-		author: 'J.K.Rowling',
-		published: '1995',
-		pages: '400',
-		image: harrypotter,
-		sarjaid: 2,
 
-	},
-	{
-		id: 8,
-		title: 'Harry Potter and the chamber of secrets',
-		author: 'J.K.Rowling',
-		published: '1995',
-		pages: '452',
-		image: harrypotter2,
-		sarjaid: 2,
-	},
-	{
-		id: 9,
-		title: 'Harry Potter and the prisoner of Azkaban',
-		author: 'J.K.Rowling',
-		published: '1995',
-		pages: '652',
-		image: harrypotter3,
-		sarjaid: 2,
-	},
-];
 export const Home = () => {
-	const [users, setUsers] = useState([]);
+	const [kirjat, setKirjat] = useState([]);
 	const [error, setError] = useState(null);
 	useEffect(() => {
 		fetchUsers();
 	}, [])
 	const fetchUsers = async () => {
-		try	{
-			const response = await fetch("http://localhost:5000/api/user/");
+		try {
+			const response = await fetch("http://localhost:5000/api/kirja/");
 			const data = await response.json();
-			setUsers(data);
+			setKirjat(data);
 		}
-		catch (err){
+		catch (err) {
 			setError(err);
 		}
 	}
@@ -111,16 +35,17 @@ export const Home = () => {
 		<div>
 			{kirjauduttu ? (
 				<div id="custom-scrollbars__content" >
-					<FrontPage users = {users} />
-					{users.map((user) => (
+					<FrontPage kirjat={kirjat} />
+					{/* {kirjat.map((kirja) => (
 						<tr>
-						<h1>Nimesi on {user.Name}</h1>
-						<h1>Nimesi on {user.Username}</h1>
-						<h1>Nimesi on {user.Password}</h1>
-						<h1>Nimesi on {user.Email}</h1>
+							<h1>Nimesi on {kirja.title}</h1>
+							<h1>Käyttäjänimesi on {kirja.author}</h1>
+							<h1>Salasanasi on {kirja.published}</h1>
+							<h1>Sähköpostisi on {kirja.pages}</h1>
+							<img src={kirja.image}></img>
 						</tr>
-					))}
-					
+					))} */}
+
 				</div>
 			) : (
 				<h1>Kirjaudu sisään nähdäksesi kirjat</h1>
@@ -138,7 +63,7 @@ const OpenMore = props => {
 		</div>
 	)
 }
-const Card = ({ book }) => {
+const Card = ({ kirja }) => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const togglePopup = () => {
@@ -146,20 +71,20 @@ const Card = ({ book }) => {
 	}
 	return (
 		<div className="card" onClick={togglePopup}>
-			<img src={book.image} alt={book.image}className='card_img' />
+			<img src={kirja.image} alt={kirja.image} className='card_img' />
 			<div className="card-info">
-				<h2>{book.title}</h2>
-				<p>Author: {book.author}</p>
-				<p>Published: {book.published}</p>
-				<p>Pages: {book.pages}</p>
+				<h2>{kirja.title}</h2>
+				<p>Author: {kirja.author}</p>
+				<p>Published: {kirja.published}</p>
+				<p>Pages: {kirja.pages}</p>
 				{isOpen && <OpenMore
 					handleClose={togglePopup}
 					content={<div>
-						<h1>{book.title}</h1>
-						<h2>Author: {book.author}</h2>
-						<h2>Published: {book.published}</h2>
-						<h2>Pages: {book.pages}</h2>
-						<img src={book.image} className='popupcard' />
+						<h1>{kirja.title}</h1>
+						<h2>Author: {kirja.author}</h2>
+						<h2>Published: {kirja.published}</h2>
+						<h2>Pages: {kirja.pages}</h2>
+						<img src={kirja.image} className='popupcard' />
 					</div>}
 				/>}
 			</div>
@@ -179,19 +104,19 @@ const SearchBar = ({ onChange }) => {
 	);
 }
 
-const FrontPage = () => {
+const FrontPage = ({ kirjat }) => {
 	const [searchTerm, setSearchTerm] = useState('');
 
-	const filteredBooks = books.filter(book => {
-		return book.title.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase());
+	const filteredBooks = kirjat.filter(kirja => {
+		return kirja.title.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase());
 	})
 
 	return (
 		<div >
 			<SearchBar onChange={setSearchTerm} />
 			<div>
-				{filteredBooks.map((book) => (
-					<Card key={book.id} book={book} />
+				{filteredBooks.map((kirja) => (
+					<Card key={kirja.id} kirja={kirja} />
 				))}
 			</div>
 		</div>
@@ -199,6 +124,84 @@ const FrontPage = () => {
 }
 export { SearchBar, FrontPage, Card, OpenMore };
 
+// export const books = [
+// 	{
+// 		id: 1,
+// 		title: 'The Great Gatsby',
+// 		author: 'F. Scott Fitzgerald',
+// 		published: '1925',
+// 		pages: '180',
+// 		image: kirja,
+// 	},
+// 	{
+// 		id: 2,
+// 		title: 'To Kill a Mockingbird',
+// 		author: 'Harper Lee',
+// 		published: '1960',
+// 		pages: '281',
+// 		image: kirja,
+// 	},
+// 	{
+// 		id: 3,
+// 		title: '1984',
+// 		author: 'George Orwell',
+// 		published: '1949',
+// 		pages: '328',
+// 		image: kirja,
+// 	},
+// 	{
+// 		id: 4,
+// 		title: 'Tero saa turpaan',
+// 		author: 'Jukka',
+// 		published: '1995',
+// 		pages: '2',
+// 		image: tero,
+// 	},
+// 	{
+// 		id: 5,
+// 		title: 'Tero saa turpaan2',
+// 		author: 'Jukka',
+// 		published: '2000',
+// 		pages: '666',
+// 		image: tero,
+// 	},
+// 	{
+// 		id: 6,
+// 		title: 'Tero saa turpaan3',
+// 		author: 'Jukka',
+// 		published: '2021',
+// 		pages: '69',
+// 		image: tero,
+// 	},
+// 	{
+// 		id: 7,
+// 		title: 'Harry Potter and the sorcerers Stone',
+// 		author: 'J.K.Rowling',
+// 		published: '1995',
+// 		pages: '400',
+// 		image: harrypotter,
+// 		sarjaid: 2,
+
+// 	},
+// 	{
+// 		id: 8,
+// 		title: 'Harry Potter and the chamber of secrets',
+// 		author: 'J.K.Rowling',
+// 		published: '1995',
+// 		pages: '452',
+// 		image: harrypotter2,
+// 		sarjaid: 2,
+// 	},
+// 	{
+// 		id: 9,
+// 		title: 'Harry Potter and the prisoner of Azkaban',
+// 		author: 'J.K.Rowling',
+// 		published: '1995',
+// 		pages: '652',
+// 		image: harrypotter3,
+// 		sarjaid: 2,
+// 	},
+// ];
 // 	const [searchResult, setSearchResult] = useState('');
 
 // 	const handleSearch = (searchQuery) => {

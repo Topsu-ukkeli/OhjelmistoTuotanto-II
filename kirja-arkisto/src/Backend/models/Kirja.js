@@ -4,11 +4,13 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const KirjaSchema = new Schema({
     //Createdate: {type: Date, default: Date.now, required: true}, // Kirjalle tiedot
-    Julkaisuvuosi: {type: String, required: true},
-    Kirjanimi: {type: String, required: true},
-    Kuvaus: {type: String, required: true},
     _id: {type:ObjectId, default:ObjectId},
-    sarjaid: {type:String,required:true}
+    title: {type: String, required: true},
+    author: {type: String, required: true},
+    published: {type: String, required: true},
+    page: {type:String,required:true},
+    image: {type:String,required:true},
+    sarjaid: {type:String,required:true},
 },{versionKey: false })
 
 module.exports = mongoose.model('Kirja', KirjaSchema);

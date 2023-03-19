@@ -36,6 +36,9 @@ export const Navbar = ({login}) => {
                         <Link to="/oma-kirjasto" className="nav-link">Oma kirjasto</Link>
                     </li>
                     <li>
+                    <Link to="/Kirjat" className="nav-link">Lisää uusi kirja</Link>
+                    </li>
+                    <li>
                         {!kirjauduttu &&
                             <Link to="/login" className="nav-link">Kirjaudu sisään</Link>
                         }

@@ -6,6 +6,7 @@ import { Home } from './components/Home';
 import { OmaKirjasto } from './components/oma-kirjasto';
 import { Sarjat } from './components/sarjat';
 import { Login } from './components/login';
+import {Kirjat} from './components/Kirjat';
 
 
 
@@ -23,6 +24,7 @@ function App() {
         <Switch>
           <Route path="/oma-kirjasto"> <OmaKirjasto/></Route>
           <Route path="/sarjat"><Sarjat /></Route>
+          <Route path="/Kirjat"><Kirjat/></Route>
           <Route path="/login"><Login login={setKirjauduttuData} /></Route>
           <Route path="/"><Home /></Route>
         </Switch>
