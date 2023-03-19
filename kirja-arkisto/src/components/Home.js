@@ -85,7 +85,21 @@ export const books = [
 	},
 ];
 export const Home = () => {
-
+	const [users, setUsers] = useState([]);
+	const [error, setError] = useState(null);
+	useEffect(() => {
+		fetchUsers();
+	}, [])
+	const fetchUsers = async () => {
+		try	{
+			const response = await fetch("http://localhost:5000/api/user/");
+			const data = await response.json();
+			setUsers(data);
+		}
+		catch (err){
+			setError(err);
+		}
+	}
 	const [kirjauduttu, setKirjauduttu] = useState(false);
 
 	useEffect(() => {
@@ -97,7 +111,16 @@ export const Home = () => {
 		<div>
 			{kirjauduttu ? (
 				<div id="custom-scrollbars__content" >
-					<FrontPage />
+					<FrontPage users = {users} />
+					{users.map((user) => (
+						<tr>
+						<h1>Nimesi on {user.Name}</h1>
+						<h1>Nimesi on {user.Username}</h1>
+						<h1>Nimesi on {user.Password}</h1>
+						<h1>Nimesi on {user.Email}</h1>
+						</tr>
+					))}
+					
 				</div>
 			) : (
 				<h1>Kirjaudu sisään nähdäksesi kirjat</h1>
@@ -123,7 +146,7 @@ const Card = ({ book }) => {
 	}
 	return (
 		<div className="card" onClick={togglePopup}>
-			<img src={book.image} className='card_img' />
+			<img src={book.image} alt={book.image}className='card_img' />
 			<div className="card-info">
 				<h2>{book.title}</h2>
 				<p>Author: {book.author}</p>
