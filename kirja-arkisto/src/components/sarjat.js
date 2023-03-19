@@ -1,42 +1,34 @@
 import React, { useState, useEffect } from "react";
 import sarja from '../images/kirja.jpg'
-import kirja2 from '../images/2.jpg'
 import "./sarjat.css";
 const mongoose = require('mongoose');
 
-
-const Schema = mongoose.Schema;
-
-const orderSchema = new Schema({
-
-})
-
 export const Series = [
 	{
-		id: 1,
+		sarjaid: 1,
 		serie: 'Asterix',
 		author: 'Albert Uderzo',
 		published: '1959',
 		image: 'kirja.jpg',
 	},
 	{
-		id: 1,
-		serie: 'Asterix',
-		author: 'Albert Uderzo',
+		sarjaid: 2,
+		serie: 'Harry Potter',
+		author: 'J.K.Rowling',
 		published: '1959',
 		image: 'kirja.jpg',
 	},
 	{
-		id: 1,
-		serie: 'Asterix',
-		author: 'Albert Uderzo',
+		sarjaid: 3,
+		serie: 'Tintin',
+		author: 'Unknown',
 		published: '1959',
 		image: 'kirja.jpg',
 	},
 	{
-		id: 1,
-		serie: 'Asterix',
-		author: 'Albert Uderzo',
+		sarjaid: 4,
+		serie: 'Donald duck',
+		author: 'Walt disney',
 		published: '1959',
 		image: 'kirja.jpg',
 	},
@@ -81,14 +73,13 @@ const Card = ({ Serie }) => {
 		setIsOpen(!isOpen);
 	}
 	return (
-		<div className="card" >
+		<div className="card" onClick={togglePopup}>
 			<img src={sarja} alt={sarja} className='card_img' />
 			<div className="card-info">
-				<h1>{Serie.title}</h1>
+				<h1>{Serie.serie}</h1>
 				<p>Author: {Serie.author}</p>
 				<p>Published: {Serie.published}</p>
 				<p>Pages: {Serie.pages}</p>
-				<button onClick={togglePopup}>Lisätietoja</button>
 				{/* Tähän tulee toinen nappi jolla voit lisätä tämän kyseisen kirjan itsellesi jahka saadaan se mongo toimimaan -Topi */}
 				{/* Kyseinen nappi siis lisää tietokantaan tiedon kirjasta jonka halusi lisätä tämä on yksinkertainen Schema ratkasu */}
 				{isOpen && <OpenMore
@@ -121,9 +112,9 @@ const SearchBar = ({ onChange }) => {
 const FrontPage = () => {
 	const [searchTerm, setSearchTerm] = useState('');
 
-	const Filterserie = Series.filter((Serie) =>
-		Serie.id.toString().startsWith(searchTerm)
-	);
+	const Filterserie = Series.filter(serier => {
+		return serier.serie.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase());
+	})
 
 	return (
 		<div >

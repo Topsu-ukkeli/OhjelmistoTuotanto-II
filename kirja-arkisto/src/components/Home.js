@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "./Home.css";
 import kirja from '../images/kirja.jpg'
-// import {getAlluser} from './backend/controllers/User-controllers';
+import harrypotter from '../images/HPotter.jpg'
 
 export const books = [
 	{
@@ -10,7 +10,7 @@ export const books = [
 		author: 'F. Scott Fitzgerald',
 		published: '1925',
 		pages: '180',
-		image: 'kirja.jpg',
+		image: kirja,
 	},
 	{
 		id: 2,
@@ -18,7 +18,7 @@ export const books = [
 		author: 'Harper Lee',
 		published: '1960',
 		pages: '281',
-		image: 'kirja.jpg',
+		image: kirja,
 	},
 	{
 		id: 3,
@@ -26,7 +26,7 @@ export const books = [
 		author: 'George Orwell',
 		published: '1949',
 		pages: '328',
-		image: 'kirja.jpg',
+		image: kirja,
 	},
 	{
 		id: 4,
@@ -34,7 +34,34 @@ export const books = [
 		author: 'Tero saa turpaan',
 		published: '1995',
 		pages: '242',
-		image: 'kirja.jpg',
+		image: kirja,
+	},
+	{
+		id: 5,
+		title: 'Harry Potter and the chamber of secrets',
+		author: 'J.K.Rowling',
+		published: '1995',
+		pages: '242',
+		image: harrypotter	,
+		sarjaid: 2,
+	},
+	{
+		id: 6,
+		title: 'Harry Potter and the philosophers Stone',
+		author: 'J.K.Rowling',
+		published: '1995',
+		pages: '242',
+		image: harrypotter,
+		sarjaid: 2,
+	},
+	{
+		id: 7,
+		title: 'Harry Potter and the prisoner of Azkaban',
+		author: 'J.K.Rowling',
+		published: '1995',
+		pages: '242',
+		image: harrypotter,
+		sarjaid: 2,
 	},
 ];
 export const Home = () => {
@@ -75,14 +102,13 @@ const Card = ({ book }) => {
 		setIsOpen(!isOpen);
 	}
 	return (
-		<div className="card" >
-			<img src={kirja} alt={kirja} className='card_img' />
+		<div className="card" onClick={togglePopup}>
+			<img src={book.image} className='card_img' />
 			<div className="card-info">
 				<h2>{book.title}</h2>
 				<p>Author: {book.author}</p>
 				<p>Published: {book.published}</p>
 				<p>Pages: {book.pages}</p>
-				<button onClick={togglePopup}>Lisätietoja</button>
 				{isOpen && <OpenMore
 					handleClose={togglePopup}
 					content={<div>
@@ -90,13 +116,46 @@ const Card = ({ book }) => {
 						<h2>Author: {book.author}</h2>
 						<h2>Published: {book.published}</h2>
 						<h2>Pages: {book.pages}</h2>
-						<img src={kirja} alt={kirja} className='popupcard' />
+						<img src={book.image} className='popupcard' />
 					</div>}
 				/>}
 			</div>
 		</div>
 	);
 }
+const SearchBar = ({ onChange }) => {
+	return (
+		<div className="search-bar">
+			<label htmlFor="search-input">Search by ID:</label>
+			<input
+				id="search-input"
+				type="text"
+				onChange={(event) => onChange(event.target.value)}
+			/>
+		</div>
+	);
+}
+
+const FrontPage = () => {
+	const [searchTerm, setSearchTerm] = useState('');
+
+	const filteredBooks = books.filter(book => {
+		 return book.title.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase());
+	})
+
+	return (
+		<div >
+			<SearchBar onChange={setSearchTerm} />
+			<div>
+				{filteredBooks.map((book) => (
+					<Card key={book.id} book={book} />
+				))}
+			</div>
+		</div>
+	);
+}
+export { SearchBar, FrontPage, Card, OpenMore };
+
 // 	const [searchResult, setSearchResult] = useState('');
 
 // 	const handleSearch = (searchQuery) => {
@@ -157,37 +216,3 @@ const Card = ({ book }) => {
 // 		</div>
 // 	);
 // }
-
-const SearchBar = ({ onChange }) => {
-	return (
-		<div className="search-bar">
-			<label htmlFor="search-input">Search by ID:</label>
-			<input
-				id="search-input"
-				type="text"
-				onChange={(event) => onChange(event.target.value)}
-			/>
-		</div>
-	);
-}
-
-const FrontPage = () => {
-	const [searchTerm, setSearchTerm] = useState('');
-
-	const filteredBooks = books.filter((book) =>
-		book.id.toString().startsWith(searchTerm)
-	);
-
-	return (
-		<div >
-			<SearchBar onChange={setSearchTerm} />
-			<div>
-				{filteredBooks.map((book) => (
-					<Card key={book.id} book={book} />
-				))}
-			</div>
-		</div>
-	);
-}
-export { SearchBar, FrontPage, Card, OpenMore };
-

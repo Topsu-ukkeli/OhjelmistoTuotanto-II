@@ -7,7 +7,8 @@ const KirjaSchema = new Schema({
     Julkaisuvuosi: {type: String, required: true},
     Kirjanimi: {type: String, required: true},
     Kuvaus: {type: String, required: true},
-    _id: {type:ObjectId, default:ObjectId}
+    _id: {type:ObjectId, default:ObjectId},
+    sarjaid: {type:String,required:true}
 },{versionKey: false })
 
 module.exports = mongoose.model('Kirja', KirjaSchema);

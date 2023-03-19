@@ -3,7 +3,7 @@ const Kirjas = require("../models/Kirja");
 const mongoose = require("mongoose");
 
 const createdKirja = async (req, res, next) => {
-    const { Kirjanimi, Year, Kuvaus} = req.body;
+    const { Kirjanimi, Year, Kuvaus,sarjaid} = req.body;
 
     const newid = new mongoose.Types.ObjectId().toHexString();
     const createdKirja = new Users({ //muuta kirja tiedot
@@ -11,6 +11,7 @@ const createdKirja = async (req, res, next) => {
         Julkaisuvuosi: Year,
         Kirjanimi: Kirjanimi,
         Kuvaus: Kuvaus,
+        sarjaid: sarjaid,
     });
     try {
         console.log(createdKirja);
