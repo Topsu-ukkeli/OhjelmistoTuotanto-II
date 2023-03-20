@@ -85,6 +85,7 @@ const Kirjatlisaus = () => {
                 </label>
                 <br />
                 <label className='labels'>
+                    {/* Vaihdetaan tähän select option jotta voi valita sarjan ja saadaan se id oikein  */}
                     SeriesID:
                     <input type="text" className='kirja-input' value={serieid} onChange={e => setSerieid(e.target.value)}></input>
                 </label>

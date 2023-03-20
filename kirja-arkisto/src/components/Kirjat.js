@@ -48,13 +48,63 @@ const OpenMore = props => {
 	)
 }
 const Card = ({ kirja }) => {
+	const [find, setFind] = useState("");
 	const [isOpen, setIsOpen] = useState(false);
+	const [omatkirjat, setOmatkirjat] = useState([]);
+	const [error, setError] = useState(null);
+	useEffect(() => {
+		fetchOwn();
+	}, [])
+	const fetchOwn = async () => {
+		try {
+			const response = await fetch("http://localhost:5000/api/omakirjasto/");
+			const data = await response.json();
+			setOmatkirjat(data);
+			console.log(omatkirjat);
+		}
+		catch (err) {
+			setError(err);
+		}
+	}
+	const AddtoOwn = () => {
+		console.log("muuttuuko tämä", omatkirjat);
+			omatkirjat.map((omakirja) => {
+				if(omakirja.title === kirja.title)
+				{
+					setFind(omakirja.title);
+				}
+			})
+				if (find !== kirja.title) {
+					const newBook = {
+						title: kirja.title,
+						author: kirja.author,
+						published: kirja.published,
+						sivut: kirja.page,
+						image: kirja.image,
+						sarjaid: kirja.sarjaid
+					};
+					fetch("http://localhost:5000/api/omakirjasto/createOmakirjasto", {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify(newBook)
+					})
+						.then(response => response.json())
+						.then(data => console.log(data))
+						.catch(error => console.error(error));
+				}
+				else
+				{
+					console.log("Kirja löytyy jo omista kirjoista!");
+				}
+	}
 
 	const togglePopup = () => {
 		setIsOpen(!isOpen);
 	}
 	return (
-		<div className="card" onClick={togglePopup}>
+		<div className="card">
 			<img src={kirja.image} alt={kirja.image} className='card_img' />
 			<div className="card-info">
 				<h2>{kirja.title}</h2>
@@ -71,6 +121,11 @@ const Card = ({ kirja }) => {
 						<img src={kirja.image} className='popupcard' />
 					</div>}
 				/>}
+				<div>
+					<button onClick={togglePopup}>Lisätietoja</button>
+					<br />
+					<button onClick={AddtoOwn}>Lisää kirja omaan kirjastoon</button>
+				</div>
 			</div>
 		</div>
 	);
