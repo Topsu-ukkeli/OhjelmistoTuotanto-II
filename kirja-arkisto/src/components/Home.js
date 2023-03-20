@@ -35,7 +35,7 @@ export const Home = () => {
 		<div>
 			{kirjauduttu ? (
 				<div id="custom-scrollbars__content" >
-					<FrontPage kirjat={kirjat} />
+					<h1>Tähän OSSI tekee saate tekstiä!</h1>
 				</div>
 			) : (
 				<h1>Kirjaudu sisään nähdäksesi kirjat</h1>
@@ -43,76 +43,7 @@ export const Home = () => {
 		</div>
 	)
 }
-const OpenMore = props => {
-	return (
-		<div className="popup-box">
-			<div className="box">
-				<button className="btn-close" onClick={props.handleClose}>sulje</button>
-				{props.content}
-			</div>
-		</div>
-	)
-}
-const Card = ({ kirja }) => {
-	const [isOpen, setIsOpen] = useState(false);
 
-	const togglePopup = () => {
-		setIsOpen(!isOpen);
-	}
-	return (
-		<div className="card" onClick={togglePopup}>
-			<img src={kirja.image} alt={kirja.image} className='card_img' />
-			<div className="card-info">
-				<h2>{kirja.title}</h2>
-				<p>Author: {kirja.author}</p>
-				<p>Published: {kirja.published}</p>
-				<p>Pages: {kirja.pages}</p>
-				{isOpen && <OpenMore
-					handleClose={togglePopup}
-					content={<div>
-						<h1>{kirja.title}</h1>
-						<h2>Author: {kirja.author}</h2>
-						<h2>Published: {kirja.published}</h2>
-						<h2>Pages: {kirja.pages}</h2>
-						<img src={kirja.image} className='popupcard' />
-					</div>}
-				/>}
-			</div>
-		</div>
-	);
-}
-const SearchBar = ({ onChange }) => {
-	return (
-		<div className="search-bar">
-			<label htmlFor="search-input">Search by ID:</label>
-			<input
-				id="search-input"
-				type="text"
-				onChange={(event) => onChange(event.target.value)}
-			/>
-		</div>
-	);
-}
-
-const FrontPage = ({ kirjat }) => {
-	const [searchTerm, setSearchTerm] = useState('');
-
-	const filteredBooks = kirjat.filter(kirja => {
-		return kirja.title.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase());
-	})
-
-	return (
-		<div >
-			<SearchBar onChange={setSearchTerm} />
-			<div>
-				{filteredBooks.map((kirja) => (
-					<Card key={kirja.id} kirja={kirja} />
-				))}
-			</div>
-		</div>
-	);
-}
-export { SearchBar, FrontPage, Card, OpenMore };
 
 // export const books = [
 // 	{

@@ -35,3 +35,8 @@ button:hover {
     padding: 20px;
     gap:5px;
 }
+.newlogin{
+    font-size: large;
+    border: 2px black ridge;
+    
+}

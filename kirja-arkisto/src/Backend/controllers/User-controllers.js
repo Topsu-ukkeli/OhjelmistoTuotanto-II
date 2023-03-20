@@ -14,7 +14,7 @@ const createdUser = async (req, res, next) => {
         Email: Email,
     });
     try {
-        console.log(createdUser);
+        console.log("ja mehän saadaa",createdUser);
         await createdUser.save();
     } catch (err) {
         const error = new HttpError("Could not create user", 500);
