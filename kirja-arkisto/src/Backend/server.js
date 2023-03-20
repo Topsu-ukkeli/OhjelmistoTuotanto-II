@@ -7,6 +7,7 @@ const User = require("./Routes/User-routes");
 const Sarja = require("./Routes/Sarja-routes");
 const HttpError = require("./models/http-error");
 const cors = require("cors");
+const Omakirjasto = require('./Routes/Omakirjasto-routes');
 const server = express();
 mongoose.set("strictQuery", true);
 server.use(bodyParser.json())
@@ -14,6 +15,7 @@ server.use(cors());
 server.use("/api/Kirja", Kirja);
 server.use("/api/User", User);
 server.use("/api/Sarja", Sarja);
+server.use("/api/omaKirjasto", Omakirjasto);
 server.use(() => {
     const error = new HttpError("Pääsy evätty", 418);
     throw error;

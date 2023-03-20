@@ -9,21 +9,21 @@ import { Link } from 'react-router-dom'
 
 
 export const Home = () => {
-	const [kirjat, setKirjat] = useState([]);
-	const [error, setError] = useState(null);
-	useEffect(() => {
-		fetchUsers();
-	}, [])
-	const fetchUsers = async () => {
-		try {
-			const response = await fetch("http://localhost:5000/api/kirja/");
-			const data = await response.json();
-			setKirjat(data);
-		}
-		catch (err) {
-			setError(err);
-		}
-	}
+	// const [kirjat, setKirjat] = useState([]);
+	// const [error, setError] = useState(null);
+	// useEffect(() => {
+	// 	fetchUsers();
+	// }, [])
+	// const fetchUsers = async () => {
+	// 	try {
+	// 		const response = await fetch("http://localhost:5000/api/kirja/");
+	// 		const data = await response.json();
+	// 		setKirjat(data);
+	// 	}
+	// 	catch (err) {
+	// 		setError(err);
+	// 	}
+	// }
 	const [kirjauduttu, setKirjauduttu] = useState(false);
 
 	useEffect(() => {

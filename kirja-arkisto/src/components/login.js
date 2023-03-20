@@ -62,7 +62,7 @@ const Login = () => {
             Email:uusiSahko
         };
         console.log("tähän tulee uusi kirja", newUser)
-        fetch("http://localhost:5000/api/User/users", {
+        fetch("http://localhost:5000/api/User/createusers", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
