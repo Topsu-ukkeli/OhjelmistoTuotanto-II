@@ -36,16 +36,6 @@ export const Home = () => {
 			{kirjauduttu ? (
 				<div id="custom-scrollbars__content" >
 					<FrontPage kirjat={kirjat} />
-					{/* {kirjat.map((kirja) => (
-						<tr>
-							<h1>Nimesi on {kirja.title}</h1>
-							<h1>Käyttäjänimesi on {kirja.author}</h1>
-							<h1>Salasanasi on {kirja.published}</h1>
-							<h1>Sähköpostisi on {kirja.pages}</h1>
-							<img src={kirja.image}></img>
-						</tr>
-					))} */}
-
 				</div>
 			) : (
 				<h1>Kirjaudu sisään nähdäksesi kirjat</h1>
