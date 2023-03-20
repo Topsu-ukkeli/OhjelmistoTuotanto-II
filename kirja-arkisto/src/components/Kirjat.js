@@ -1,94 +1,119 @@
 import React, { useState, useEffect } from 'react';
 import "./Kirjat.css";
-import { Link } from 'react-router-dom'
 
 
-const Kirjat = () => {
-    useEffect(() => {
+export const Kirjat = () => {
+	const [kirjat, setKirjat] = useState([]);
+	const [error, setError] = useState(null);
+	useEffect(() => {
+		fetchUsers();
+	}, [])
+	const fetchUsers = async () => {
+		try {
+			const response = await fetch("http://localhost:5000/api/kirja/");
+			const data = await response.json();
+			setKirjat(data);
+		}
+		catch (err) {
+			setError(err);
+		}
+	}
+	const [kirjauduttu, setKirjauduttu] = useState(false);
 
-    }, []);
-    const [title, setTitle] = useState('');
-    const [author, setAuthor] = useState('');
-    const [published, setPublished] = useState('');
-    const [page, setPages] = useState('');
-    const [image, setImage] = useState('');
-    const [serieid, setSerieid] = useState('');
+	useEffect(() => {
+		const kirjautumisdata = localStorage.getItem('KIRJAUDUTTU_DATA');
+		setKirjauduttu(JSON.parse(kirjautumisdata));
+	}, [])
 
+	return (
+		<div>
+			{kirjauduttu ? (
+				<div id="custom-scrollbars__content" >
+					<FrontPage kirjat={kirjat} />
+					{/* {kirjat.map((kirja) => (
+						<tr>
+							<h1>Nimesi on {kirja.title}</h1>
+							<h1>Käyttäjänimesi on {kirja.author}</h1>
+							<h1>Salasanasi on {kirja.published}</h1>
+							<h1>Sähköpostisi on {kirja.pages}</h1>
+							<img src={kirja.image}></img>
+						</tr>
+					))} */}
 
-    // const Tallenna = () => {
-    //     const newBook = {
-    //         title:title,
-    //         author:author,
-    //         published:published,
-    //         pages:page,
-    //         image:image,
-    //         sarjaid:serieid
-    //       };
-    //       console.log("uusi kirjasi on",newBook);
-    //       fetch("http://localhost:5000/api/kirja/", {
-    //         method: 'POST',
-    //         headers: {
-    //           'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify(newBook)
-    //       },[title, author, published, page, image, serieid])
-    // }
-    function Tallenna() {
-        const newBook = {
-            title: title,
-            author: author,
-            published: published,
-            pages: page,
-            image: image,
-            sarjaid: serieid
-        };
-        console.log("tähän tulee uusi kirja", newBook)
-        fetch("http://localhost:5000/api/Kirja/", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newBook)
-        })
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => console.error(error));
-    }
-
-    return (
-        <div className="inputs">
-            <h1>Tänne sit vähän juttuja</h1>
-            <label className='labels'>
-                What is the title of the book?:
-                <input type="text" className='kirja-input' value={title} onChange={e => setTitle(e.target.value)}></input>
-            </label>
-            <br />
-            <label className='labels'>
-                Who is the author:
-                <input type="text" className='kirja-input' value={author} onChange={e => setAuthor(e.target.value)}></input>
-            </label>
-            <br />
-            <label className='labels'>
-                When was the book published:
-                <input type="text" className='kirja-input' value={published} onChange={e => setPublished(e.target.value)}></input>
-            </label>
-            <br />
-            <label className='labels'>
-                how many pages are there?:
-                <input type="text" className='kirja-input' value={page} onChange={e => setPages(e.target.value)}></input>
-            </label>
-            <br />
-            <label className='labels'>
-                Select perfect image:
-                <input type="text" className='kirja-input' value={image} onChange={e => setImage(e.target.value)}></input>
-            </label>
-            <br />
-            <label className='labels'>
-                Does your book have a series:
-                <input type="text" className='kirja-input' value={serieid} onChange={e => setSerieid(e.target.value)}></input>
-            </label>
-            <button onClick={Tallenna} type="submit">Tallenna uusi kirjasi</button>
-        </div>
-    )
+				</div>
+			) : (
+				<h1>Kirjaudu sisään nähdäksesi kirjat</h1>
+			)}
+		</div>
+	)
 }
-export { Kirjat };
+const OpenMore = props => {
+	return (
+		<div className="popup-box">
+			<div className="box">
+				<button className="btn-close" onClick={props.handleClose}>sulje</button>
+				{props.content}
+			</div>
+		</div>
+	)
+}
+const Card = ({ kirja }) => {
+	const [isOpen, setIsOpen] = useState(false);
+
+	const togglePopup = () => {
+		setIsOpen(!isOpen);
+	}
+	return (
+		<div className="card" onClick={togglePopup}>
+			<img src={kirja.image} alt={kirja.image} className='card_img' />
+			<div className="card-info">
+				<h2>{kirja.title}</h2>
+				<p>Author: {kirja.author}</p>
+				<p>Published: {kirja.published}</p>
+				<p>Pages: {kirja.pages}</p>
+				{isOpen && <OpenMore
+					handleClose={togglePopup}
+					content={<div>
+						<h1>{kirja.title}</h1>
+						<h2>Author: {kirja.author}</h2>
+						<h2>Published: {kirja.published}</h2>
+						<h2>Pages: {kirja.pages}</h2>
+						<img src={kirja.image} className='popupcard' />
+					</div>}
+				/>}
+			</div>
+		</div>
+	);
+}
+const SearchBar = ({ onChange }) => {
+	return (
+		<div className="search-bar">
+			<label htmlFor="search-input">Search by ID:</label>
+			<input
+				id="search-input"
+				type="text"
+				onChange={(event) => onChange(event.target.value)}
+			/>
+		</div>
+	);
+}
+
+const FrontPage = ({ kirjat }) => {
+	const [searchTerm, setSearchTerm] = useState('');
+
+	const filteredBooks = kirjat.filter(kirja => {
+		return kirja.title.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase());
+	})
+
+	return (
+		<div >
+			<SearchBar onChange={setSearchTerm} />
+			<div>
+				{filteredBooks.map((kirja) => (
+					<Card key={kirja.id} kirja={kirja} />
+				))}
+			</div>
+		</div>
+	);
+}
+export { SearchBar, FrontPage, Card, OpenMore };
