@@ -3,7 +3,7 @@ const Sarjas = require("../models/Sarja");
 const mongoose = require("mongoose");
 
 const createdSarja = async (req, res, next) => {
-    const { Sarjanimi, Kustantaja, Kuvaus, Luokittelu } = req.body;
+    const { Sarjanimi, Kustantaja, Kuvaus, Luokittelu,sarjaid,image } = req.body;
 
     const newid = new mongoose.Types.ObjectId().toHexString();
     const createdSarja = new Users({ //muuta sarjalla tiedot
@@ -11,7 +11,9 @@ const createdSarja = async (req, res, next) => {
         Kustantaja: Kustantaja,
         Kuvaus: Kuvaus,
         Luokittelu: Luokittelu,
+        sarjaid:sarjaid,
         _id: newid,
+        image: image,
     });
     try {
         console.log(createdSarja);

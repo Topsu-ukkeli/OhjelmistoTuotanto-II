@@ -3,27 +3,31 @@ const Kirjas = require("../models/Kirja");
 const mongoose = require("mongoose");
 
 const createdKirja = async (req, res, next) => {
-    const { title, author, published, page, image,sarjaid } = req.body;
+    const { title, author, published, page, image, sarjaid } = req.body;
 
-    const newid = new mongoose.Types.ObjectId().toHexString();
-    const createdKirja = new Kirjas({ //muuta kirja tiedot
-        _id: newid,
-        title: title,
-        author: author,
-        published: published,
-        pages: page,
-        image: image,
-        sarjaid: sarjaid,
-    });
-    console.log("serverin päässä saa",createdKirja);
     try {
-        console.log(createdKirja);
+        const newid = new mongoose.Types.ObjectId().toHexString();
+        const createdKirja = new Kirjas({ //muuta kirja tiedot
+            _id: newid,
+            title: title,
+            author: author,
+            published: published,
+            sivut: page,
+            image: image,
+            sarjaid: sarjaid,
+        });
+
+        console.log("serverin päässä saa", createdKirja);
+
+        // Save the new kirja to the database
         await createdKirja.save();
+
+        res.status(201).json(createdKirja);
     } catch (err) {
-        const error = new HttpError("Could not create user", 500);
+        console.error(err);
+        const error = new HttpError("Could not create kirja. Please try again later.", 500);
         return next(error);
     }
-    res.status(201).json(createdKirja);
 };
 const getAllKirjas = async (req, res, next) => {
     let Kirja;

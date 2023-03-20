@@ -3,38 +3,23 @@ import sarja from '../images/kirja.jpg'
 import "./sarjat.css";
 const mongoose = require('mongoose');
 
-export const Series = [
-	{
-		sarjaid: 1,
-		serie: 'Asterix',
-		author: 'Albert Uderzo',
-		published: '1959',
-		image: 'kirja.jpg',
-	},
-	{
-		sarjaid: 2,
-		serie: 'Harry Potter',
-		author: 'J.K.Rowling',
-		published: '1959',
-		image: 'kirja.jpg',
-	},
-	{
-		sarjaid: 3,
-		serie: 'Tintin',
-		author: 'Unknown',
-		published: '1959',
-		image: 'kirja.jpg',
-	},
-	{
-		sarjaid: 4,
-		serie: 'Donald duck',
-		author: 'Walt disney',
-		published: '1959',
-		image: 'kirja.jpg',
-	},
-];
-const Sarjat = () => {
 
+const Sarjat = () => {
+	const [sarjat, setSarjat] = useState([]);
+	const [error, setError] = useState(null);
+	useEffect(() => {
+		fetchUsers();
+	}, [])
+	const fetchUsers = async () => {
+		try {
+			const response = await fetch("http://localhost:5000/api/sarja/");
+			const data = await response.json();
+			setSarjat(data);
+		}
+		catch (err) {
+			setError(err);
+		}
+	}
 	const [kirjauduttu, setKirjauduttu] = useState(false);
 
 	useEffect(() => {
@@ -46,7 +31,7 @@ const Sarjat = () => {
 		<div>
 			{kirjauduttu ? (
 				<div id="custom-scrollbars__content" >
-					<FrontPage />
+					<FrontPage sarjat = {sarjat}/>
 				</div>
 			) : (
 				<h1>Kirjaudu sisään nähdäksesi sarjat</h1>
@@ -65,7 +50,7 @@ const OpenMore = props => {
 		</div>
 	)
 }
-const Card = ({ Serie }) => {
+const Card = ({ sarja }) => {
 
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -74,21 +59,20 @@ const Card = ({ Serie }) => {
 	}
 	return (
 		<div className="card" onClick={togglePopup}>
-			<img src={sarja} alt={sarja} className='card_img' />
+			<img src={sarja.image} alt={sarja.image} className='card_img' />
 			<div className="card-info">
-				<h1>{Serie.serie}</h1>
-				<p>Author: {Serie.author}</p>
-				<p>Published: {Serie.published}</p>
-				<p>Pages: {Serie.pages}</p>
+				<h1>{sarja.Sarjanimi}</h1>
+				<p>Kuvaus: {sarja.Kuvaus}</p>
+				<p>Luokittelu: {sarja.Luokittelu}</p>
 				{/* Tähän tulee toinen nappi jolla voit lisätä tämän kyseisen kirjan itsellesi jahka saadaan se mongo toimimaan -Topi */}
 				{/* Kyseinen nappi siis lisää tietokantaan tiedon kirjasta jonka halusi lisätä tämä on yksinkertainen Schema ratkasu */}
 				{isOpen && <OpenMore
 					handleClose={togglePopup}
 					content={<div>
-						<h1>{Serie.title}</h1>
-						<h2>Author: {Serie.author}</h2>
-						<h2>Published: {Serie.published}</h2>
-						<img src={sarja} alt={sarja} className='popupcard' />
+						<h1>{sarja.Sarjanimi}</h1>
+						<h2>Kuvaus: {sarja.Kuvaus}</h2>
+						<h2>Luokittelu: {sarja.Luokittelu}</h2>
+						<img src={sarja.image} alt={sarja.image} className='popupcard' />
 					</div>}
 				/>}
 			</div>
@@ -109,19 +93,19 @@ const SearchBar = ({ onChange }) => {
 	);
 }
 
-const FrontPage = () => {
+const FrontPage = ({sarjat}) => {
 	const [searchTerm, setSearchTerm] = useState('');
 
-	const Filterserie = Series.filter(serier => {
-		return serier.serie.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase());
+	const Filterserie = sarjat.filter(sarja => {
+		return sarja.Sarjanimi.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase());
 	})
 
 	return (
 		<div >
 			<SearchBar onChange={setSearchTerm} />
 			<div>
-				{Filterserie.map((Serie) => (
-					<Card key={Serie.id} Serie={Serie} />
+				{Filterserie.map((sarja) => (
+					<Card key={sarja.id} sarja={sarja} />
 				))}
 			</div>
 		</div>

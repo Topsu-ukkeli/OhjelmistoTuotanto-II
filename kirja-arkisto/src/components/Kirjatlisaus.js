@@ -34,16 +34,17 @@ const Kirjatlisaus = () => {
     //       },[title, author, published, page, image, serieid])
     // }
     function Tallenna() {
+        console.log("tähä sivu", page);
         const newBook = {
             title: title,
             author: author,
             published: published,
-            pages: page,
+            sivut: page,
             image: image,
             sarjaid: serieid
         };
         console.log("tähän tulee uusi kirja", newBook)
-        fetch("http://localhost:5000/api/Kirja/", {
+        fetch("http://localhost:5000/api/Kirja/Kirjat", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -80,7 +81,7 @@ const Kirjatlisaus = () => {
             <br />
             <label className='labels'>
                 Select perfect image:
-                <input type="file" className='kirja-input' value={image} onChange={e => setImage(e.target.value)}></input>
+                <input type="text" className='kirja-input' value={image} onChange={e => setImage(e.target.value)}></input>
             </label>
             <br />
             <label className='labels'>
