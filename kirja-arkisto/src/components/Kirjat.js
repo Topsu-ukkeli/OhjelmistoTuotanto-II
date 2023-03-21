@@ -7,7 +7,7 @@ export const Kirjat = () => {
 	const [error, setError] = useState(null);
 	useEffect(() => {
 		fetchUsers();
-	}, [])
+	}, [kirjat])
 	const fetchUsers = async () => {
 		try {
 			const response = await fetch("http://localhost:5000/api/kirja/");
@@ -48,6 +48,7 @@ const OpenMore = props => {
 	)
 }
 const Card = ({ kirja }) => {
+	const [query, setQuery] = useState("");
 	const [find, setFind] = useState("");
 	const [isOpen, setIsOpen] = useState(false);
 	const [omatkirjat, setOmatkirjat] = useState([]);
@@ -68,38 +69,44 @@ const Card = ({ kirja }) => {
 	}
 	const AddtoOwn = () => {
 		console.log("muuttuuko tämä", omatkirjat);
-			omatkirjat.map((omakirja) => {
-				if(omakirja.title === kirja.title)
-				{
-					setFind(omakirja.title);
-				}
+		omatkirjat.map((omakirja) => {
+			if (omakirja.title === kirja.title) {
+				setFind(omakirja.title);
+			}
+		})
+		if (find !== kirja.title) {
+			const newBook = {
+				title: kirja.title,
+				author: kirja.author,
+				published: kirja.published,
+				sivut: kirja.page,
+				image: kirja.image,
+				sarjaid: kirja.sarjaid,
+			};
+			fetch("http://localhost:5000/api/omakirjasto/createOmakirjasto", {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(newBook)
 			})
-				if (find !== kirja.title) {
-					const newBook = {
-						title: kirja.title,
-						author: kirja.author,
-						published: kirja.published,
-						sivut: kirja.page,
-						image: kirja.image,
-						sarjaid: kirja.sarjaid
-					};
-					fetch("http://localhost:5000/api/omakirjasto/createOmakirjasto", {
-						method: 'POST',
-						headers: {
-							'Content-Type': 'application/json'
-						},
-						body: JSON.stringify(newBook)
-					})
-						.then(response => response.json())
-						.then(data => console.log(data))
-						.catch(error => console.error(error));
-				}
-				else
-				{
-					console.log("Kirja löytyy jo omista kirjoista!");
-				}
+				.then(response => response.json())
+				.then(data => console.log(data))
+				.catch(error => console.error(error));
+		}
+		else {
+			console.log("Kirja löytyy jo omista kirjoista!");
+		}
 	}
+	const DeleteKirja = async(kirja) => {
+			await fetch(
+				`http://localhost:5000/api/kirja/deletekirja/${kirja._id}`,
+				{
+					method: "DELETE",
+				}
+			);
 
+		};
 	const togglePopup = () => {
 		setIsOpen(!isOpen);
 	}
@@ -125,6 +132,8 @@ const Card = ({ kirja }) => {
 					<button onClick={togglePopup}>Lisätietoja</button>
 					<br />
 					<button onClick={AddtoOwn}>Lisää kirja omaan kirjastoon</button>
+					<br />
+					<button onClick={() => DeleteKirja(kirja)}>VAIN ADMIN VOI POISTAA!</button>
 				</div>
 			</div>
 		</div>
