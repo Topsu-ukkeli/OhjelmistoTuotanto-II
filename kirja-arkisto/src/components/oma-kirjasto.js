@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "./oma-kirjasto.css";
+import { Link } from 'react-router-dom'
+
 
 //https://moog.antikvariaattimakedonia.fi/index.php?sivu=lehdet&moog_sarja_id=342
 const OmaKirjasto = () => {
@@ -30,7 +32,12 @@ const OmaKirjasto = () => {
             {kirjauduttu ? (
                 <FrontPage omatkirjat={omatkirjat} />
             ):(
-                <h1>Kirjaudu sisään käyttääksesi omaa kirjastoa</h1>
+				<>
+                <h1>Sinun on kirjauduttava sisään jotta voit käyttää omaa kirjastoa</h1>
+				<Link to="/login">
+                    <button>Kirjautumissivulle</button>
+                    </Link>
+				</>
             )}
         </div>
     )

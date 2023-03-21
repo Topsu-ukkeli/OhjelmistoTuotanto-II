@@ -33,13 +33,7 @@ export const Home = () => {
 
 	return (
 		<div>
-			{kirjauduttu ? (
-				<div id="custom-scrollbars__content" >
-					<h1>Tähän OSSI tekee saate tekstiä!</h1>
-				</div>
-			) : (
-				<h1>Kirjaudu sisään nähdäksesi kirjat</h1>
-			)}
+			<h1>etusivu</h1>
 		</div>
 	)
 }
