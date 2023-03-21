@@ -1,4 +1,12 @@
 # OhjelmistoTuotantoII
+
+ADMIN TUNNUKSET MITÄ KÄYTETÄÄN!
+nimi: admin
+käyttäjänimi: admin
+salasana: administator123
+sähköposti: nootware@gmail.com
+
+
 Kirja-arkisto
 
 KKON T. OSMO
