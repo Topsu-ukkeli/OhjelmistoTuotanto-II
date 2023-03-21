@@ -58,7 +58,6 @@ const Kirjatlisaus = () => {
     }
     return (
             <div className="inputs">
-                <h1>Tänne sit vähän juttuja</h1>
                 <label className='labels'>
                     What is the title of the book?:
                     <input type="text" className='kirja-input' value={title} onChange={e => setTitle(e.target.value)}></input>

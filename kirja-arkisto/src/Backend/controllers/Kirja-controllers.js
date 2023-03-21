@@ -29,6 +29,35 @@ const createdKirja = async (req, res, next) => {
         return next(error);
     }
 };
+const deleteKirjas = async (req, res, next) => {
+    const kirjaId = req.params._id;
+    console.log(`Received delete request for kirja with id: ${kirjaId}`);
+    let kirja;
+    try {
+        kirja = await Kirjas.findById(kirjaId);
+        console.log(`Found kirja: ${JSON.stringify(kirja)}`);
+    } catch (err) {
+        console.log(`Error finding kirja with id ${kirjaId}: ${err}`);
+        const error = new HttpError('Could not delete kirja', 500);
+        return next(error);
+    }
+    if (!kirja) {
+        const error = new HttpError('Could not find that kirja', 404);
+        return next(error);
+    }
+
+    try {
+        console.log(`Deleting kirja with id: ${kirja._id}`);
+        await Kirjas.deleteOne({ _id: kirjaId })
+        console.log(`Kirja with id ${kirja._id} deleted successfully`);
+    } catch (err) {
+        console.log(`Error deleting kirja with id ${kirjaId}: ${err}`);
+        const error = new HttpError('Could not delete kirja', 500);
+        return next(error);
+    }
+
+    res.status(200).json({ message: 'Deleted kirja' });
+}
 const getAllKirjas = async (req, res, next) => {
     let Kirja;
     try {
@@ -46,3 +75,4 @@ const getAllKirjas = async (req, res, next) => {
 };
 exports.createdKirja = createdKirja;
 exports.getAllKirjas = getAllKirjas;
+exports.deleteKirjas = deleteKirjas;
