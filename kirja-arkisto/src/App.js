@@ -8,6 +8,7 @@ import { Sarjat } from './components/sarjat';
 import { Login } from './components/login';
 import { Kirjat } from './components/Kirjat';
 import {Kirjatlisaus} from './components/Kirjatlisaus';
+import { Register } from './components/register';
 
 
 
@@ -28,6 +29,7 @@ function App() {
           <Route path="/sarjat"><Sarjat /></Route>
           <Route path="/Kirjat" ><Kirjat /></Route>
           <Route path="/login"><Login login={setKirjauduttuData} /></Route>
+          <Route path="/register" ><Register /></Route>
           <Route path="/"><Home /></Route>
         </Switch>
       </Router>

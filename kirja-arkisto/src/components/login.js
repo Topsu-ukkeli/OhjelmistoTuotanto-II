@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './login.css';
+import { Link } from 'react-router-dom'
 
 const Login = () => {
     const [käyttäjä, setKäyttäjä] = useState('');
@@ -9,6 +10,7 @@ const Login = () => {
     const [uusiKNimi, setUusiKNimi] = useState('');
     const [uusiSala, setUusiSala] = useState('');
     const [uusiSahko, setUusiSahko] = useState('');
+    const [naytaRek, setNaytaRek] = useState(false);
 
     const [users, setUser] = useState([]);
     const [error, setError] = useState(null);
@@ -54,12 +56,13 @@ const Login = () => {
         // setKirjauduttuData(false);
     }
 
+
     function Tallenna() {
         const newUser = {
             Name: uusiNimi,
-            Username:uusiKNimi,
-            Password:uusiSala,
-            Email:uusiSahko
+            Username: uusiKNimi,
+            Password: uusiSala,
+            Email: uusiSahko
         };
         console.log("tähän tulee uusi kirja", newUser)
         fetch("http://localhost:5000/api/User/createusers", {
@@ -71,7 +74,7 @@ const Login = () => {
         })
             .then(response => response.json())
             .then(data => console.log(data))
-            .catch(error => console.error(error));  
+            .catch(error => console.error(error));
     }
     return (
         <form className="login-container">
@@ -87,42 +90,20 @@ const Login = () => {
                         <input type="password" id="password"
                             value={salasana} onChange={(event) => setSalasana(event.target.value)} />
                     </div>
-                    <button onClick={handleKirjaudu}>Kirjaudu</button>
-                    <h1>Mikäli sinulla ei ole käyttäjätietoja voit lisätä ne tästä</h1>
-                        <div>
-                            <label>
-                                Anna nimesi:
-                                <input type="text" onChange={(e) => setUusiNimi(e.target.value)}></input>
-                            </label>
-                        </div>
-                        <div>
-                            <label>
-                                Anna käyttäjänimi:
-                                <input type="text" onChange={(e) => setUusiKNimi(e.target.value)}></input>
-                            </label>
-                        </div>
-                        <div>
-                            <label>
-                                Anna salasana:
-                                <input type="password" onChange={(e) => setUusiSala(e.target.value)}></input>
-                            </label>
-                        </div>
-                        <div>
-                            <label>
-                                Anna sähköpostiosoitteesi:
-                                <input type="text" onChange={(e) => setUusiSahko(e.target.value)}></input>
-                            </label>
-                        </div>
-                        <button onClick={Tallenna}>Rekisteröi uudet tiedot</button>
+                    <button onClick={handleKirjaudu}>Kirjaudu</button><br />
+                    <Link to="/register">
+                    <button>Rekisteröidy</button>
+                    </Link>
                 </div>
             }
             {kirjauduttu &&
                 <div>
                     <h1>Hei käyttäjä!</h1>
+                    <p>// käyttäjän tilalle käyttäjätunnus jostain lmao</p>
                     <button onClick={handleKirjauduulos}>Kirjaudu ulos</button>
                 </div>
             }
-        </form>
+        </form >
     );
 }
 
