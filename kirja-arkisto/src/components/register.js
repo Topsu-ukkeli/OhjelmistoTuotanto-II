@@ -12,7 +12,8 @@ const Register = () => {
     const [onnistui, setOnnistui] = useState(null);
 
 
-    function Tallenna() {
+    function Tallenna(e) {
+        e.preventDefault();
         const newUser = {
             Name: uusiNimi,
             Username: uusiKNimi,
@@ -74,7 +75,7 @@ const Register = () => {
                             <input type="text" onChange={(e) => setUusiSahko(e.target.value)}></input>
                         </label>
                     </div>
-                    <button onClick={Tallenna}>Rekisteröi uudet tiedot</button>
+                    <button onClick={(e) => Tallenna(e)}>Rekisteröi uudet tiedot</button>
                     {onnistui == false &&
                         <h3 style={{ color: "red" }}>Rekisteröinti ei onnistunut, yritä uudelleen</h3>
                     }
