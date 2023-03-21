@@ -7,7 +7,7 @@ export const Kirjat = () => {
 	const [error, setError] = useState(null);
 	useEffect(() => {
 		fetchUsers();
-	}, [])
+	}, [kirjat])
 	const fetchUsers = async () => {
 		try {
 			const response = await fetch("http://localhost:5000/api/kirja/");
@@ -105,6 +105,7 @@ const Card = ({ kirja }) => {
 					method: "DELETE",
 				}
 			);
+
 		};
 	const togglePopup = () => {
 		setIsOpen(!isOpen);
