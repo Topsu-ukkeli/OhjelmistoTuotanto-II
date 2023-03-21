@@ -142,7 +142,7 @@ const Card = ({ kirja }) => {
 const SearchBar = ({ onChange }) => {
 	return (
 		<div className="search-bar">
-			<label htmlFor="search-input">Search by ID:</label>
+			<label htmlFor="search-input">Search by title:</label>
 			<input
 				id="search-input"
 				type="text"

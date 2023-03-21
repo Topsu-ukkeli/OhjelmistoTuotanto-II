@@ -45,7 +45,6 @@ const deleteKirjas = async (req, res, next) => {
         const error = new HttpError('Could not find that kirja', 404);
         return next(error);
     }
-
     try {
         console.log(`Deleting kirja with id: ${kirja._id}`);
         await Kirjas.deleteOne({ _id: kirjaId })
