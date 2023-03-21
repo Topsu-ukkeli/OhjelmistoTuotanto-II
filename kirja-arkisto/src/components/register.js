@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './login.css';
+import './register.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -46,7 +46,7 @@ const Register = () => {
     }
 
     return (
-        <div>
+        <form className="register-container">
             <h1>Luo uusi tili</h1>
             <div>
                 <div>
@@ -94,7 +94,7 @@ const Register = () => {
                     }
                 </div>
             </div>
-        </div>
+        </form>
     )
 }
 export { Register };

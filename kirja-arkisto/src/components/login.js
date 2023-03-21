@@ -6,14 +6,10 @@ const Login = () => {
     const [käyttäjä, setKäyttäjä] = useState('');
     const [salasana, setSalasana] = useState('');
     const [kirjauduttu, setKirjauduttu] = useState(false);
-    const [uusiNimi, setUusiNimi] = useState('');
-    const [uusiKNimi, setUusiKNimi] = useState('');
-    const [uusiSala, setUusiSala] = useState('');
-    const [uusiSahko, setUusiSahko] = useState('');
-    const [naytaRek, setNaytaRek] = useState(false);
-
     const [users, setUser] = useState([]);
     const [error, setError] = useState(null);
+    
+
     useEffect(() => {
         fetchUsers();
     }, [])
@@ -57,29 +53,11 @@ const Login = () => {
     }
 
 
-    function Tallenna() {
-        const newUser = {
-            Name: uusiNimi,
-            Username: uusiKNimi,
-            Password: uusiSala,
-            Email: uusiSahko
-        };
-        console.log("tähän tulee uusi kirja", newUser)
-        fetch("http://localhost:5000/api/User/createusers", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newUser)
-        })
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => console.error(error));
-    }
     return (
         <form className="login-container">
             {!kirjauduttu &&
                 <div>
+                    <h1>Kirjaudu sisään</h1>
                     <div>
                         <label>Käyttäjä:</label>
                         <input type="käyttäjätunnus"
@@ -90,16 +68,20 @@ const Login = () => {
                         <input type="password" id="password"
                             value={salasana} onChange={(event) => setSalasana(event.target.value)} />
                     </div>
-                    <button onClick={handleKirjaudu}>Kirjaudu</button><br />
+                    <div>
+                    <button onClick={handleKirjaudu}>Kirjaudu</button>
                     <Link to="/register">
                     <button>Rekisteröidy</button>
                     </Link>
+                    </div>
                 </div>
             }
             {kirjauduttu &&
                 <div>
-                    <h1>Hei käyttäjä!</h1>
-                    <p>// käyttäjän tilalle käyttäjätunnus jostain lmao</p>
+                    <h1>Hei {käyttäjä}!</h1>
+                    <Link to="/oma-kirjasto">
+                    <button>Omaan kirjastoon</button>
+                    </Link>
                     <button onClick={handleKirjauduulos}>Kirjaudu ulos</button>
                 </div>
             }

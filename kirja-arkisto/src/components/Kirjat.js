@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import "./Kirjat.css";
+import { Link } from 'react-router-dom'
 
 
 export const Kirjat = () => {
@@ -27,13 +28,9 @@ export const Kirjat = () => {
 
 	return (
 		<div>
-			{kirjauduttu ? (
 				<div id="custom-scrollbars__content" >
 					<FrontPage kirjat={kirjat} />
 				</div>
-			) : (
-				<h1>Kirjaudu sisään nähdäksesi kirjat</h1>
-			)}
 		</div>
 	)
 }
@@ -98,42 +95,44 @@ const Card = ({ kirja }) => {
 			console.log("Kirja löytyy jo omista kirjoista!");
 		}
 	}
-	const DeleteKirja = async(kirja) => {
-			await fetch(
-				`http://localhost:5000/api/kirja/deletekirja/${kirja._id}`,
-				{
-					method: "DELETE",
-				}
-			);
+	const DeleteKirja = async (kirja) => {
+		await fetch(
+			`http://localhost:5000/api/kirja/deletekirja/${kirja._id}`,
+			{
+				method: "DELETE",
+			}
+		);
 
-		};
+	};
 	const togglePopup = () => {
 		setIsOpen(!isOpen);
 	}
 	return (
-		<div className="card">
-			<img src={kirja.image} alt={kirja.image} className='card_img' />
-			<div className="card-info">
-				<h2>{kirja.title}</h2>
-				<p>Author: {kirja.author}</p>
-				<p>Published: {kirja.published}</p>
-				<p>Pages: {kirja.pages}</p>
-				{isOpen && <OpenMore
-					handleClose={togglePopup}
-					content={<div>
-						<h1>{kirja.title}</h1>
-						<h2>Author: {kirja.author}</h2>
-						<h2>Published: {kirja.published}</h2>
-						<h2>Pages: {kirja.pages}</h2>
-						<img src={kirja.image} className='popupcard' />
-					</div>}
-				/>}
-				<div>
-					<button onClick={togglePopup}>Lisätietoja</button>
-					<br />
-					<button onClick={AddtoOwn}>Lisää kirja omaan kirjastoon</button>
-					<br />
-					<button onClick={() => DeleteKirja(kirja)}>VAIN ADMIN VOI POISTAA!</button>
+		<div>
+			<div className="card">
+				<img src={kirja.image} alt={kirja.image} className='card_img' />
+				<div className="card-info">
+					<h2>{kirja.title}</h2>
+					<p>Author: {kirja.author}</p>
+					<p>Published: {kirja.published}</p>
+					<p>Pages: {kirja.pages}</p>
+					{isOpen && <OpenMore
+						handleClose={togglePopup}
+						content={<div>
+							<h1>{kirja.title}</h1>
+							<h2>Author: {kirja.author}</h2>
+							<h2>Published: {kirja.published}</h2>
+							<h2>Pages: {kirja.pages}</h2>
+							<img src={kirja.image} className='popupcard' />
+						</div>}
+					/>}
+					<div>
+						<button onClick={togglePopup}>Lisätietoja</button>
+						<br />
+						<button onClick={AddtoOwn}>Lisää kirja omaan kirjastoon</button>
+						<br />
+						<button onClick={() => DeleteKirja(kirja)}>VAIN ADMIN VOI POISTAA!</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -160,7 +159,7 @@ const FrontPage = ({ kirjat }) => {
 	})
 
 	return (
-		<div >
+		<div>
 			<SearchBar onChange={setSearchTerm} />
 			<div>
 				{filteredBooks.map((kirja) => (
