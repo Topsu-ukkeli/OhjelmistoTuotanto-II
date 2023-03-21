@@ -81,7 +81,7 @@ const Card = ({ kirja }) => {
 				published: kirja.published,
 				sivut: kirja.page,
 				image: kirja.image,
-				sarjaid: kirja.sarjaid
+				sarjaid: kirja.sarjaid,
 			};
 			fetch("http://localhost:5000/api/omakirjasto/createOmakirjasto", {
 				method: 'POST',
