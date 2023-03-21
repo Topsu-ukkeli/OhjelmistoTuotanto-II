@@ -29,6 +29,7 @@ const Register = () => {
         })
             .then(response => {
                 if (!response.ok) {
+                    console.log("vastaus on",response);
                     setOnnistui(false);
                     throw new Error('Failed to create user');
                 }

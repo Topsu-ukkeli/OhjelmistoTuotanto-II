@@ -12,7 +12,7 @@ const Login = () => {
 
     useEffect(() => {
         fetchUsers();
-    }, [users])
+    }, [])
     const fetchUsers = async () => {
         try {
             const response = await fetch("http://localhost:5000/api/User/");
