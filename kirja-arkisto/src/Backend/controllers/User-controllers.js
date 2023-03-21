@@ -9,22 +9,29 @@ const createdUser = async (req, res, next) => {
         return next(error);
     }
     else {
-        const newid = new mongoose.Types.ObjectId().toHexString();
-        const createdUser = new Users({
-            _id: newid,
-            Name: Name,
-            Username: Username,
-            Password: Password,
-            Email: Email,
-        });
-        try {
-            console.log("ja mehän saadaa", createdUser);
-            await createdUser.save();
-        } catch (err) {
-            const error = new HttpError("Could not create user", 500);
+        if (Users.findOne({ $or: [{ Username }, { Email }] })) 
+        {
+            const error = new HttpError("Löytyy jo")
             return next(error);
         }
-        res.status(201).json(createdUser);
+        else {
+            const newid = new mongoose.Types.ObjectId().toHexString();
+            const createdUser = new Users({
+                _id: newid,
+                Name: Name,
+                Username: Username,
+                Password: Password,
+                Email: Email,
+            });
+            try {
+                console.log("ja mehän saadaa", createdUser);
+                await createdUser.save();
+            } catch (err) {
+                const error = new HttpError("Could not create user", 500);
+                return next(error);
+            }
+            res.status(201).json(createdUser);
+        }
     }
 };
 const getAllUsers = async (req, res, next) => {
