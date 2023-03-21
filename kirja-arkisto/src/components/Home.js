@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import "./Home.css";
 import kirja from '../images/kirja.jpg'
-import harrypotter from '../images/HPotter.jpg'
 import harrypotter2 from '../images/HPotterC.jpg'
 import harrypotter3 from '../images/HPotterA.jpg'
 import tero from '../images/Tero.jpg'

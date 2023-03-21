@@ -28,9 +28,9 @@ export const Kirjat = () => {
 
 	return (
 		<div>
-				<div id="custom-scrollbars__content" >
-					<FrontPage kirjat={kirjat} />
-				</div>
+			<div id="custom-scrollbars__content" >
+				<FrontPage kirjat={kirjat} />
+			</div>
 		</div>
 	)
 }
@@ -141,7 +141,7 @@ const Card = ({ kirja }) => {
 const SearchBar = ({ onChange }) => {
 	return (
 		<div className="search-bar">
-			<label htmlFor="search-input">Search by title:</label>
+			<label htmlFor="search-input">Hae kirjaa</label>
 			<input
 				id="search-input"
 				type="text"
@@ -161,6 +161,11 @@ const FrontPage = ({ kirjat }) => {
 	return (
 		<div>
 			<SearchBar onChange={setSearchTerm} />
+			<div className="nappiContainer">
+				<Link to="/Kirjalisaus">
+				<button>Lisää uusi kirja</button>
+				</Link>
+			</div>
 			<div>
 				{filteredBooks.map((kirja) => (
 					<Card key={kirja.id} kirja={kirja} />

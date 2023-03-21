@@ -15,6 +15,13 @@ const Kirjatlisaus = () => {
     const [serieid, setSerieid] = useState('');
     const [showMsg, setShowmsg] = useState(false);
 
+	const [kirjauduttu, setKirjauduttu] = useState(false);
+
+	useEffect(() => {
+		const kirjautumisdata = localStorage.getItem('KIRJAUDUTTU_DATA');
+		setKirjauduttu(JSON.parse(kirjautumisdata));
+	}, [])
+
 
     // const Tallenna = () => {
     //     const newBook = {
@@ -57,6 +64,9 @@ const Kirjatlisaus = () => {
             setShowmsg(true);
     }
     return (
+        <div>
+            <h1>Kirjan lisäys</h1>
+            {kirjauduttu ?(
             <div className="inputs">
                 <label className='labels'>
                     What is the title of the book?:
@@ -90,6 +100,15 @@ const Kirjatlisaus = () => {
                 </label>
                 <button onClick={Tallenna} type="submit">Tallenna uusi kirjasi</button>
             </div>
+            ) : (
+            <div>
+                <h3>Kirjaudu sisään lisätäksesi kirja</h3>
+                <Link to="/login">
+                <button>Kirjautumissivulle</button>
+                </Link>
+            </div>
+            )}
+        </div>
     )
 }
 export { Kirjatlisaus };
