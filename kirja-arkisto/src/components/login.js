@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './login.css';
 import { Link } from 'react-router-dom'
-
-const Login = () => {
+const Login = ({setUserID}) => {
     const [käyttäjä, setKäyttäjä] = useState('');
     const [salasana, setSalasana] = useState('');
     const [kirjauduttu, setKirjauduttu] = useState(false);
@@ -40,12 +39,15 @@ const Login = () => {
 
 
     const handleKirjaudu = () => {
+        let KID = "";
         users.map((user) => {
             if (käyttäjä === user.Username && user.Password === salasana) {
                 setKirjauduttu(true);
+                KID = user._id;
             }
         })
         // setKirjauduttuData(true);
+        setUserID(KID);
     }
     const handleKirjauduulos = () => {
         setKirjauduttu(false);
@@ -89,4 +91,4 @@ const Login = () => {
     );
 }
 
-export { Login };
+export { Login};

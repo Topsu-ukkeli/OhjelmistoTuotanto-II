@@ -65,7 +65,6 @@ const getAllKirjas = async (req, res, next) => {
         const error = new HttpError("Err", 418);
         return next(error);
     }
-    console.log(Kirja);
     if (!Kirja || Kirja.length == 0) {
         const error = new HttpError("Not found", 404);
         return next(error);

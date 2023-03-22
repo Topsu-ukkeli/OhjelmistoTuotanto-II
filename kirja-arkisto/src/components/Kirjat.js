@@ -3,7 +3,7 @@ import "./Kirjat.css";
 import { Link } from 'react-router-dom'
 
 
-export const Kirjat = () => {
+export const Kirjat = ({ UserID }) => {
 	const [kirjat, setKirjat] = useState([]);
 	const [error, setError] = useState(null);
 	useEffect(() => {
@@ -29,7 +29,7 @@ export const Kirjat = () => {
 	return (
 		<div>
 			<div id="custom-scrollbars__content" >
-				<FrontPage kirjat={kirjat} />
+				<FrontPage kirjat={kirjat} UserID={UserID} />
 			</div>
 		</div>
 	)
@@ -44,56 +44,34 @@ const OpenMore = props => {
 		</div>
 	)
 }
-const Card = ({ kirja }) => {
+const Card = ({ kirja, UserID }) => {
 	const [query, setQuery] = useState("");
 	const [find, setFind] = useState("");
 	const [isOpen, setIsOpen] = useState(false);
 	const [omatkirjat, setOmatkirjat] = useState([]);
 	const [error, setError] = useState(null);
-	useEffect(() => {
-		fetchOwn();
-	}, [])
-	const fetchOwn = async () => {
-		try {
-			const response = await fetch("http://localhost:5000/api/omakirjasto/");
-			const data = await response.json();
-			setOmatkirjat(data);
-			console.log(omatkirjat);
-		}
-		catch (err) {
-			setError(err);
-		}
-	}
 	const AddtoOwn = () => {
 		console.log("muuttuuko tämä", omatkirjat);
-		omatkirjat.map((omakirja) => {
-			if (omakirja.title === kirja.title) {
-				setFind(omakirja.title);
-			}
+		const newBook = {
+			title: kirja.title,
+			author: kirja.author,
+			published: kirja.published,
+			page: kirja.page,
+			image: kirja.image,
+			sarjaid: kirja.sarjaid,
+			UserID: UserID,
+		};
+		console.log(UserID);
+		fetch("http://localhost:5000/api/omakirjasto/createOmakirjasto", {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(newBook)
 		})
-		if (find !== kirja.title) {
-			const newBook = {
-				title: kirja.title,
-				author: kirja.author,
-				published: kirja.published,
-				sivut: kirja.page,
-				image: kirja.image,
-				sarjaid: kirja.sarjaid,
-			};
-			fetch("http://localhost:5000/api/omakirjasto/createOmakirjasto", {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(newBook)
-			})
-				.then(response => response.json())
-				.then(data => console.log(data))
-				.catch(error => console.error(error));
-		}
-		else {
-			console.log("Kirja löytyy jo omista kirjoista!");
-		}
+			.then(response => response.json())
+			.then(data => console.log(data))
+			.catch(error => console.error(error));
 	}
 	const DeleteKirja = async (kirja) => {
 		await fetch(
@@ -151,7 +129,7 @@ const SearchBar = ({ onChange }) => {
 	);
 }
 
-const FrontPage = ({ kirjat }) => {
+const FrontPage = ({ kirjat, UserID }) => {
 	const [searchTerm, setSearchTerm] = useState('');
 
 	const filteredBooks = kirjat.filter(kirja => {
@@ -163,12 +141,12 @@ const FrontPage = ({ kirjat }) => {
 			<SearchBar onChange={setSearchTerm} />
 			<div className="nappiContainer">
 				<Link to="/Kirjalisaus">
-				<button>Lisää uusi kirja</button>
+					<button>Lisää uusi kirja</button>
 				</Link>
 			</div>
 			<div>
 				{filteredBooks.map((kirja) => (
-					<Card key={kirja.id} kirja={kirja} />
+					<Card key={kirja.id} kirja={kirja} UserID={UserID} />
 				))}
 			</div>
 		</div>

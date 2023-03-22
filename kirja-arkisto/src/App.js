@@ -17,18 +17,18 @@ function App() {
   //tällä muuttujalla viedään tietoa onko kirjauduttu vai ei komponentiltä toiselle
   //jäi vähän kesken mut jotakuinkin tuolleen
   const [kirjauduttuData, setKirjauduttuData] = useState(false);
-
+  const [UserID, setUserID] = useState("");
 
   return (
     <div className="App">
       <Router>
       <Navbar login={kirjauduttuData} />
         <Switch>
-          <Route path="/oma-kirjasto"> <OmaKirjasto/></Route>
+          <Route path="/oma-kirjasto"> <OmaKirjasto UserID = {UserID}/></Route>
           <Route path="/KirjaLisaus"><Kirjatlisaus/></Route>
           <Route path="/sarjat"><Sarjat /></Route>
-          <Route path="/Kirjat" ><Kirjat /></Route>
-          <Route path="/login"><Login login={setKirjauduttuData} /></Route>
+          <Route path="/Kirjat" ><Kirjat UserID = {UserID}/></Route>
+          <Route path="/login"><Login login={setKirjauduttuData} setUserID = {setUserID}/></Route>
           <Route path="/register" ><Register /></Route>
           <Route path="/"><Home /></Route>
         </Switch>

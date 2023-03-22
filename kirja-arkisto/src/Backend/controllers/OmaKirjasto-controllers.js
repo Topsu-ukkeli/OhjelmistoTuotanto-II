@@ -1,9 +1,10 @@
 const HttpError = require("../models/http-error");
 const OmaKirjastos = require("../models/Omakirjasto");
 const mongoose = require("mongoose");
+const Omakirjasto = require("../models/Omakirjasto");
 
 const createdOmakirjasto = async (req, res, next) => {
-    const { title, author, published, page, image, sarjaid } = req.body;
+    const { title, author, published, page, image, sarjaid ,UserID} = req.body;
     try {
         const newid = new mongoose.Types.ObjectId().toHexString();
         const createdomakirjasto = new OmaKirjastos({ //muuta kirja tiedot
@@ -11,14 +12,19 @@ const createdOmakirjasto = async (req, res, next) => {
             title: title,
             author: author,
             published: published,
-            sivut: page,
+            // sivut: page,
             image: image,
             sarjaid: sarjaid,
+            UserID: UserID,
         });
-
+        console.log("userid on",UserID);
         console.log("serverin päässä saa", createdomakirjasto);
 
         // Save the new kirja to the database
+        if (await OmaKirjastos.findOne({ $or: [{ title }] })) {
+            const error = new HttpError("Löytyy jo", 422);
+            return next(error);
+        }
         await createdomakirjasto.save();
 
         res.status(201).json(createdomakirjasto);
@@ -36,12 +42,27 @@ const getOmakirjasto = async (req, res, next) => {
         const error = new HttpError("Err", 418);
         return next(error);
     }
-    console.log(OmaKirjasto);
     if (!OmaKirjasto || OmaKirjasto.length == 0) {
         const error = new HttpError("Not found", 404);
         return next(error);
     }
     res.json(OmaKirjasto);
 };
+
+const getOmakirjastoById = async(req,res,next) => {
+    const UserID = req.params._id;
+    let omakirjasto;
+    try{
+        omakirjasto = await OmaKirjastos.find({UserID});
+        console.log(omakirjasto);
+    }catch (err) {
+
+        return next(err);
+    }
+    res.json(omakirjasto);
+
+
+}
 exports.createdOmakirjasto = createdOmakirjasto;
 exports.getOmakirjasto = getOmakirjasto;
+exports.getOmakirjastoById = getOmakirjastoById;
