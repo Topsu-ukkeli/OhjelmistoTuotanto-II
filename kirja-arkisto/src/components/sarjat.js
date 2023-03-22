@@ -28,14 +28,10 @@ const Sarjat = () => {
 	}, [])
 
 	return (
-		<div>
-			{kirjauduttu ? (
+		<div className="sarjat-container">
 				<div id="custom-scrollbars__content" >
 					<FrontPage sarjat = {sarjat}/>
 				</div>
-			) : (
-				<h1>Kirjaudu sisään nähdäksesi sarjat</h1>
-			)}
 		</div>
 	)
 }
@@ -83,7 +79,7 @@ const Card = ({ sarja }) => {
 const SearchBar = ({ onChange }) => {
 	return (
 		<div className="search-bar">
-			<label htmlFor="search-input">Search by ID:</label>
+			<label htmlFor="search-input">Hae:</label>
 			<input
 				id="search-input"
 				type="text"

@@ -1,25 +1,12 @@
-body {
-    background-color: darkgray;
+body{
+  background-color: #111111;
 }
 
+.sarjat-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-
-@media (max-width: 768px) {
-    .home-container {
-        padding: 0 20px;
-    }
-
-    .header {
-        text-align: center;
-        padding: 20px;
-    }
-}
-
-
-html {
-    font-size: 62.5%;
-    overflow: -moz-scrollbars-vertical;
-    overflow-y: scroll;
 }
 
 .text-block {

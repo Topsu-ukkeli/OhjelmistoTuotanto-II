@@ -108,7 +108,7 @@ const Card = ({ kirja }) => {
 		setIsOpen(!isOpen);
 	}
 	return (
-		<div>
+		<div className='kirjat-container'>
 			<div className="card">
 				<img src={kirja.image} alt={kirja.image} className='card_img' />
 				<div className="card-info">

@@ -1,3 +1,8 @@
+.kirjatlisaus-container{
+    background-color: darkgray;
+    display: flex;
+    justify-content: center;
+}
 .labels{
     font-size: x-large;
     text-align: left;

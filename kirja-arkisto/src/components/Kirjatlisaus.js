@@ -64,7 +64,7 @@ const Kirjatlisaus = () => {
             setShowmsg(true);
     }
     return (
-        <div>
+        <div className='kirjatlisaus-container'>
             <h1>Kirjan lisäys</h1>
             {kirjauduttu ?(
             <div className="inputs">

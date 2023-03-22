@@ -20,8 +20,7 @@ export const Navbar = ({login}) => {
 
 
     return (
-        <div>
-            <nav className="container-fluid">
+            <nav className="navbar">
                 <ul className="navbar-links">
                     <li className="nav-item">
                         <Link to="/" ><img src={logo} alt="Kirjasto logo" className="navbar-img" /></Link>
@@ -49,6 +48,5 @@ export const Navbar = ({login}) => {
                     </li>
                 </ul>
             </nav>
-        </div>
     );
 };

@@ -1,4 +1,9 @@
- 
+  .kirjat-container{
+    background-color: darkgray;
+    display: flex;
+    justify-content: center;
+  }
+
   .search-bar input[type="text"] {
     width: 100%;
     padding: 10px;
