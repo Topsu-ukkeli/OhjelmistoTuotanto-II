@@ -18,11 +18,18 @@ function App() {
   //jäi vähän kesken mut jotakuinkin tuolleen
   const [kirjauduttuData, setKirjauduttuData] = useState(false);
   const [UserID, setUserID] = useState("");
-
+  useEffect(() => {
+    const userid =  localStorage.getItem("user");
+    console.log("userid saa",userid)
+    if(userid)
+    {
+      setUserID(userid);
+    }
+  },[])
   return (
     <div className="App">
       <Router>
-        <Navbar login={kirjauduttuData} UserID={UserID} />
+        <Navbar login={kirjauduttuData}/>
         <Switch>
           <Route path="/oma-kirjasto"> <OmaKirjasto UserID={UserID} /></Route>
           <Route path="/KirjaLisaus"><Kirjatlisaus /></Route>

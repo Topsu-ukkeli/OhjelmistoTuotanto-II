@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './login.css';
 import { Link } from 'react-router-dom'
-const Login = ({setUserID}) => {
+const Login = ({ setUserID }) => {
     const [käyttäjä, setKäyttäjä] = useState('');
     const [salasana, setSalasana] = useState('');
     const [kirjauduttu, setKirjauduttu] = useState(false);
     const [users, setUser] = useState([]);
     const [error, setError] = useState(null);
-    
 
     useEffect(() => {
         fetchUsers();
@@ -44,12 +43,20 @@ const Login = ({setUserID}) => {
             if (käyttäjä === user.Username && user.Password === salasana) {
                 setKirjauduttu(true);
                 KID = user._id;
+                localStorage.setItem("user", JSON.stringify(KID));
             }
         })
         // setKirjauduttuData(true);
         setUserID(KID);
     }
     const handleKirjauduulos = () => {
+        console.log("kävin poistossa");
+        try {
+            localStorage.removeItem("user");
+        } catch (err) {
+            console.log("ei heitä");
+        }
+
         setKirjauduttu(false);
         // setKirjauduttuData(false);
     }
@@ -71,10 +78,10 @@ const Login = ({setUserID}) => {
                             value={salasana} onChange={(event) => setSalasana(event.target.value)} />
                     </div>
                     <div>
-                    <button onClick={handleKirjaudu}>Kirjaudu</button>
-                    <Link to="/register">
-                    <button>Rekisteröidy</button>
-                    </Link>
+                        <button onClick={handleKirjaudu}>Kirjaudu</button>
+                        <Link to="/register">
+                            <button>Rekisteröidy</button>
+                        </Link>
                     </div>
                 </div>
             }
@@ -82,7 +89,7 @@ const Login = ({setUserID}) => {
                 <div>
                     <h1>Hei {käyttäjä}!</h1>
                     <Link to="/oma-kirjasto">
-                    <button>Omaan kirjastoon</button>
+                        <button>Omaan kirjastoon</button>
                     </Link>
                     <button onClick={handleKirjauduulos}>Kirjaudu ulos</button>
                 </div>
@@ -91,4 +98,4 @@ const Login = ({setUserID}) => {
     );
 }
 
-export { Login};
+export { Login };

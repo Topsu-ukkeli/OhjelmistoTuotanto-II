@@ -4,46 +4,49 @@ import { Link } from 'react-router-dom'
 
 
 //https://moog.antikvariaattimakedonia.fi/index.php?sivu=lehdet&moog_sarja_id=342
-const OmaKirjasto = ({UserID}) => {
-	console.log("Käyttäjä",UserID);
-    const [omatkirjat, setOmatkirjat] = useState([]);
+const OmaKirjasto = ({ UserID }) => {
+	console.log("Käyttäjä", UserID);
+	const [omatkirjat, setOmatkirjat] = useState([]);
 	const [error, setError] = useState(null);
 	useEffect(() => {
-		fetchUsers();
+		const fetchUsers = async () => {
+			try {
+				console.log("kävin täällä", UserID);
+				const response = await fetch(`http://localhost:5000/api/omakirjasto/${UserID}`);
+				const data = await response.json();
+				setOmatkirjat(data);
+				console.log("omatkirjat", omatkirjat);
+			}
+			catch (err) {
+				setError(err);
+			}
+		}
+		if (UserID) {
+			fetchUsers();
+		}
+	}, [UserID])
+
+	const [kirjauduttu, setKirjauduttu] = useState(false);
+
+	useEffect(() => {
+		const kirjautumisdata = localStorage.getItem('KIRJAUDUTTU_DATA');
+		setKirjauduttu(JSON.parse(kirjautumisdata));
 	}, [])
-	const fetchUsers = async () => {
-		try {
-			console.log("kävin täällä");
-			const response = await fetch(`http://localhost:5000/api/omakirjasto/${UserID}`);
-			const data = await response.json();
-			setOmatkirjat(data);
-			console.log("omatkirjat",omatkirjat);
-		}
-		catch (err) {
-			setError(err);
-		}
-	}
-    const [kirjauduttu, setKirjauduttu] = useState(false);
 
-    useEffect(() => {
-        const kirjautumisdata = localStorage.getItem('KIRJAUDUTTU_DATA');
-        setKirjauduttu(JSON.parse(kirjautumisdata));
-    }, [] )
-
-    return (
-        <div>
-            {kirjauduttu ? (
-                <FrontPage omatkirjat={omatkirjat} />
-            ):(
+	return (
+		<div>
+			{kirjauduttu ? (
+				<FrontPage omatkirjat={omatkirjat} />
+			) : (
 				<>
-                <h1>Sinun on kirjauduttava sisään jotta voit käyttää omaa kirjastoa</h1>
-				<Link to="/login">
-                    <button>Kirjautumissivulle</button>
-                    </Link>
+					<h1>Sinun on kirjauduttava sisään jotta voit käyttää omaa kirjastoa</h1>
+					<Link to="/login">
+						<button>Kirjautumissivulle</button>
+					</Link>
 				</>
-            )}
-        </div>
-    )
+			)}
+		</div>
+	)
 }
 const OpenMore = props => {
 	return (
@@ -117,4 +120,4 @@ const FrontPage = ({ omatkirjat }) => {
 		</div>
 	);
 }
-export { OmaKirjasto, FrontPage,OpenMore,Card };
+export { OmaKirjasto, FrontPage, OpenMore, Card };

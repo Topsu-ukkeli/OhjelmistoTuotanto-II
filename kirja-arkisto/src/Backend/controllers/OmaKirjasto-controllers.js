@@ -21,7 +21,7 @@ const createdOmakirjasto = async (req, res, next) => {
         console.log("serverin päässä saa", createdomakirjasto);
 
         // Save the new kirja to the database
-        if (await OmaKirjastos.findOne({ $or: [{ title }] })) {
+        if (await OmaKirjastos.findOne({ $and: [{ title },{UserID}] })) {
             const error = new HttpError("Löytyy jo", 422);
             return next(error);
         }
