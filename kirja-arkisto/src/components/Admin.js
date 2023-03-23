@@ -1,6 +1,7 @@
 //TÄNNE ADMIN OIKEUKSILLA TOIMIVAT JUTUT
 import React, { useState, useEffect } from 'react';
 import "./Admin.css";
+import { Link } from 'react-router-dom'
 
 
 const Admin = () => {
@@ -81,10 +82,11 @@ const Admin = () => {
     // }
 
 
-
     return (
         <div>
-            <button class="button-85" role="button" >Lisää kirja tietokantaan</button>
+            <Link to="/Kirjalisaus">
+                <button class="button-85" role="button" >Lisää kirja tietokantaan</button>
+            </Link>
             <br />
             <button class="button-85" role="button" onClick={() => handleToggle()}>Poista kirja tai sarja tietokannasta</button>
             <br />
