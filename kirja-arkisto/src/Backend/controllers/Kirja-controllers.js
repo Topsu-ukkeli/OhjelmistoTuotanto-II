@@ -2,7 +2,7 @@ const HttpError = require("../models/http-error");
 const Kirjas = require("../models/Kirja");
 const mongoose = require("mongoose");
 
-const createdKirja = async (req, res, next) => {
+const createKirja = async (req, res, next) => {
     const { title, author, published, page, image, sarjaid } = req.body;
 
     try {
@@ -12,7 +12,7 @@ const createdKirja = async (req, res, next) => {
             title: title,
             author: author,
             published: published,
-            sivut: page,
+            page: page,
             image: image,
             sarjaid: sarjaid,
         });
@@ -71,6 +71,6 @@ const getAllKirjas = async (req, res, next) => {
     }
     res.json(Kirja);
 };
-exports.createdKirja = createdKirja;
+exports.createKirja = createKirja;
 exports.getAllKirjas = getAllKirjas;
 exports.deleteKirjas = deleteKirjas;

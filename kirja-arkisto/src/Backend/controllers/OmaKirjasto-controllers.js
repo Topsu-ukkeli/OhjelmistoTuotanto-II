@@ -34,27 +34,27 @@ const createdOmakirjasto = async (req, res, next) => {
         return next(error);
     }
 };
-const getOmakirjasto = async (req, res, next) => {
-    let OmaKirjasto;
-    try {
-        OmaKirjasto = await OmaKirjastos.find();
-    } catch (err) {
-        const error = new HttpError("Err", 418);
-        return next(error);
-    }
-    if (!OmaKirjasto || OmaKirjasto.length == 0) {
-        const error = new HttpError("Not found", 404);
-        return next(error);
-    }
-    res.json(OmaKirjasto);
-};
+// const getOmakirjasto = async (req, res, next) => {
+//     let OmaKirjasto;
+//     try {
+//         OmaKirjasto = await OmaKirjastos.find();
+//     } catch (err) {
+//         const error = new HttpError("Err", 418);
+//         return next(error);
+//     }
+//     if (!OmaKirjasto || OmaKirjasto.length == 0) {
+//         const error = new HttpError("Not found", 404);
+//         return next(error);
+//     }
+//     res.json(OmaKirjasto);
+// };
 
 const getOmakirjastoById = async(req,res,next) => {
     const UserID = req.params._id;
     let omakirjasto;
     try{
         omakirjasto = await OmaKirjastos.find({UserID});
-        console.log(omakirjasto);
+        console.log("tässä saan?",omakirjasto,UserID);
     }catch (err) {
 
         return next(err);
@@ -64,5 +64,5 @@ const getOmakirjastoById = async(req,res,next) => {
 
 }
 exports.createdOmakirjasto = createdOmakirjasto;
-exports.getOmakirjasto = getOmakirjasto;
+// exports.getOmakirjasto = getOmakirjasto;
 exports.getOmakirjastoById = getOmakirjastoById;

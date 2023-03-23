@@ -9,6 +9,9 @@ const OmaKirjasto = ({ UserID }) => {
 	const [omatkirjat, setOmatkirjat] = useState([]);
 	const [error, setError] = useState(null);
 	useEffect(() => {
+
+	},[]);
+	useEffect(() => {
 		const fetchUsers = async () => {
 			try {
 				console.log("kävin täällä", UserID);
@@ -24,7 +27,7 @@ const OmaKirjasto = ({ UserID }) => {
 		if (UserID) {
 			fetchUsers();
 		}
-	}, [UserID])
+	}, [{UserID}])
 
 	const [kirjauduttu, setKirjauduttu] = useState(false);
 

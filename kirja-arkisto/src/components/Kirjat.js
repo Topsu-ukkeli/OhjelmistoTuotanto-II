@@ -7,6 +7,9 @@ export const Kirjat = ({ UserID }) => {
 	const [kirjat, setKirjat] = useState([]);
 	const [error, setError] = useState(null);
 	useEffect(() => {
+
+	},[]);
+	useEffect(() => {
 		fetchUsers();
 	}, [kirjat])
 	const fetchUsers = async () => {

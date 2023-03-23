@@ -12,7 +12,7 @@ const Kirjatlisaus = () => {
     const [published, setPublished] = useState('');
     const [page, setPages] = useState('');
     const [image, setImage] = useState('');
-    const [serieid, setSerieid] = useState('');
+    const [sarjaid, setSerieid] = useState('');
     const [showMsg, setShowmsg] = useState(false);
 
 	const [kirjauduttu, setKirjauduttu] = useState(false);
@@ -46,9 +46,9 @@ const Kirjatlisaus = () => {
             title: title,
             author: author,
             published: published,
-            sivut: page,
+            page: page,
             image: image,
-            sarjaid: serieid
+            sarjaid: sarjaid
         };
         console.log("tähän tulee uusi kirja", newBook)
         fetch("http://localhost:5000/api/Kirja/Kirjat", {
@@ -96,7 +96,7 @@ const Kirjatlisaus = () => {
                 <label className='labels'>
                     {/* Vaihdetaan tähän select option jotta voi valita sarjan ja saadaan se id oikein  */}
                     SeriesID:
-                    <input type="text" className='kirja-input' value={serieid} onChange={e => setSerieid(e.target.value)}></input>
+                    <input type="text" className='kirja-input' value={sarjaid} onChange={e => setSerieid(e.target.value)}></input>
                 </label>
                 <button onClick={Tallenna} type="submit">Tallenna uusi kirjasi</button>
             </div>
