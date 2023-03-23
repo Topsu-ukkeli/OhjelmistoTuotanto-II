@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import sarja from '../images/kirja.jpg'
+import Asterix from '../images/asterix.jpg'
 import "./sarjat.css";
 const mongoose = require('mongoose');
 
@@ -29,9 +29,7 @@ const Sarjat = () => {
 
 	return (
 		<div className="sarjat-container">
-				<div id="custom-scrollbars__content" >
-					<FrontPage sarjat = {sarjat}/>
-				</div>
+			<FrontPage sarjat={sarjat} />
 		</div>
 	)
 }
@@ -49,28 +47,31 @@ const OpenMore = props => {
 const Card = ({ sarja }) => {
 
 	const [isOpen, setIsOpen] = useState(false);
+	
 
 	const togglePopup = () => {
 		setIsOpen(!isOpen);
 	}
 	return (
-		<div className="card" onClick={togglePopup}>
-			<img src={sarja.image} alt={sarja.image} className='card_img' />
-			<div className="card-info">
-				<h1>{sarja.Sarjanimi}</h1>
-				<p>Kuvaus: {sarja.Kuvaus}</p>
-				<p>Luokittelu: {sarja.Luokittelu}</p>
-				{/* Tähän tulee toinen nappi jolla voit lisätä tämän kyseisen kirjan itsellesi jahka saadaan se mongo toimimaan -Topi */}
-				{/* Kyseinen nappi siis lisää tietokantaan tiedon kirjasta jonka halusi lisätä tämä on yksinkertainen Schema ratkasu */}
-				{isOpen && <OpenMore
-					handleClose={togglePopup}
-					content={<div>
-						<h1>{sarja.Sarjanimi}</h1>
-						<h2>Kuvaus: {sarja.Kuvaus}</h2>
-						<h2>Luokittelu: {sarja.Luokittelu}</h2>
-						<img src={sarja.image} alt={sarja.image} className='popupcard' />
-					</div>}
-				/>}
+		<div className="card-container">
+			<div className="card" onClick={togglePopup}>
+				<img src={sarja.image} alt={sarja.image} className="card_img" />
+				<div className="card-info">
+					<h1>{sarja.Sarjanimi}</h1>
+					<p>Kuvaus: {sarja.Kuvaus}</p>
+					<p>Luokittelu: {sarja.Luokittelu}</p>
+					{/* Tähän tulee toinen nappi jolla voit lisätä tämän kyseisen kirjan itsellesi jahka saadaan se mongo toimimaan -Topi */}
+					{/* Kyseinen nappi siis lisää tietokantaan tiedon kirjasta jonka halusi lisätä tämä on yksinkertainen Schema ratkasu */}
+					{isOpen && <OpenMore
+						handleClose={togglePopup}
+						content={<div>
+							<h1>{sarja.Sarjanimi}</h1>
+							<h2>Kuvaus: {sarja.Kuvaus}</h2>
+							<h2>Luokittelu: {sarja.Luokittelu}</h2>
+							<img src={sarja.image} alt={sarja.image} className='popupcard' />
+						</div>}
+					/>}
+				</div>
 			</div>
 		</div>
 	);
@@ -89,15 +90,15 @@ const SearchBar = ({ onChange }) => {
 	);
 }
 
-const FrontPage = ({sarjat}) => {
+const FrontPage = ({ sarjat }) => {
 	const [searchTerm, setSearchTerm] = useState('');
-
 	const Filterserie = sarjat.filter(sarja => {
 		return sarja.Sarjanimi.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase());
 	})
 
 	return (
-		<div >
+		<div>
+			<h1>Sarjat</h1>
 			<SearchBar onChange={setSearchTerm} />
 			<div>
 				{Filterserie.map((sarja) => (

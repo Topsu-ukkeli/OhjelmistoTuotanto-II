@@ -11,7 +11,7 @@ import kuva5 from '../images/nootwarejdm6.jpeg'
 
 export const Home = () => {
 	return (
-		<div className='home-container'	>
+		<div className='home-container'>
 			<video className='video'
 				autoPlay
 				loop

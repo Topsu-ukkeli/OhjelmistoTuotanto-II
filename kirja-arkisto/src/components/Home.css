@@ -39,7 +39,7 @@
 
   .postaus{
     display: wrap;
-    background-color: darkgray;
+    background-color: rgb(110, 110, 110);
     width: 51%;
     padding: 15px;
     align-items: center;

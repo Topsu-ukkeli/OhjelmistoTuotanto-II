@@ -10,7 +10,7 @@ const OmaKirjasto = ({ UserID }) => {
 	const [error, setError] = useState(null);
 	useEffect(() => {
 
-	},[]);
+	}, []);
 	useEffect(() => {
 		const fetchUsers = async () => {
 			try {
@@ -27,7 +27,7 @@ const OmaKirjasto = ({ UserID }) => {
 		if (UserID) {
 			fetchUsers();
 		}
-	}, [{UserID}])
+	}, [{ UserID }])
 
 	const [kirjauduttu, setKirjauduttu] = useState(false);
 
@@ -68,25 +68,24 @@ const Card = ({ omakirja }) => {
 		setIsOpen(!isOpen);
 	}
 	return (
-		<div className="card">
-			<img src={omakirja.image} alt={omakirja.image} className='card_img' />
-			<div className="card-info">
-				<h2>{omakirja.title}</h2>
-				<p>Author: {omakirja.author}</p>
-				<p>Published: {omakirja.published}</p>
-				<p>Pages: {omakirja.pages}</p>
-				{isOpen && <OpenMore
-					handleClose={togglePopup}
-					content={<div>
-						<h1>{omakirja.title}</h1>
-						<h2>Author: {omakirja.author}</h2>
-						<h2>Published: {omakirja.published}</h2>
-						<h2>Pages: {omakirja.pages}</h2>
-						<img src={omakirja.image} className='popupcard' />
-					</div>}
-				/>}
-				<div>
-					<button onClick={togglePopup}>Lisätietoja</button>
+		<div className="card-container">
+			<div className="card" onClick={togglePopup}>
+				<img src={omakirja.image} alt={omakirja.image} className='card_img' />
+				<div className="card-info">
+					<h2>{omakirja.title}</h2>
+					<p>Author: {omakirja.author}</p>
+					<p>Published: {omakirja.published}</p>
+					<p>Pages: {omakirja.pages}</p>
+					{isOpen && <OpenMore
+						handleClose={togglePopup}
+						content={<div>
+							<h1>{omakirja.title}</h1>
+							<h2>Author: {omakirja.author}</h2>
+							<h2>Published: {omakirja.published}</h2>
+							<h2>Pages: {omakirja.pages}</h2>
+							<img src={omakirja.image} className='popupcard' />
+						</div>}
+					/>}
 				</div>
 			</div>
 		</div>
@@ -113,11 +112,12 @@ const FrontPage = ({ omatkirjat }) => {
 	// })
 
 	return (
-		<div >
+		<div>
+			<h1>Oma kirjasto</h1>
 			{/* <SearchBar onChange={setSearchTerm} /> */}
 			<div>
 				{omatkirjat.map((omakirja) => (
-					<Card key={omakirja.id} omakirja={omakirja}/>
+					<Card key={omakirja.id} omakirja={omakirja} />
 				))}
 			</div>
 		</div>

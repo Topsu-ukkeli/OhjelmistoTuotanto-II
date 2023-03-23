@@ -3,7 +3,7 @@ import "./Kirjat.css";
 import { Link } from 'react-router-dom'
 
 
-export const Kirjat = ({ UserID }) => {
+const Kirjat = ({ UserID }) => {
 	const [kirjat, setKirjat] = useState([]);
 	const [error, setError] = useState(null);
 	useEffect(() => {
@@ -30,10 +30,8 @@ export const Kirjat = ({ UserID }) => {
 	}, [])
 
 	return (
-		<div className='kirjat-container'>
-			<div id="custom-scrollbars__content" >
-				<FrontPage kirjat={kirjat} UserID={UserID} />
-			</div>
+		<div className="kirjat-container">
+			<FrontPage kirjat={kirjat} UserID={UserID} />
 		</div>
 	)
 }
@@ -89,9 +87,9 @@ const Card = ({ kirja, UserID }) => {
 		setIsOpen(!isOpen);
 	}
 	return (
-		<div>
-			<div className="card">
-				<img src={kirja.image} alt={kirja.image} className='card_img' />
+		<div className="card-container">
+			<div className="card" onClick={togglePopup}>
+				<img src={kirja.image} alt={kirja.image} className="card_img" />
 				<div className="card-info">
 					<h2>{kirja.title}</h2>
 					<p>Author: {kirja.author}</p>
@@ -108,8 +106,6 @@ const Card = ({ kirja, UserID }) => {
 						</div>}
 					/>}
 					<div>
-						<button onClick={togglePopup}>Lisätietoja</button>
-						<br />
 						<button onClick={AddtoOwn}>Lisää kirja omaan kirjastoon</button>
 						<br />
 						<button onClick={() => DeleteKirja(kirja)}>VAIN ADMIN VOI POISTAA!</button>
@@ -119,10 +115,11 @@ const Card = ({ kirja, UserID }) => {
 		</div>
 	);
 }
+
 const SearchBar = ({ onChange }) => {
 	return (
 		<div className="search-bar">
-			<label htmlFor="search-input">Hae kirjaa</label>
+			<label htmlFor="search-input">Hae:</label>
 			<input
 				id="search-input"
 				type="text"
@@ -134,19 +131,14 @@ const SearchBar = ({ onChange }) => {
 
 const FrontPage = ({ kirjat, UserID }) => {
 	const [searchTerm, setSearchTerm] = useState('');
-
 	const filteredBooks = kirjat.filter(kirja => {
 		return kirja.title.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase());
 	})
 
 	return (
 		<div>
+			<h1>Kirjat</h1>
 			<SearchBar onChange={setSearchTerm} />
-			<div className="nappiContainer">
-				<Link to="/Kirjalisaus">
-					<button>Lisää uusi kirja</button>
-				</Link>
-			</div>
 			<div>
 				{filteredBooks.map((kirja) => (
 					<Card key={kirja.id} kirja={kirja} UserID={UserID} />
@@ -155,4 +147,4 @@ const FrontPage = ({ kirjat, UserID }) => {
 		</div>
 	);
 }
-export { SearchBar, FrontPage, Card, OpenMore };
+export { Kirjat, SearchBar, FrontPage, Card, OpenMore };
