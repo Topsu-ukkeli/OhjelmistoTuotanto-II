@@ -34,21 +34,6 @@ const createdOmakirjasto = async (req, res, next) => {
         return next(error);
     }
 };
-// const getOmakirjasto = async (req, res, next) => {
-//     let OmaKirjasto;
-//     try {
-//         OmaKirjasto = await OmaKirjastos.find();
-//     } catch (err) {
-//         const error = new HttpError("Err", 418);
-//         return next(error);
-//     }
-//     if (!OmaKirjasto || OmaKirjasto.length == 0) {
-//         const error = new HttpError("Not found", 404);
-//         return next(error);
-//     }
-//     res.json(OmaKirjasto);
-// };
-
 const getOmakirjastoById = async(req,res,next) => {
     const UserID = req.params._id;
     let omakirjasto;
@@ -63,6 +48,28 @@ const getOmakirjastoById = async(req,res,next) => {
 
 
 }
+const DeleteOmakirja = async (req, res, next) => {
+    const omakirjaid = req.params._id;
+    let omakirja;
+    try {
+        omakirja = await OmaKirjastos.findById(omakirjaid);
+    } catch (err) {
+        const error = new HttpError('Could not delete kirja', 500);
+        return next(error);
+    }
+    if (!omakirja) {
+        const error = new HttpError('Could not find that kirja', 404);
+        return next(error);
+    }
+    try {
+        await OmaKirjastos.deleteOne({ _id: omakirjaid })
+    } catch (err) {
+        const error = new HttpError('Could not delete kirja', 500);
+        return next(error);
+    }
+
+    res.status(200).json({ message: 'Deleted omakirja' });
+}
 exports.createdOmakirjasto = createdOmakirjasto;
-// exports.getOmakirjasto = getOmakirjasto;
+exports.DeleteOmakirja = DeleteOmakirja;
 exports.getOmakirjastoById = getOmakirjastoById;

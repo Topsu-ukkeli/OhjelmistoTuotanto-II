@@ -38,7 +38,7 @@ const Login = ({ setUserID }) => {
 
 
     const handleKirjaudu = () => {
-        let KID = "";
+        let KID;
         users.map((user) => {
             if (käyttäjä === user.Username && user.Password === salasana) {
                 setKirjauduttu(true);

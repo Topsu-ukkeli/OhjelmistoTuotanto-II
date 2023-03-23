@@ -1,16 +1,25 @@
 .kirjatlisaus-container{
-    background-color: darkgray;
     display: flex;
     justify-content: center;
+    color:white;
+    flex-direction: column;
 }
-.labels{
+
+.inputs-container{
+    display: flex;
+    width: 90%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: green;
+}
+
+.inputs-container button{
+    width: 100px;
+    justify-content: center;
+    align-items: center;
+}
+
+.inputs-container label{
     font-size: x-large;
-    text-align: left;
-}
-.Kirja-input{
-    display: block;
-}
-.inputs{
-    text-align: center;
-    margin: 10%;
 }
