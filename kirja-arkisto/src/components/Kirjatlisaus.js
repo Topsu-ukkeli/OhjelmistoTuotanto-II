@@ -65,9 +65,9 @@ const Kirjatlisaus = () => {
     }
     return (
         <div className='kirjatlisaus-container'>
-            <h1 className="header">Kirjan lisäys</h1>
+            <h1>Kirjan lisäys</h1>
             {kirjauduttu ?(
-            <div className="inputs">
+            <div className="inputs-container">
                 <label className='labels'>
                     Kirjan nimi:
                     <input type="text" className='kirja-input' value={title} onChange={e => setTitle(e.target.value)}></input>
@@ -98,8 +98,9 @@ const Kirjatlisaus = () => {
                     SeriesID:
                     <input type="text" className='kirja-input' value={sarjaid} onChange={e => setSerieid(e.target.value)}></input>
                 </label>
-                <button onClick={Tallenna} type="submit">Tallenna uusi kirjasi</button>
+                <button onClick={Tallenna} type="submit">Tallenna uusi kirja</button>
             </div>
+            
             ) : (
             <div>
                 <h3>Kirjaudu sisään lisätäksesi kirja</h3>
