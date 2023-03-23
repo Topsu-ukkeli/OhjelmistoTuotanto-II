@@ -39,5 +39,35 @@ const getAllSarjas = async (req, res, next) => {
     }
     res.json(Sarja);
 };
+
+const DeleteSarjas = async (req, res, next) => {
+    const sarjaid = req.params._id;
+    console.log(`Received delete request for kirja with id: ${sarjaid}`);
+    let sarja;
+    try {
+        sarja = await Sarjas.findById(sarjaid);
+        console.log(`Found kirja: ${JSON.stringify(sarja)}`);
+    } catch (err) {
+        console.log(`Error finding kirja with id ${sarjaid}: ${err}`);
+        const error = new HttpError('Could not delete kirja', 500);
+        return next(error);
+    }
+    if (!sarja) {
+        const error = new HttpError('Could not find that kirja', 404);
+        return next(error);
+    }
+    try {
+        console.log(`Deleting kirja with id: ${sarja._id}`);
+        await Sarjas.deleteOne({ _id: sarjaid })
+        console.log(`Kirja with id ${sarja._id} deleted successfully`);
+    } catch (err) {
+        console.log(`Error deleting kirja with id ${sarjaid}: ${err}`);
+        const error = new HttpError('Could not delete kirja', 500);
+        return next(error);
+    }
+
+    res.status(200).json({ message: 'Deleted sarja' });
+}
+exports.DeleteSarjas = DeleteSarjas;
 exports.createdSarja = createdSarja;
 exports.getAllSarjas = getAllSarjas;
