@@ -38,7 +38,7 @@ const Login = ({ setUserID }) => {
 
 
     const handleKirjaudu = () => {
-        let KID = "";
+        let KID;
         users.map((user) => {
             if (käyttäjä === user.Username && user.Password === salasana) {
                 setKirjauduttu(true);
@@ -78,9 +78,9 @@ const Login = ({ setUserID }) => {
                             value={salasana} onChange={(event) => setSalasana(event.target.value)} />
                     </div>
                     <div>
-                        <button onClick={handleKirjaudu}>Kirjaudu</button>
+                        <button class="button-85" role="button" onClick={handleKirjaudu}>Kirjaudu</button>
                         <Link to="/register">
-                            <button>Rekisteröidy</button>
+                            <button class="button-85" role="button">Rekisteröidy</button>
                         </Link>
                     </div>
                 </div>

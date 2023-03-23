@@ -1,11 +1,14 @@
 //TÄNNE ADMIN OIKEUKSILLA TOIMIVAT JUTUT
 import React, { useState, useEffect } from 'react';
 import "./Admin.css";
+import { Link } from 'react-router-dom'
 
 
 const Admin = () => {
     const [kirjat, setKirjat] = useState([]);
     const [error, setError] = useState(null);
+    const [visible, setVisible] = useState(false);
+
     useEffect(() => {
         fetchUsers();
     }, [kirjat])
@@ -51,58 +54,96 @@ const Admin = () => {
         );
     };
 
+    const handleToggle = () => {
+        setVisible((current) => !current);
+    }
+
+    // function Tallenna() {
+    //     const newBook = {
+    //         title: title,
+    //         author: author,
+    //         published: published,
+    //         page: page,
+    //         image: image,
+    //         sarjaid: sarjaid
+    //     };
+    //     console.log("tähän tulee uusi kirja", newBook)
+    //     fetch("http://localhost:5000/api/Kirja/Kirjat", {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify(newBook)
+    //     })
+    //         .then(response => response.json())
+    //         .then(data => console.log(data))
+    //         .catch(error => console.error(error));
+    //         setShowmsg(true);
+    // }
+
 
     return (
         <div>
-            <div className="sarja-admin">
-                <h1>Sarjat:</h1>
-                {sarjat.map((sarja) => (
-                    <tr>
-                        <td>
-                            Sarjanimi:
-                            {sarja.Sarjanimi}
-                        </td>
-                        <td>
-                            Kustantaja:
-                            {sarja.Kustantaja}
-                        </td>
-                        <td>
-                            Kuvaus:
-                            {sarja.Kuvaus}
-                        </td>
-                        <td>
-                            Kunto:
-                            {sarja.Luokittelu}
-                        </td>
-                        <td>
-                            <button class="button-85" role="button" onClick={() => DeleteSarja(sarja)}>VAIN ADMIN VOI POISTAA!</button>
-                        </td>
-                    </tr>
-                ))}
-            </div>
+            <Link to="/Kirjalisaus">
+                <button class="button-85" role="button" >Lisää kirja tietokantaan</button>
+            </Link>
             <br />
-            <div className="kirja-admin">
-                <h1>Kirjat:</h1>
-                {kirjat.map((kirja) => (
-                    <tr>
-                        <td>
-                            Kirjanimi:
-                            {kirja.title}
-                        </td>
-                        <td>
-                            Kirjailija:
-                            {kirja.author}
-                        </td>
-                        <td>
-                            Julkaisuvuosi:
-                            {kirja.published}
-                        </td>
-                        <td>
-                            <button class="button-85" role="button" onClick={() => DeleteKirja(kirja)}>VAIN ADMIN VOI POISTAA!</button>
-                        </td>
-                    </tr>
-                ))}
-            </div>
+            <button class="button-85" role="button" onClick={() => handleToggle()}>Poista kirja tai sarja tietokannasta</button>
+            <br />
+            <button class="button-85" role="button">Muokkaa kirjaa</button>
+            {visible && (
+                <div className="sarja-admin">
+                    <h1>Sarjat:</h1>
+                    {sarjat.map((sarja) => (
+                        <tr>
+                            <td>
+                                Sarjanimi:
+                                {sarja.Sarjanimi}
+                            </td>
+                            <td>
+                                Kustantaja:
+                                {sarja.Kustantaja}
+                            </td>
+                            <td>
+                                Kuvaus:
+                                {sarja.Kuvaus}
+                            </td>
+                            <td>
+                                Kunto:
+                                {sarja.Luokittelu}
+                            </td>
+                            <td>
+                                <button onClick={DeleteSarja}>Poista sarja</button>
+                            </td>
+                        </tr>
+                    ))}
+                </div>
+            )}
+            < br />
+            {visible && (
+                <div className="kirja-admin">
+                    <h1>Kirjat:</h1>
+                    {kirjat.map((kirja) => (
+                        <tr>
+                            <td>
+                                Kirjanimi:
+                                {kirja.title}
+                            </td>
+                            <td>
+                                Kirjailija:
+                                {kirja.author}
+                            </td>
+                            <td>
+                                Julkaisuvuosi:
+                                {kirja.published}
+                            </td>
+                            <td>
+                                <button onClick={DeleteKirja}>Poista kirja </button>
+                            </td>
+                        </tr>
+                    ))}
+                </div>
+            )}
         </div>
     )
 }

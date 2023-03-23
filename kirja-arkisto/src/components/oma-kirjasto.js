@@ -14,7 +14,7 @@ const OmaKirjasto = ({ UserID }) => {
 	useEffect(() => {
 		const fetchUsers = async () => {
 			try {
-				console.log("kävin täällä", UserID);
+				console.log(UserID);
 				const response = await fetch(`http://localhost:5000/api/omakirjasto/${UserID}`);
 				const data = await response.json();
 				setOmatkirjat(data);
@@ -117,7 +117,7 @@ const FrontPage = ({ omatkirjat }) => {
 			{/* <SearchBar onChange={setSearchTerm} /> */}
 			<div>
 				{omatkirjat.map((omakirja) => (
-					<Card key={omakirja.id} omakirja={omakirja} />
+					<Card key={omakirja.id} omakirja={omakirja}/>
 				))}
 			</div>
 		</div>
