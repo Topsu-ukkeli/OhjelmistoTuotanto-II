@@ -65,31 +65,31 @@ const Kirjatlisaus = () => {
     }
     return (
         <div className='kirjatlisaus-container'>
-            <h1>Kirjan lisäys</h1>
+            <h1 className="header">Kirjan lisäys</h1>
             {kirjauduttu ?(
             <div className="inputs">
                 <label className='labels'>
-                    What is the title of the book?:
+                    Kirjan nimi:
                     <input type="text" className='kirja-input' value={title} onChange={e => setTitle(e.target.value)}></input>
                 </label>
                 <br />
                 <label className='labels'>
-                    Who is the author:
+                    Kirjoittaja:
                     <input type="text" className='kirja-input' value={author} onChange={e => setAuthor(e.target.value)}></input>
                 </label>
                 <br />
                 <label className='labels'>
-                    When was the book published:
+                    Julkaisuaika:
                     <input type="text" className='kirja-input' value={published} onChange={e => setPublished(e.target.value)}></input>
                 </label>
                 <br />
                 <label className='labels'>
-                    how many pages are there?:
+                    Sivumäärä:
                     <input type="text" className='kirja-input' value={page} onChange={e => setPages(e.target.value)}></input>
                 </label>
                 <br />
                 <label className='labels'>
-                    Select perfect image:
+                    Kansikuva:
                     <input type="text" className='kirja-input' value={image} onChange={e => setImage(e.target.value)}></input>
                 </label>
                 <br />

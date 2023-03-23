@@ -30,7 +30,7 @@ export const Kirjat = ({ UserID }) => {
 	}, [])
 
 	return (
-		<div>
+		<div className='kirjat-container'>
 			<div id="custom-scrollbars__content" >
 				<FrontPage kirjat={kirjat} UserID={UserID} />
 			</div>
@@ -89,7 +89,7 @@ const Card = ({ kirja, UserID }) => {
 		setIsOpen(!isOpen);
 	}
 	return (
-		<div className='kirjat-container'>
+		<div>
 			<div className="card">
 				<img src={kirja.image} alt={kirja.image} className='card_img' />
 				<div className="card-info">

@@ -37,7 +37,7 @@ const OmaKirjasto = ({ UserID }) => {
 	}, [])
 
 	return (
-		<div>
+		<div className="omakirjasto-container">
 			{kirjauduttu ? (
 				<FrontPage omatkirjat={omatkirjat} />
 			) : (
