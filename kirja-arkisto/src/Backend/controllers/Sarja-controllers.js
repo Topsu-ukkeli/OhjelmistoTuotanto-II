@@ -32,7 +32,6 @@ const getAllSarjas = async (req, res, next) => {
         const error = new HttpError("Err", 418);
         return next(error);
     }
-    console.log(Sarja);
     if (!Sarja || Sarja.length == 0) {
         const error = new HttpError("Not found", 404);
         return next(error);

@@ -1,23 +1,48 @@
 const HttpError = require("../models/http-error");
 const Kirjas = require("../models/Kirja");
 const mongoose = require("mongoose");
-
+const express = require('express');
+const { Readable } = require('stream');
+const { MongoClient, GridFSBucket } = require('mongodb');
 const createKirja = async (req, res, next) => {
     const { title, author, published, page, image, sarjaid } = req.body;
 
     try {
         const newid = new mongoose.Types.ObjectId().toHexString();
-        const createdKirja = new Kirjas({ //muuta kirja tiedot
+        const createdKirja = new Kirjas({
             _id: newid,
             title: title,
             author: author,
             published: published,
             page: page,
-            image: image,
+            image: null,
             sarjaid: sarjaid,
         });
 
-        console.log("serverin päässä saa", createdKirja);
+        // Create a readable stream from the image data
+        const readableImageStream = new Readable();
+        readableImageStream.push(image);
+        readableImageStream.push(null);
+
+        // Create a new GridFSBucket to store the image
+        const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+            bucketName: 'images',
+        });
+
+        // Create a write stream to the bucket
+        const uploadStream = bucket.openUploadStreamWithId(newid, title);
+
+        // Pipe the image data to the write stream
+        readableImageStream.pipe(uploadStream);
+
+        // Wait for the upload to finish
+        await new Promise((resolve, reject) => {
+            uploadStream.on('error', reject);
+            uploadStream.on('finish', resolve);
+        });
+
+        // Set the image field to the new ObjectId of the uploaded image
+        createdKirja.image = uploadStream.id;
 
         // Save the new kirja to the database
         await createdKirja.save();
@@ -25,7 +50,10 @@ const createKirja = async (req, res, next) => {
         res.status(201).json(createdKirja);
     } catch (err) {
         console.error(err);
-        const error = new HttpError("Could not create kirja. Please try again later.", 500);
+        const error = new HttpError(
+            'Could not create kirja. Please try again later.',
+            500
+        );
         return next(error);
     }
 };
@@ -72,7 +100,7 @@ const getAllKirjas = async (req, res, next) => {
     res.json(Kirja);
 };
 const updateKirjaById = async (req, res, next) => {
-    const { title, author, published, page, image, sarjaid} = req.body;
+    const { title, author, published, page, image, sarjaid } = req.body;
     const kirjasID = req.params._id;
 
     try {

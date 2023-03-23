@@ -101,7 +101,7 @@ const Kirjatlisaus = () => {
                 <br />
                 <label className='labels'>
                     Kansikuva:
-                    <input type="text" className='kirja-input' value={image} onChange={e => setImage(e.target.value)}></input>
+                    <input type="file" className='kirja-input' value={image} onChange={e => setImage(e.target.value)}></input>
                 </label>
                 <br />
                 <label className='labels'>
@@ -111,7 +111,6 @@ const Kirjatlisaus = () => {
                         {sarjas.map((sarja) => (
                             <option key={sarja.sarjaid} value={sarja.sarjaid}>{sarja.Sarjanimi}</option>
                         ))}
-                        
                     </select>
                 </label>
                 <button onClick={Tallenna} type="submit">Tallenna uusi kirja</button>
