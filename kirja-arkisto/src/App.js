@@ -17,9 +17,9 @@ function App() {
   //tällä muuttujalla viedään tietoa onko kirjauduttu vai ei komponentiltä toiselle
   //jäi vähän kesken mut jotakuinkin tuolleen
   const [kirjauduttuData, setKirjauduttuData] = useState(false);
-  const [UserID, setUserID] = useState("");
+  const [UserID, setUserID] = useState();
   useEffect(() => {
-    const userid =  localStorage.getItem("user");
+    const userid =  JSON.parse(localStorage.getItem("user"));
     console.log("userid saa",userid)
     if(userid)
     {
