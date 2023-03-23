@@ -6,6 +6,7 @@ const KirjaControllers = require('../controllers/Kirja-controllers');
 const router = express.Router();
 
 router.delete('/deletekirja/:_id',KirjaControllers.deleteKirjas);
+router.patch('/:_id',KirjaControllers.updateKirjaById);
 router.post('/kirjat', KirjaControllers.createKirja);
 router.get('/',KirjaControllers.getAllKirjas);
 module.exports = router;

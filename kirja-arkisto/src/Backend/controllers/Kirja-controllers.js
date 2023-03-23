@@ -71,6 +71,47 @@ const getAllKirjas = async (req, res, next) => {
     }
     res.json(Kirja);
 };
+const updateKirjaById = async (req, res, next) => {
+    const { title, author, published, page, image, sarjaid} = req.body;
+    const kirjasID = req.params._id;
+
+    try {
+        const kirjas = await Kirjas.findById(kirjasID);
+
+        if (kirjas) {
+            const existingKirja = await Kirjas.findOne({
+                $and: [{ _id: { $ne: kirjasID } }, { $or: [{ title }] }],
+            });
+            if (existingKirja) {
+                const error = new HttpError(
+                    "Käyttäjänimi tai sähköposti on jo käytössä",
+                    422
+                );
+                return next(error);
+            }
+
+            kirjas.title = title;
+            kirjas.author = author;
+            kirjas.published = published;
+            kirjas.image = image;
+            kirjas.page = page;
+            kirjas.sarjaid = sarjaid;
+
+            await kirjas.save();
+            console.log(kirjas, "Käyttäjä päivitetty");
+
+            res.json({ Kirjas: kirjas.toObject({ getters: true }) });
+        } else {
+            const error = new HttpError("Käyttäjää ei löydetty", 404);
+            return next(error);
+        }
+    } catch (err) {
+        console.log(err);
+        const error = new HttpError("Server error", 500);
+        return next(error);
+    }
+};
 exports.createKirja = createKirja;
 exports.getAllKirjas = getAllKirjas;
 exports.deleteKirjas = deleteKirjas;
+exports.updateKirjaById = updateKirjaById;

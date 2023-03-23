@@ -53,5 +53,68 @@ const getAllUsers = async (req, res, next) => {
     }
     res.json(User);
 };
+const DeleteUser = async (req, res, next) => {
+    const usersID = req.params._id;
+    let users;
+    try {
+        users = await Users.findById(usersID);
+    } catch (err) {
+        const error = new HttpError('Could not delete kirja', 500);
+        return next(error);
+    }
+    if (!users) {
+        const error = new HttpError('Could not find that kirja', 404);
+        return next(error);
+    }
+    try {
+        await Users.deleteOne({ _id: usersID })
+    } catch (err) {
+        const error = new HttpError('Could not delete kirja', 500);
+        return next(error);
+    }
+
+    res.status(200).json({ message: 'Deleted sarja' });
+}
+
+const updateUserById = async (req, res, next) => {
+    const { Name, Username, Password, Email } = req.body;
+    const userID = req.params._id;
+
+    try {
+        const user = await Users.findById(userID);
+
+        if (user) {
+            const existingUser = await Users.findOne({
+                $and: [{ _id: { $ne: userID } }, { $or: [{ Username }, { Email }] }],
+            });
+            if (existingUser) {
+                const error = new HttpError(
+                    "Käyttäjänimi tai sähköposti on jo käytössä",
+                    422
+                );
+                return next(error);
+            }
+
+            user.Name = Name;
+            user.Username = Username;
+            user.Password = Password;
+            user.Email = Email;
+
+            await user.save();
+            console.log(user, "Käyttäjä päivitetty");
+
+            res.json({ Users: user.toObject({ getters: true }) });
+        } else {
+            const error = new HttpError("Käyttäjää ei löydetty", 404);
+            return next(error);
+        }
+    } catch (err) {
+        console.log(err);
+        const error = new HttpError("Server error", 500);
+        return next(error);
+    }
+};
 exports.createdUser = createdUser;
 exports.getAllUsers = getAllUsers;
+exports.updateUserById = updateUserById;
+exports.DeleteUser = DeleteUser;
