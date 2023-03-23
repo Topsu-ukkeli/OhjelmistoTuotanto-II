@@ -71,8 +71,6 @@ const Card = ({ omakirja }) => {
 		<div className="card">
 			<img src={omakirja.image} alt={omakirja.image} className='card_img' />
 			<div className="card-info">
-				<p>{omakirja._id}</p>
-				<h4>{omakirja.UserID}</h4>
 				<h2>{omakirja.title}</h2>
 				<p>Author: {omakirja.author}</p>
 				<p>Published: {omakirja.published}</p>

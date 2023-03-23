@@ -14,7 +14,7 @@ const Kirjatlisaus = () => {
     const [image, setImage] = useState('');
     const [sarjaid, setSerieid] = useState('');
     const [showMsg, setShowmsg] = useState(false);
-
+    const [sarjas, setSarjas] = useState([]);
 	const [kirjauduttu, setKirjauduttu] = useState(false);
 
 	useEffect(() => {
@@ -22,7 +22,18 @@ const Kirjatlisaus = () => {
 		setKirjauduttu(JSON.parse(kirjautumisdata));
 	}, [])
 
-
+    useEffect(() => {
+        const getSarjat = async () => {
+            try {
+                const response = await fetch("http://localhost:5000/api/sarja/");
+                const data = await response.json();
+                setSarjas(data);
+            }
+            catch (err) {
+            }
+        }
+        getSarjat();
+    })
     // const Tallenna = () => {
     //     const newBook = {
     //         title:title,
@@ -96,7 +107,12 @@ const Kirjatlisaus = () => {
                 <label className='labels'>
                     {/* Vaihdetaan tähän select option jotta voi valita sarjan ja saadaan se id oikein  */}
                     SeriesID:
-                    <input type="text" className='kirja-input' value={sarjaid} onChange={e => setSerieid(e.target.value)}></input>
+                    <select className='kirja-input' onChange={(e) => setSerieid(e.target.value)}>
+                        {sarjas.map((sarja) => (
+                            <option key={sarja.sarjaid} value={sarja.sarjaid}>{sarja.Sarjanimi}</option>
+                        ))}
+                        
+                    </select>
                 </label>
                 <button onClick={Tallenna} type="submit">Tallenna uusi kirja</button>
             </div>
