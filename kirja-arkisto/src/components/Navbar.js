@@ -18,10 +18,10 @@ export const Navbar = ({ login }) => {
             localStorage.setItem('KIRJAUDUTTU_DATA', JSON.stringify(kirjauduttu));
         }, 300);
     }, [kirjauduttu]);
-    useEffect(()=>{
+    useEffect(() => {
         const id = JSON.parse(localStorage.getItem("user"));
-        if(id){
-            if(id === "641af8330931caa8ce2343ff"){
+        if (id) {
+            if (id === "641af8330931caa8ce2343ff") {
                 setKid(true);
             }
         }
@@ -49,9 +49,7 @@ export const Navbar = ({ login }) => {
                 <li className="nav-item">
                     <Link to="/Sarjat" className="nav-link">Sarjat</Link>
                 </li>
-                <li className="nav-item">
-                    <Link to="/oma-kirjasto" className="nav-link">Oma kirjasto</Link>
-                </li>
+
                 <li className="nav-item">
                     <Link to="/Kirjat" className="nav-link">Kirjat</Link>
                 </li>
@@ -60,6 +58,9 @@ export const Navbar = ({ login }) => {
                         <Link to="/admin" className="nav-link">ADMIN</Link>
                     </li>
                 )}
+                <li className="nav-item">
+                    <Link to="/oma-kirjasto" className="nav-link">Oma kirjasto</Link>
+                </li>
                 <li>
                     {!kirjauduttu &&
                         <Link to="/login" className="nav-link">Kirjaudu sisään</Link>

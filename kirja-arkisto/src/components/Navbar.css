@@ -34,7 +34,7 @@ li {
 }
 
 
-li:last-of-type{
+li:nth-last-of-type(2){
     margin-left: auto;
     gap: 10px;
     padding-left: 20px;
