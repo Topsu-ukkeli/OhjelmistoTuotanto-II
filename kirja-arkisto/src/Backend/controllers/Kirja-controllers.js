@@ -1,62 +1,93 @@
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+
 const HttpError = require("../models/http-error");
 const Kirjas = require("../models/Kirja");
 const mongoose = require("mongoose");
-const express = require('express');
-const { Readable } = require('stream');
-const { MongoClient, GridFSBucket } = require('mongodb');
+
+
+const Storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, path.join(__dirname, "../../../public"));
+    },
+    filename: (req, file, cb) => {
+        const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+        cb(null, `${file.fieldname}-${uniqueSuffix}.png`);
+    },
+});
+
+const fileFilter = (req, file, callback) => {
+	const extension = path.extname(file.originalname).toLowerCase();
+	if (![".png", ".jpg", ".jpeg", ".gif", ".pdf"].includes(extension)) {
+		return callback(
+			new Error(
+				`Extension not allowed, accepted extensions are .png, .jpg, .jpeg, .gif, .pdf`
+			)
+		);
+	}
+	callback(null, true);
+};
+
+const LetterBomb = multer({
+    storage: Storage,
+    limits: { fileSize: 8 * 1024 * 1024 },
+    fileFilter,
+});
+
 const createKirja = async (req, res, next) => {
-    const { title, author, published, page, image, sarjaid } = req.body;
+    LetterBomb.single("image")(req, res, async function (err) {
+        if (err) {
+            console.error("Error:", err);
+            return res.status(500).json({ message: "Virhe.", err });
+        } else {
+            const file = req.file;
+            console.log(file);
 
+            const { title, author, published, page, sarjaid } = req.body;
+
+            const newid = new mongoose.Types.ObjectId().toHexString();
+
+            const createdKirja = new Kirjas({
+                _id: newid,
+                title: title,
+                author: author,
+                published: published,
+                page: page,
+                image: file.path,
+                sarjaid: sarjaid,
+            });
+
+            try {
+                await createdKirja.save();
+            }
+            catch (err) {
+                const error = new HttpError("Virhe", 500);
+                return next(error);
+            }
+        }
+    });
+};
+
+const getKirjaById = async (req, res, next) => {
+    const kirjaId = req.params._id;
+    console.log(`Received get request for kirja with id: ${kirjaId}`);
+    let kirja;
     try {
-        const newid = new mongoose.Types.ObjectId().toHexString();
-        const createdKirja = new Kirjas({
-            _id: newid,
-            title: title,
-            author: author,
-            published: published,
-            page: page,
-            image: null,
-            sarjaid: sarjaid,
-        });
-
-        // Create a readable stream from the image data
-        const readableImageStream = new Readable();
-        readableImageStream.push(image);
-        readableImageStream.push(null);
-
-        // Create a new GridFSBucket to store the image
-        const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
-            bucketName: 'images',
-        });
-
-        // Create a write stream to the bucket
-        const uploadStream = bucket.openUploadStreamWithId(newid, title);
-
-        // Pipe the image data to the write stream
-        readableImageStream.pipe(uploadStream);
-
-        // Wait for the upload to finish
-        await new Promise((resolve, reject) => {
-            uploadStream.on('error', reject);
-            uploadStream.on('finish', resolve);
-        });
-
-        // Set the image field to the new ObjectId of the uploaded image
-        createdKirja.image = uploadStream.id;
-
-        // Save the new kirja to the database
-        await createdKirja.save();
-
-        res.status(201).json(createdKirja);
+        kirja = await Kirjas.findById(kirjaId);
+        console.log(`Found kirja: ${JSON.stringify(kirja)}`);
     } catch (err) {
-        console.error(err);
-        const error = new HttpError(
-            'Could not create kirja. Please try again later.',
-            500
-        );
+        console.log(`Error finding kirja with id ${kirjaId}: ${err}`);
+        const error = new HttpError('Could not find kirja', 500);
         return next(error);
     }
+    if (!kirja) {
+        const error = new HttpError('Could not find that kirja', 404);
+        return next(error);
+    }
+    res.json(kirja);
 };
+
 const deleteKirjas = async (req, res, next) => {
     const kirjaId = req.params._id;
     console.log(`Received delete request for kirja with id: ${kirjaId}`);
@@ -85,6 +116,7 @@ const deleteKirjas = async (req, res, next) => {
 
     res.status(200).json({ message: 'Deleted kirja' });
 }
+
 const getAllKirjas = async (req, res, next) => {
     let Kirja;
     try {
@@ -99,6 +131,7 @@ const getAllKirjas = async (req, res, next) => {
     }
     res.json(Kirja);
 };
+
 const updateKirjaById = async (req, res, next) => {
     const { title, author, published, page, image, sarjaid } = req.body;
     const kirjasID = req.params._id;
@@ -139,7 +172,20 @@ const updateKirjaById = async (req, res, next) => {
         return next(error);
     }
 };
+
+const deleteAllKirjas = async (req, res, next) => {
+    try {
+        await Kirjas.deleteMany({});
+        res.status(200).json({ message: "Deleted all kirjas" });
+    } catch (err) {
+        const error = new HttpError("Server error", 500);
+        return next(error);
+    }
+};
+
+exports.deleteAllKirjas = deleteAllKirjas;
 exports.createKirja = createKirja;
 exports.getAllKirjas = getAllKirjas;
 exports.deleteKirjas = deleteKirjas;
 exports.updateKirjaById = updateKirjaById;
+exports.getKirjaById = getKirjaById;

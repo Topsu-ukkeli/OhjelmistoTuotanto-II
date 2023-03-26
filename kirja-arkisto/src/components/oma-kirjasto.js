@@ -36,6 +36,8 @@ const OmaKirjasto = ({ UserID }) => {
 		setKirjauduttu(JSON.parse(kirjautumisdata));
 	}, [])
 
+
+
 	return (
 		<div className="omakirjasto-container">
 			{kirjauduttu ? (
@@ -67,6 +69,11 @@ const Card = ({ omakirja }) => {
 	const togglePopup = () => {
 		setIsOpen(!isOpen);
 	}
+
+	const handleRemoveFromOwn = () => {
+		console.log("kirja pitäs varmaan poistaa omastakirjastosta");
+		};
+		
 	return (
 		<div className="card-container">
 			<div className="card" onClick={togglePopup}>
@@ -84,6 +91,7 @@ const Card = ({ omakirja }) => {
 							<h2>Author: {omakirja.author}</h2>
 							<h2>Published: {omakirja.published}</h2>
 							<h2>Pages: {omakirja.pages}</h2>
+							<button onClick={handleRemoveFromOwn}>Poista omasta kirjastosta</button>
 						</div>}
 					/>}
 				</div>

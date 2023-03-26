@@ -1,8 +1,8 @@
-.video{
+.video {
   position: fixed;
   width: 100%;
   left: 50%;
-  top:50%;
+  top: 50%;
   height: 100%;
   object-fit: cover;
   transform: translate(-50%, -50%);
@@ -10,42 +10,42 @@
   overflow: hidden;
 }
 
-  .home-container{
-    display: flex;
-    padding: 10px;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
+.home-container {
+  display: flex;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
-  .saateteksti{
-    width: 70%;
-    text-align: center;
-    color:white;
-  }
+.saateteksti {
+  width: 70%;
+  text-align: center;
+  color: white;
+}
 
-  .saateteksti p{
-    font-size: medium;
-  }
+.saateteksti p {
+  font-size: medium;
+}
 
-  .postaus-container{
-    display: flex;
-    width: 90%;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 20px;
-  }
+.postaus-container {
+  display: flex;
+  width: 90%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
 
-  .postaus{
-    display: wrap;
-    background-color: rgb(110, 110, 110);
-    width: 51%;
-    padding: 15px;
-    align-items: center;
-    justify-content: center;
-    }
+.postaus {
+  display: wrap;
+  background-color: rgb(110, 110, 110);
+  width: 51%;
+  padding: 15px;
+  align-items: center;
+  justify-content: center;
+}
 
-.postaus img{
+.postaus img {
   max-height: 352px;
 }

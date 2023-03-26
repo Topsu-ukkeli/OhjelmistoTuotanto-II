@@ -24,6 +24,59 @@ const createdSarja = async (req, res, next) => {
     }
     res.status(201).json(createdSarja);
 };
+
+exports.getSarjaImage = async (req, res, next) => {
+    const sarjaid = req.params._id;
+    let sarja;
+    try {
+        sarja = await Sarjas.findById(sarjaid);
+    } catch (err) {
+        const error = new HttpError("Could not find sarja", 500);
+        return next(error);
+    }
+    if (!sarja || !sarja.image) {
+        const error = new HttpError("Could not find sarja", 404);
+        return next(error);
+    }
+
+    // Retrieve the image using GridFS
+    try {
+        const client = await MongoClient.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+        const db = client.db();
+        const gfs = Grid(db, mongoose.mongo);
+
+        const imageId = sarja.image;
+        const readStream = gfs.createReadStream({ _id: imageId });
+
+        readStream.on('error', (err) => {
+            console.log('Error reading image:', err);
+            res.status(404).send('Image not found');
+        });
+
+        res.set('Content-Type', 'image/jpeg');
+        readStream.pipe(res);
+    } catch (error) {
+        console.log('Error connecting to MongoDB:', error);
+        res.status(500).send('Internal server error');
+    }
+};
+
+const getSarjabyId = async (req, res, next) => {
+    const sarjaid = req.params._id;
+    let sarja;
+    try {
+        sarja = await Sarjas.findById(sarjaid);
+    } catch (err) {
+        const error = new HttpError("Could not find sarja", 500);
+        return next(error);
+    }
+    if (!sarja) {
+        const error = new HttpError("Could not find sarja", 404);
+        return next(error);
+    }
+    res.json(sarja);
+};
+
 const getAllSarjas = async (req, res, next) => {
     let Sarja;
     try {
@@ -111,3 +164,4 @@ exports.DeleteSarjas = DeleteSarjas;
 exports.createdSarja = createdSarja;
 exports.getAllSarjas = getAllSarjas;
 exports.updateSarjaById = updateSarjaById;
+exports.getSarjabyId = getSarjabyId;

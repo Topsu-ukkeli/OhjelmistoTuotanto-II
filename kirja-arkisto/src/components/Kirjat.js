@@ -8,7 +8,7 @@ const Kirjat = ({ UserID }) => {
 	const [error, setError] = useState(null);
 	useEffect(() => {
 
-	},[]);
+	}, []);
 	useEffect(() => {
 		fetchUsers();
 	}, [kirjat])
@@ -86,12 +86,22 @@ const Card = ({ kirja, UserID }) => {
 	const togglePopup = () => {
 		setIsOpen(!isOpen);
 	}
+
+	const parsePicturePath = (picture) => {
+		const Slash = picture.lastIndexOf("\\");
+		if (Slash === -1) {
+			console.log(picture);
+			return picture;
+		}
+		return picture.substring(Slash + 1).replace(/\\/g, "/");
+	};
+
 	return (
 		<div className="card-container">
 			<div className="card" onClick={togglePopup}>
 				<div className="card-info">
 					<h2>{kirja.title}</h2>
-					<img src={kirja.image} alt={kirja.image} className="card_img" />
+					<img src={parsePicturePath(kirja.image)} alt="img" className="card_img" />
 					<p>Author: {kirja.author}</p>
 					<p>Published: {kirja.published}</p>
 					<p>Pages: {kirja.pages}</p>
@@ -99,7 +109,7 @@ const Card = ({ kirja, UserID }) => {
 						handleClose={togglePopup}
 						content={<div>
 							<h1>{kirja.title}</h1>
-							<img src={kirja.image} className='popupcard' />
+							<img src={parsePicturePath(kirja.image)} className='popupcard' />
 							<h2>Author: {kirja.author}</h2>
 							<h2>Published: {kirja.published}</h2>
 							<h2>Pages: {kirja.pages}</h2>

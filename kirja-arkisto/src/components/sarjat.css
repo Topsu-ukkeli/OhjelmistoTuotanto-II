@@ -27,7 +27,7 @@ body{
   justify-content: center;
   align-items: center;
   padding: 10px;
-  width: 98%;
+  width: 100%;
 }
 
 .search-bar{
@@ -49,28 +49,30 @@ body{
 .card {
     overflow: hidden;
     color:black;
-    box-shadow: 0 2px 20px lightgrey;
+    box-shadow: 0 0px 10px rgb(0, 0, 0);
     cursor: pointer;
     margin: auto;
     width: 400px;
     height: 400px;
-    background-color: darkgray;
+    background-color: rgb(255, 255, 255);
+    border-radius: 5%;
 }
 
 .card_img {
-    height: 20rem;
-    width: 40%;
+    max-height: 120px;
+    width: auto;
     object-fit: cover;
     margin: auto;
 }
 
 .card:hover {
     border: 2px solid rgb(6, 90, 247);
-    box-shadow: 0 0 15px #333;
+    border-radius: 0%;
+    /* box-shadow: 0 0 15px #333;
     -webkit-box-shadow: 0 0 15px #333;
     -moz-box-shadow: 0 0 15px #333;
     -o-box-shadow: 0 0 15px #333;
-    -ms-box-shadow: 0 0 15px #333;
+    -ms-box-shadow: 0 0 15px #333; */
 }
 
 .cardtitle {

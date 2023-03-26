@@ -8,4 +8,6 @@ router.post('/create/', SarjaControllers.createdSarja);
 router.patch('/:_id',SarjaControllers.updateSarjaById);
 router.delete('/:_id', SarjaControllers.DeleteSarjas);
 router.get('/',SarjaControllers.getAllSarjas);
+router.get('/image/:_id',SarjaControllers.getSarjaImage);
+router.get('/:_id',SarjaControllers.getSarjabyId);
 module.exports = router;

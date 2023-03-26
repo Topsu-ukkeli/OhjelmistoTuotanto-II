@@ -57,7 +57,7 @@ const Card = ({ sarja }) => {
 			<div className="card" onClick={togglePopup}>
 				<div className="card-info">
 					<h1>{sarja.Sarjanimi}</h1>
-					<img src={sarja.image} alt={sarja.image} className="card_img" />
+					<img src={sarja.image} alt="img" className="card_img" />
 					<p>Kuvaus: {sarja.Kuvaus}</p>
 					<p>Luokittelu: {sarja.Luokittelu}</p>
 					{/* Tähän tulee toinen nappi jolla voit lisätä tämän kyseisen kirjan itsellesi jahka saadaan se mongo toimimaan -Topi */}
@@ -66,7 +66,7 @@ const Card = ({ sarja }) => {
 						handleClose={togglePopup}
 						content={<div>
 							<h1>{sarja.Sarjanimi}</h1>
-							<img src={sarja.image} alt={sarja.image} className='popupcard' />
+							<img src={(sarja.image)} alt="img" className='popupcard' />
 							<h2>Kuvaus: {sarja.Kuvaus}</h2>
 							<h2>Luokittelu: {sarja.Luokittelu}</h2>
 						</div>}
