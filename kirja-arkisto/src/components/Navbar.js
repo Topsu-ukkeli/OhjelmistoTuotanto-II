@@ -49,7 +49,6 @@ export const Navbar = ({ login }) => {
                 <li className="nav-item">
                     <Link to="/Sarjat" className="nav-link">Sarjat</Link>
                 </li>
-
                 <li className="nav-item">
                     <Link to="/Kirjat" className="nav-link">Kirjat</Link>
                 </li>

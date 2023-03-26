@@ -70,9 +70,9 @@ const Card = ({ omakirja }) => {
 	return (
 		<div className="card-container">
 			<div className="card" onClick={togglePopup}>
-				<img src={omakirja.image} alt={omakirja.image} className='card_img' />
 				<div className="card-info">
 					<h2>{omakirja.title}</h2>
+					<img src={omakirja.image} alt={omakirja.image} className='card_img' />
 					<p>Author: {omakirja.author}</p>
 					<p>Published: {omakirja.published}</p>
 					<p>Pages: {omakirja.pages}</p>
@@ -80,10 +80,10 @@ const Card = ({ omakirja }) => {
 						handleClose={togglePopup}
 						content={<div>
 							<h1>{omakirja.title}</h1>
+							<img src={omakirja.image} className='popupcard' />
 							<h2>Author: {omakirja.author}</h2>
 							<h2>Published: {omakirja.published}</h2>
 							<h2>Pages: {omakirja.pages}</h2>
-							<img src={omakirja.image} className='popupcard' />
 						</div>}
 					/>}
 				</div>

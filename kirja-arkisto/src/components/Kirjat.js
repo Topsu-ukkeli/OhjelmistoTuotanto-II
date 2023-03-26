@@ -81,17 +81,17 @@ const Card = ({ kirja, UserID }) => {
 				method: "DELETE",
 			}
 		);
-
 	};
+
 	const togglePopup = () => {
 		setIsOpen(!isOpen);
 	}
 	return (
 		<div className="card-container">
 			<div className="card" onClick={togglePopup}>
-				<img src={kirja.image} alt={kirja.image} className="card_img" />
 				<div className="card-info">
 					<h2>{kirja.title}</h2>
+					<img src={kirja.image} alt={kirja.image} className="card_img" />
 					<p>Author: {kirja.author}</p>
 					<p>Published: {kirja.published}</p>
 					<p>Pages: {kirja.pages}</p>
@@ -99,10 +99,10 @@ const Card = ({ kirja, UserID }) => {
 						handleClose={togglePopup}
 						content={<div>
 							<h1>{kirja.title}</h1>
+							<img src={kirja.image} className='popupcard' />
 							<h2>Author: {kirja.author}</h2>
 							<h2>Published: {kirja.published}</h2>
 							<h2>Pages: {kirja.pages}</h2>
-							<img src={kirja.image} className='popupcard' />
 						</div>}
 					/>}
 					<div>
@@ -118,9 +118,9 @@ const Card = ({ kirja, UserID }) => {
 
 const SearchBar = ({ onChange }) => {
 	return (
-		<div className="search-bar">
+		<div className="search-bar-container">
 			<label htmlFor="search-input">Hae:</label>
-			<input
+			<input className="search-bar"
 				id="search-input"
 				type="text"
 				onChange={(event) => onChange(event.target.value)}

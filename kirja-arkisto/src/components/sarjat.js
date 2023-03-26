@@ -55,9 +55,9 @@ const Card = ({ sarja }) => {
 	return (
 		<div className="card-container">
 			<div className="card" onClick={togglePopup}>
-				<img src={sarja.image} alt={sarja.image} className="card_img" />
 				<div className="card-info">
 					<h1>{sarja.Sarjanimi}</h1>
+					<img src={sarja.image} alt={sarja.image} className="card_img" />
 					<p>Kuvaus: {sarja.Kuvaus}</p>
 					<p>Luokittelu: {sarja.Luokittelu}</p>
 					{/* Tähän tulee toinen nappi jolla voit lisätä tämän kyseisen kirjan itsellesi jahka saadaan se mongo toimimaan -Topi */}
@@ -66,9 +66,9 @@ const Card = ({ sarja }) => {
 						handleClose={togglePopup}
 						content={<div>
 							<h1>{sarja.Sarjanimi}</h1>
+							<img src={sarja.image} alt={sarja.image} className='popupcard' />
 							<h2>Kuvaus: {sarja.Kuvaus}</h2>
 							<h2>Luokittelu: {sarja.Luokittelu}</h2>
-							<img src={sarja.image} alt={sarja.image} className='popupcard' />
 						</div>}
 					/>}
 				</div>
@@ -79,9 +79,9 @@ const Card = ({ sarja }) => {
 
 const SearchBar = ({ onChange }) => {
 	return (
-		<div className="search-bar">
+		<div className="search-bar-container">
 			<label htmlFor="search-input">Hae:</label>
-			<input
+			<input className="search-bar"
 				id="search-input"
 				type="text"
 				onChange={(event) => onChange(event.target.value)}
