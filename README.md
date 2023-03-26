@@ -31,7 +31,8 @@ npm install --save nodemon
 npm install init
 npm install --save express body-parser
 npm install cors
-npm install formidable
+npm install formidable // tämä saatettiin korvata multerilla, eos tarvitaanko tätä enää
+npm install multer
 
 Tämä kirja arkistoon:
 npm install --save react-toastify
