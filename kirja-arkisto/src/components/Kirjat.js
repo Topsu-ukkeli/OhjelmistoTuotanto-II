@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import "./Kirjat.css";
 import { Link } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Kirjat = ({ UserID }) => {
@@ -51,6 +53,8 @@ const Card = ({ kirja, UserID }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [omatkirjat, setOmatkirjat] = useState([]);
 	const [error, setError] = useState(null);
+	const [onnistui, setOnnistui] = useState(null);
+
 	const AddtoOwn = () => {
 		console.log("muuttuuko tämä", omatkirjat);
 		const newBook = {
@@ -70,9 +74,24 @@ const Card = ({ kirja, UserID }) => {
 			},
 			body: JSON.stringify(newBook)
 		})
-			.then(response => response.json())
-			.then(data => console.log(data))
-			.catch(error => console.error(error));
+			.then(response => {
+				if (!response.ok) {
+					console.log("vastaus on", response);
+					setOnnistui(false);
+					throw new Error('Failed to add book to own library');
+				}
+				if (response.ok) {
+					toast.success('Kirjan lisäys onnistui!');
+					setOnnistui(true);
+				}
+				return response.json();
+			})
+			.then(data => {
+				console.log(data);
+			})
+			.catch(error => {
+				console.error(error);
+			});
 	}
 
 
@@ -107,9 +126,19 @@ const Card = ({ kirja, UserID }) => {
 							<h2>Author: {kirja.author}</h2>
 							<h2>Published: {kirja.published}</h2>
 							<h2>Pages: {kirja.page}</h2>
-							<h2>Kirjan kuvaus:<br/>{kirja.kuvaus}</h2>
-							<h2>Kirjan kuvituksen on piirtäny <br/> {kirja.piirtajat}</h2>
+							<h2>Kirjan kuvaus:<br />{kirja.kuvaus}</h2>
+							<h2>Kirjan kuvituksen on piirtäny <br /> {kirja.piirtajat}</h2>
 							<button onClick={AddtoOwn}>Lisää omaan kirjastoon</button>
+							{onnistui == false &&
+								<h3 style={{ color: "red" }}>Kirjan lisäys ei onnistunut</h3>
+							}
+							<ToastContainer
+								position="bottom-center"
+								hideProgressBar={false}
+								closeOnClick
+								pauseOnHover
+								theme="light"
+								autoClose={5000} />
 						</div>}
 					/>}
 				</div>

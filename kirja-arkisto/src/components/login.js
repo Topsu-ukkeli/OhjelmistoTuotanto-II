@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './login.css';
 import { Link } from 'react-router-dom'
-const Login = ({ setUserID }) => {
+const Login = ({ setUserID, setAdminlogged, setKirjauduttu, kirjauduttu }) => {
     const [käyttäjä, setKäyttäjä] = useState('');
     const [salasana, setSalasana] = useState('');
-    const [kirjauduttu, setKirjauduttu] = useState(false);
     const [users, setUser] = useState([]);
     const [error, setError] = useState(null);
 
@@ -27,7 +26,7 @@ const Login = ({ setUserID }) => {
     // tässä koitetaan tallentaa tietoa localstorageen kirjautumisesta mutta eihän se vittu toimi
     useEffect(() => {
         const kirjautumisdata = localStorage.getItem('KIRJAUDUTTU_DATA');
-        setKirjauduttu(JSON.parse(kirjautumisdata));
+        //setKirjauduttu(JSON.parse(kirjautumisdata));
     }, [])
 
     useEffect(() => {
@@ -44,6 +43,12 @@ const Login = ({ setUserID }) => {
                 setKirjauduttu(true);
                 KID = user._id;
                 localStorage.setItem("user", JSON.stringify(KID));
+                setKirjauduttu(true);
+                if (KID === "641af8330931caa8ce2343ff") {
+                    setAdminlogged(true);
+                } else {
+                    setAdminlogged(false);
+                }
             }
         })
         // setKirjauduttuData(true);

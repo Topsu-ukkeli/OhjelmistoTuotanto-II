@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom'
 import './Navbar.css';
 import logo from '../images/logo.png'
 
-export const Navbar = ({ login }) => {
-    const [kirjauduttu, setKirjauduttu] = useState(false);
+export const Navbar = ({ login, adminlogged, setAdminlogged, setKirjauduttu, kirjauduttu }) => {
     const [Kid, setKid] = useState(false);
 
     useEffect(() => {
@@ -12,6 +11,17 @@ export const Navbar = ({ login }) => {
         if (kirjautumisdata !== null)
             setKirjauduttu(JSON.parse(kirjautumisdata));
     }, [])
+
+    useEffect(() => {
+		const id = JSON.parse(localStorage.getItem("user"));
+		if (id) {
+			if (id === "641af8330931caa8ce2343ff") {
+				setAdminlogged(true);
+			} else {
+				setAdminlogged(false);
+			}
+		}
+	}, [setAdminlogged, adminlogged]);
 
     useEffect(() => {
         setTimeout(() => {
@@ -30,12 +40,11 @@ export const Navbar = ({ login }) => {
         console.log("kävin poistossa");
         try {
             localStorage.removeItem("user");
+            setAdminlogged(false);
+            setKirjauduttu(false);
         } catch (err) {
             console.log("ei heitä");
         }
-
-        setKirjauduttu(false);
-        // setKirjauduttuData(false);
     }
     return (
         <nav className="navbar">
@@ -52,7 +61,7 @@ export const Navbar = ({ login }) => {
                 <li className="nav-item">
                     <Link to="/Kirjat" className="nav-link">Kirjat</Link>
                 </li>
-                {Kid && (
+                {adminlogged && (
                     <li className='nav-item'>
                         <Link to="/admin" className="nav-link">ADMIN</Link>
                     </li>

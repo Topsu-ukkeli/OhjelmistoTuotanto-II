@@ -19,6 +19,9 @@ function App() {
   //jäi vähän kesken mut jotakuinkin tuolleen
   const [kirjauduttuData, setKirjauduttuData] = useState(false);
   const [UserID, setUserID] = useState();
+  const [adminlogged, setAdminlogged] = useState(false);
+  const [kirjauduttu, setKirjauduttu] = useState(false);
+  
   useEffect(() => {
     const userid =  JSON.parse(localStorage.getItem("user"));
     console.log("userid saa",userid)
@@ -30,14 +33,14 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Navbar login={kirjauduttuData}/>
+        <Navbar login={kirjauduttuData} adminlogged={adminlogged} setAdminlogged={setAdminlogged} kirjauduttu={kirjauduttu} setKirjauduttu={setKirjauduttu}/>
         <Switch>
           <Route path="/oma-kirjasto"> <OmaKirjasto UserID={UserID} /></Route>
           <Route path="/KirjaLisaus"><Kirjatlisaus /></Route>
           <Route path="/Sarjalisaus"><SarjatLisaus/></Route>
           <Route path="/sarjat"><Sarjat /></Route>
           <Route path="/Kirjat" ><Kirjat UserID={UserID} /></Route>
-          <Route path="/login"><Login login={setKirjauduttuData} setUserID={setUserID} /></Route>
+          <Route path="/login"><Login login={setKirjauduttuData} setUserID={setUserID} setAdminlogged={setAdminlogged} setKirjauduttu={setKirjauduttu} kirjauduttu={kirjauduttu} /></Route>
           <Route path="/register" ><Register /></Route>
           <Route path="/admin"><Admin /></Route>
           <Route path="/"><Home /></Route>

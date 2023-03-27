@@ -117,6 +117,7 @@ body{
     border: 1px solid #999;
     border-radius: 50%;
     position: fixed;
+    padding: 15px 10px;
     right: calc(10% - 30px);
     top: 15px; 
   }

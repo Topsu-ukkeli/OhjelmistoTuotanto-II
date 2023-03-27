@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import "./oma-kirjasto.css";
 import { Link } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 //https://moog.antikvariaattimakedonia.fi/index.php?sivu=lehdet&moog_sarja_id=342
@@ -8,6 +10,7 @@ const OmaKirjasto = ({ UserID }) => {
 	console.log("Käyttäjä", UserID);
 	const [omatkirjat, setOmatkirjat] = useState([]);
 	const [error, setError] = useState(null);
+
 	useEffect(() => {
 
 	}, []);
@@ -42,8 +45,16 @@ const OmaKirjasto = ({ UserID }) => {
 
 	return (
 		<div className="omakirjasto-container">
+			<h1>Oma kirjasto</h1>
 			{kirjauduttu ? (
-				<FrontPage omatkirjat={omatkirjat} />
+				omatkirjat.length === 0 ? (
+					<>
+						<h3>Sinulla ei ole vielä yhtään kirjaa omassa kirjastossasi</h3>
+						<p>Siirry kirjastoon <Link to="/kirjat">tästä</Link> lisätäksesi kirjoja kirjastoosi</p>
+					</>
+				) : (
+					<FrontPage omatkirjat={omatkirjat} />
+				)
 			) : (
 				<>
 					<h1>Sinun on kirjauduttava sisään jotta voit käyttää omaa kirjastoa</h1>
@@ -53,7 +64,7 @@ const OmaKirjasto = ({ UserID }) => {
 				</>
 			)}
 		</div>
-	)
+	);
 }
 const OpenMore = props => {
 	return (
@@ -67,20 +78,38 @@ const OpenMore = props => {
 }
 const Card = ({ omakirja }) => {
 	const [isOpen, setIsOpen] = useState(false);
+	const [onnistui, setOnnistui] = useState(null);
 
 	const togglePopup = () => {
 		setIsOpen(!isOpen);
 	}
 
 	const DeleteKirja = async (kirja) => {
-        await fetch(
-            `http://localhost:5000/api/omakirjasto/${omakirja._id}`,
-            {
-                method: "DELETE",
-            }
-        );
-    };
-		
+		await fetch(
+			`http://localhost:5000/api/omakirjasto/${omakirja._id}`,
+			{
+				method: "DELETE",
+			}
+		).then(response => {
+			if (!response.ok) {
+				console.log("vastaus on", response);
+				setOnnistui(false);
+				throw new Error('Failed to delete book from own library');
+			}
+			if (response.ok) {
+				toast.success('Kirjan poisto omasta kirjastosta onnistui!');
+				setOnnistui(true);
+			}
+			return response.json();
+		})
+			.then(data => {
+				console.log(data);
+			})
+			.catch(error => {
+				console.error(error);
+			});
+	};
+
 	const parsePicturePath = (picture) => {
 		const Slash = picture.lastIndexOf("\\");
 		if (Slash === -1) {
@@ -108,6 +137,23 @@ const Card = ({ omakirja }) => {
 							<h2>Published: {omakirja.published}</h2>
 							<h2>Pages: {omakirja.pages}</h2>
 							<button onClick={DeleteKirja}>Poista omasta kirjastosta</button>
+							{onnistui == false &&
+								<h3 style={{ color: "red" }}>Kirjan poisto ei onnistunut</h3>
+							}
+							<ToastContainer
+								position="bottom-center"
+								hideProgressBar={false}
+								closeOnClick
+								pauseOnHover
+								theme="light"
+								autoClose={3000} />
+							{onnistui &&
+								<>
+									{setTimeout(() => {
+										window.location.href = '/oma-kirjasto';
+									}, 3000)}
+								</>
+							}
 						</div>}
 					/>}
 				</div>
@@ -137,7 +183,6 @@ const FrontPage = ({ omatkirjat }) => {
 
 	return (
 		<div>
-			<h1>Oma kirjasto</h1>
 			{/* <SearchBar onChange={setSearchTerm} /> */}
 			<div>
 				{omatkirjat.map((omakirja) => (
