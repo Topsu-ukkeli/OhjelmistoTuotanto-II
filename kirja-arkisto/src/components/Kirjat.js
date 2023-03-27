@@ -106,8 +106,7 @@ const Card = ({ kirja, UserID }) => {
 							<img src={parsePicturePath(kirja.image)} className='popupcard' />
 							<h2>Author: {kirja.author}</h2>
 							<h2>Published: {kirja.published}</h2>
-							<h2>Pages: {kirja.pages}</h2>
-							<button onClick={AddtoOwn}>Lisää kirja omaan kirjastoon</button>
+							<h2>Pages: {kirja.page}</h2>
 						</div>}
 					/>}
 				</div>
