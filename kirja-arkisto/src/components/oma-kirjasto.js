@@ -76,6 +76,15 @@ const Card = ({ omakirja }) => {
 		console.log("kirja pitäs varmaan poistaa omastakirjastosta");
 		};
 		
+		
+	const parsePicturePath = (picture) => {
+		const Slash = picture.lastIndexOf("\\");
+		if (Slash === -1) {
+			console.log(picture);
+			return picture;
+		}
+		return picture.substring(Slash + 1).replace(/\\/g, "/");
+	};
 	return (
 		<div className="card-container">
 			<div className="card">
