@@ -9,6 +9,7 @@ router.delete('/deletekirja/:_id',KirjaControllers.deleteKirjas);
 router.patch('/:_id',KirjaControllers.updateKirjaById);
 router.post('/kirjat', KirjaControllers.createKirja);
 router.get('/',KirjaControllers.getAllKirjas);
+router.get('/haekirja/:sarjaid',KirjaControllers.getKirjaBySarjaid)
 router.get('/:_id',KirjaControllers.getKirjaById);
 router.delete('/poistakaikki/',KirjaControllers.deleteAllKirjas);
 

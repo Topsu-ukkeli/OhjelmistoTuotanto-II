@@ -89,7 +89,28 @@ const getKirjaById = async (req, res, next) => {
     }
     res.json(kirja);
 };
-
+const getKirjaBySarjaid = async (req, res, next) => {
+    const sarjaid = req.params.sarjaid;
+    if (!sarjaid) {
+        const error = new HttpError('Invalid sarjaid parameter', 400);
+        return next(error);
+    }
+    console.log(`Received get request for kirja with sarjaid: ${sarjaid}`);
+    let kirja;
+    try {
+        kirja = await Kirjas.find({"sarjaid": sarjaid});
+        console.log(`Found kirja: ${JSON.stringify(kirja)}`);
+    } catch (err) {
+        console.log(`Error finding kirja with sarjaid ${sarjaid}: ${err}`);
+        const error = new HttpError('Could not find kirja', 500);
+        return next(error);
+    }
+    if (!kirja || kirja.length === 0) {
+        const error = new HttpError('Could not find kirja with that sarjaid', 404);
+        return next(error);
+    }
+    res.json(kirja);
+};
 const deleteKirjas = async (req, res, next) => {
     const kirjaId = req.params._id;
     console.log(`Received delete request for kirja with id: ${kirjaId}`);
@@ -191,3 +212,4 @@ exports.getAllKirjas = getAllKirjas;
 exports.deleteKirjas = deleteKirjas;
 exports.updateKirjaById = updateKirjaById;
 exports.getKirjaById = getKirjaById;
+exports.getKirjaBySarjaid = getKirjaBySarjaid;

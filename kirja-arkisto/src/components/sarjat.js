@@ -20,6 +20,7 @@ const Sarjat = () => {
 			setError(err);
 		}
 	}
+
 	const [kirjauduttu, setKirjauduttu] = useState(false);
 
 	useEffect(() => {
@@ -45,18 +46,39 @@ const OpenMore = props => {
 	)
 }
 const Card = ({ sarja }) => {
-
+	const [kirjat, setKirjat] = useState([]);
+	const [error, setError] = useState(null);
+	const [ids, setIds] = useState("");
 	const [isOpen, setIsOpen] = useState(false);
-	
+	useEffect(() => {
+		if(ids !== ""){
+			fetchKirja();
+		}
+		
+	}, [ids])
+	const fetchKirja = async () => {
+		try {
+			const response = await fetch(`http://localhost:5000/api/kirja/haekirja/${ids}`);
+			const data = await response.json();
+			setKirjat(data);
+		}
+		catch (err) {
+			setError(err);
+		}
+	}
 
-	const togglePopup = () => {
-		setIsOpen(!isOpen);
+	const TogglePopup = () => {
+		setIds(sarja.sarjaid);
+		setTimeout(() => {
+			setIsOpen(!isOpen);
+		}, 200);
+		
+
 	}
 
 	const parsePicturePath = (picture) => {
 		const Slash = picture.lastIndexOf("\\");
 		if (Slash === -1) {
-			console.log(picture);
 			return picture;
 		}
 		return picture.substring(Slash + 1).replace(/\\/g, "/");
@@ -70,16 +92,19 @@ const Card = ({ sarja }) => {
 					<img src={parsePicturePath(sarja.image)} alt="img" className="card_img" />
 					<p>Kuvaus: {sarja.Kuvaus}</p>
 					<p>Luokittelu: {sarja.Luokittelu}</p>
-					<button onClick={togglePopup}>Lisätietoja</button>
+					<button onClick={TogglePopup}>Lisätietoja</button>
 					{/* Tähän tulee toinen nappi jolla voit lisätä tämän kyseisen kirjan itsellesi jahka saadaan se mongo toimimaan -Topi */}
 					{/* Kyseinen nappi siis lisää tietokantaan tiedon kirjasta jonka halusi lisätä tämä on yksinkertainen Schema ratkasu */}
 					{isOpen && <OpenMore
-						handleClose={togglePopup}
+						handleClose={TogglePopup}
 						content={<div>
 							<h1>{sarja.Sarjanimi}</h1>
 							<img src={parsePicturePath(sarja.image)} alt="img" className='popupcard' />
 							<h2>Kuvaus: {sarja.Kuvaus}</h2>
 							<h2>Luokittelu: {sarja.Luokittelu}</h2>
+							{kirjat.map((kirja) => (
+								<h2>{kirja.title}</h2>
+							))}
 						</div>}
 					/>}
 				</div>

@@ -8,7 +8,7 @@ const SarjaSchema = new Schema({
     Kustantaja: {type: String, required: true},
     Kuvaus: {type: String, required: true},
     Luokittelu: {type: String, required: true},
-    Luokittelu: {type: String, required: true},
+    sarjaid: {type: String, required: true},
     _id: {type:ObjectId, default:ObjectId},
     image: {type:String,required:true}
 },{versionKey: false })
