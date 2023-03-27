@@ -94,6 +94,7 @@ const Card = ({ omakirja }) => {
 					<p>Author: {omakirja.author}</p>
 					<p>Published: {omakirja.published}</p>
 					<p>Pages: {omakirja.pages}</p>
+					<button onClick={togglePopup}>Lisätietoja</button>
 					{isOpen && <OpenMore
 						handleClose={togglePopup}
 						content={<div>
