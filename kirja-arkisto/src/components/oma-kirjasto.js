@@ -97,7 +97,7 @@ const Card = ({ omakirja }) => {
 					<img src={parsePicturePath(omakirja.image)} alt={omakirja.image} className='card_img' />
 					<p>Author: {omakirja.author}</p>
 					<p>Published: {omakirja.published}</p>
-					<p>Pages: {omakirja.pages}</p>
+					<p>Pages: {omakirja.page}</p>
 					<button onClick={togglePopup}>Lisätietoja</button>
 					{isOpen && <OpenMore
 						handleClose={togglePopup}
@@ -107,7 +107,7 @@ const Card = ({ omakirja }) => {
 							<h2>Author: {omakirja.author}</h2>
 							<h2>Published: {omakirja.published}</h2>
 							<h2>Pages: {omakirja.pages}</h2>
-							<button onClick={DeleteKirja}>Poista omasta kirjastosta</button>
+							<button onClick={handleRemoveFromOwn}>Poista omasta kirjastosta</button>
 						</div>}
 					/>}
 				</div>
