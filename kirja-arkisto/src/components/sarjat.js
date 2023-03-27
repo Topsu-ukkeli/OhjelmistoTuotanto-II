@@ -64,12 +64,13 @@ const Card = ({ sarja }) => {
 
 	return (
 		<div className="card-container">
-			<div className="card" onClick={togglePopup}>
+			<div className="card">
 				<div className="card-info">
 					<h1>{sarja.Sarjanimi}</h1>
 					<img src={parsePicturePath(sarja.image)} alt="img" className="card_img" />
 					<p>Kuvaus: {sarja.Kuvaus}</p>
 					<p>Luokittelu: {sarja.Luokittelu}</p>
+					<button onClick={togglePopup}>Lisätietoja</button>
 					{/* Tähän tulee toinen nappi jolla voit lisätä tämän kyseisen kirjan itsellesi jahka saadaan se mongo toimimaan -Topi */}
 					{/* Kyseinen nappi siis lisää tietokantaan tiedon kirjasta jonka halusi lisätä tämä on yksinkertainen Schema ratkasu */}
 					{isOpen && <OpenMore
