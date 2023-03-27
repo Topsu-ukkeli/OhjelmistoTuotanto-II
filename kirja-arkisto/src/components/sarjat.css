@@ -121,6 +121,8 @@ body{
     right: calc(10% - 30px);
     top: 15px; 
   }
+
+  
   .popupcard{
     max-height: 400px;
   }
