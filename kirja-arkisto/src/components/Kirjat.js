@@ -56,7 +56,6 @@ const Card = ({ kirja, UserID }) => {
 	const [onnistui, setOnnistui] = useState(null);
 
 	const AddtoOwn = () => {
-		console.log("muuttuuko tämä", omatkirjat);
 		const newBook = {
 			title: kirja.title,
 			author: kirja.author,

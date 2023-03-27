@@ -51,10 +51,10 @@ const Card = ({ sarja }) => {
 	const [ids, setIds] = useState("");
 	const [isOpen, setIsOpen] = useState(false);
 	useEffect(() => {
-		if(ids !== ""){
+		if (ids !== "") {
 			fetchKirja();
 		}
-		
+
 	}, [ids])
 	const fetchKirja = async () => {
 		try {
@@ -72,7 +72,7 @@ const Card = ({ sarja }) => {
 		setTimeout(() => {
 			setIsOpen(!isOpen);
 		}, 200);
-		
+
 
 	}
 
@@ -103,7 +103,14 @@ const Card = ({ sarja }) => {
 							<h2>Kuvaus: {sarja.Kuvaus}</h2>
 							<h2>Luokittelu: {sarja.Luokittelu}</h2>
 							{kirjat.map((kirja) => (
-								<h2>{kirja.title}</h2>
+								<div>
+									<tbody>
+										<tr>
+											<th><img src={parsePicturePath(kirja.image)} alt="img" className="card_img" /></th>
+											<td><h2>{kirja.title}</h2></td>
+										</tr>
+									</tbody>
+								</div>
 							))}
 						</div>}
 					/>}
