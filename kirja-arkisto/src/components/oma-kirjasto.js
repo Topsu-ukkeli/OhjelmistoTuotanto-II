@@ -72,27 +72,37 @@ const Card = ({ omakirja }) => {
 		setIsOpen(!isOpen);
 	}
 
+	const parsePicturePath = (picture) => {
+		const Slash = picture.lastIndexOf("\\");
+		if (Slash === -1) {
+			console.log(picture);
+			return picture;
+		}
+		return picture.substring(Slash + 1).replace(/\\/g, "/");
+	};
+	
 	const handleRemoveFromOwn = () => {
 		console.log("kirja pitäs varmaan poistaa omastakirjastosta");
 		};
 		
 	return (
 		<div className="card-container">
-			<div className="card" onClick={togglePopup}>
+			<div className="card">
 				<div className="card-info">
 					<h2>{omakirja.title}</h2>
-					<img src={omakirja.image} alt={omakirja.image} className='card_img' />
+					<img src={parsePicturePath(omakirja.image)} alt={omakirja.image} className='card_img' />
 					<p>Author: {omakirja.author}</p>
 					<p>Published: {omakirja.published}</p>
-					<p>Pages: {omakirja.pages}</p>
+					<p>Pages: {omakirja.page}</p>
+					<button onClick={togglePopup}>Lisätietoja</button>
 					{isOpen && <OpenMore
 						handleClose={togglePopup}
 						content={<div>
 							<h1>{omakirja.title}</h1>
-							<img src={omakirja.image} className='popupcard' />
+							<img src={parsePicturePath(omakirja.image)} className='popupcard' />
 							<h2>Author: {omakirja.author}</h2>
 							<h2>Published: {omakirja.published}</h2>
-							<h2>Pages: {omakirja.pages}</h2>
+							<h2>Pages: {omakirja.page}</h2>
 							<button onClick={handleRemoveFromOwn}>Poista omasta kirjastosta</button>
 						</div>}
 					/>}
