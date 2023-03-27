@@ -9,6 +9,8 @@ const Kirjatlisaus = () => {
     }, []);
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
+    const [kuvateksti, setKuvateksti] = useState('');
+    const [piirtajat, setPiirtajat] = useState('');
     const [published, setPublished] = useState('');
     const [page, setPages] = useState('');
     const [image, setImage] = useState('');
@@ -47,6 +49,8 @@ const Kirjatlisaus = () => {
         formData.append('page', page);
         formData.append('image', image);
         formData.append('sarjaid', sarjaid);
+        formData.append('kuvaus',kuvateksti);
+        formData.append('piirtajat',piirtajat);
 
         try {
             const response = await fetch("http://localhost:5000/api/Kirja/Kirjat", {
@@ -98,6 +102,16 @@ const Kirjatlisaus = () => {
                     <label className='labels'>
                         Sivumäärä:
                         <input type="text" className='kirja-input' value={page} onChange={e => setPages(e.target.value)}></input>
+                    </label>
+                    <br />
+                    <label className='labels'>
+                        Kuvateksti:
+                        <input type="text" className='kirja-input' value={kuvateksti} onChange={e => setKuvateksti(e.target.value)}></input>
+                    </label>
+                    <br />
+                    <label className='labels'>
+                        Kirjan piirtäjät:
+                        <input type="text" className='kirja-input' value={piirtajat} onChange={e => setPiirtajat(e.target.value)}></input>
                     </label>
                     <br />
                     <label className='labels'>

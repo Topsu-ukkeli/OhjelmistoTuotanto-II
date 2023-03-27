@@ -12,7 +12,7 @@ const createdOmakirjasto = async (req, res, next) => {
             title: title,
             author: author,
             published: published,
-            // sivut: page,
+            page: page,
             image: image,
             sarjaid: sarjaid,
             UserID: UserID,

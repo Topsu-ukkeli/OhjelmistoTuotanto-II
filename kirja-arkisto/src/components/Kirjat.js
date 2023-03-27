@@ -107,7 +107,8 @@ const Card = ({ kirja, UserID }) => {
 							<h2>Author: {kirja.author}</h2>
 							<h2>Published: {kirja.published}</h2>
 							<h2>Pages: {kirja.page}</h2>
-							<button onClick={AddtoOwn}>Lisää omaan kirjastoon</button>
+							<h2>Kirjan kuvaus:<br/>{kirja.kuvaus}</h2>
+							<h2>Kirjan kuvituksen on piirtäny <br/> {kirja.piirtajat}</h2>
 						</div>}
 					/>}
 				</div>

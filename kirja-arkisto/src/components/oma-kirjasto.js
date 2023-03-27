@@ -93,8 +93,7 @@ const Card = ({ omakirja }) => {
 					<img src={parsePicturePath(omakirja.image)} alt={omakirja.image} className='card_img' />
 					<p>Author: {omakirja.author}</p>
 					<p>Published: {omakirja.published}</p>
-					<p>Pages: {omakirja.page}</p>
-					<button onClick={togglePopup}>Lisätietoja</button>
+					<p>Pages: {omakirja.pages}</p>
 					{isOpen && <OpenMore
 						handleClose={togglePopup}
 						content={<div>

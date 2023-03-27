@@ -11,5 +11,7 @@ const KirjaSchema = new Schema({
     image: {type:String,required:true},
     page: {type:String,required:false},
     sarjaid: {type:String,required:false},
+    kuvaus: {type:String,required:true},
+    piirtajat:{type:String,required:false},
 },{versionKey: false })
 module.exports = mongoose.model('Kirjas', KirjaSchema);
