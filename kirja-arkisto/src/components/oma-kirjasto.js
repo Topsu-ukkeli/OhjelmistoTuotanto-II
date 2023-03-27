@@ -27,7 +27,9 @@ const OmaKirjasto = ({ UserID }) => {
 		if (UserID) {
 			fetchUsers();
 		}
-	}, [{ UserID }])
+
+	}, [UserID])
+	
 
 	const [kirjauduttu, setKirjauduttu] = useState(false);
 
