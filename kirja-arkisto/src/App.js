@@ -11,6 +11,7 @@ import { Kirjatlisaus } from './components/Kirjatlisaus';
 import { Register } from './components/register';
 import {SarjatLisaus} from './components/Sarjalisaus'
 import { Admin } from './components/Admin';
+import {Kirjamuokkaus} from './components/Kirjamuokkaus'
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
           <Route path="/KirjaLisaus"><Kirjatlisaus /></Route>
           <Route path="/Sarjalisaus"><SarjatLisaus/></Route>
           <Route path="/sarjat"><Sarjat /></Route>
+          <Route path="/Kirjamuokkaus"><Kirjamuokkaus/></Route>
           <Route path="/Kirjat" ><Kirjat UserID={UserID} /></Route>
           <Route path="/login"><Login login={setKirjauduttuData} setUserID={setUserID} setAdminlogged={setAdminlogged} setKirjauduttu={setKirjauduttu} kirjauduttu={kirjauduttu} /></Route>
           <Route path="/register" ><Register /></Route>
