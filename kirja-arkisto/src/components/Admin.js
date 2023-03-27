@@ -88,6 +88,10 @@ const Admin = () => {
                 <button class="button-85" role="button" >Lisää kirja tietokantaan</button>
             </Link>
             <br />
+            <Link to="/Sarjalisaus">
+                <button class="button-85" role="button">Lisää uusi sarja tietokantaan</button>
+            </Link>
+            <br/>
             <button class="button-85" role="button" onClick={() => handleToggle()}>Poista kirja tai sarja tietokannasta</button>
             <br />
             <button class="button-85" role="button">Muokkaa kirjaa</button>

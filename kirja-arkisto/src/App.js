@@ -9,6 +9,7 @@ import { Login } from './components/login';
 import { Kirjat } from './components/Kirjat';
 import { Kirjatlisaus } from './components/Kirjatlisaus';
 import { Register } from './components/register';
+import {SarjatLisaus} from './components/Sarjalisaus'
 import { Admin } from './components/Admin';
 
 
@@ -33,6 +34,7 @@ function App() {
         <Switch>
           <Route path="/oma-kirjasto"> <OmaKirjasto UserID={UserID} /></Route>
           <Route path="/KirjaLisaus"><Kirjatlisaus /></Route>
+          <Route path="/Sarjalisaus"><SarjatLisaus/></Route>
           <Route path="/sarjat"><Sarjat /></Route>
           <Route path="/Kirjat" ><Kirjat UserID={UserID} /></Route>
           <Route path="/login"><Login login={setKirjauduttuData} setUserID={setUserID} /></Route>

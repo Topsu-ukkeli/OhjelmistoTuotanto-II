@@ -74,14 +74,7 @@ const Card = ({ kirja, UserID }) => {
 			.then(data => console.log(data))
 			.catch(error => console.error(error));
 	}
-	const DeleteKirja = async (kirja) => {
-		await fetch(
-			`http://localhost:5000/api/kirja/deletekirja/${kirja._id}`,
-			{
-				method: "DELETE",
-			}
-		);
-	};
+
 
 	const togglePopup = () => {
 		setIsOpen(!isOpen);
@@ -98,13 +91,14 @@ const Card = ({ kirja, UserID }) => {
 
 	return (
 		<div className="card-container">
-			<div className="card" onClick={togglePopup}>
+			<div className="card">
 				<div className="card-info">
 					<h2>{kirja.title}</h2>
 					<img src={parsePicturePath(kirja.image)} alt="img" className="card_img" />
 					<p>Author: {kirja.author}</p>
 					<p>Published: {kirja.published}</p>
-					<p>Pages: {kirja.pages}</p>
+					<p>Pages: {kirja.page}</p>
+					<button onClick={togglePopup}>Lisätietoja</button>
 					{isOpen && <OpenMore
 						handleClose={togglePopup}
 						content={<div>
@@ -117,8 +111,6 @@ const Card = ({ kirja, UserID }) => {
 					/>}
 					<div>
 						<button onClick={AddtoOwn}>Lisää kirja omaan kirjastoon</button>
-						<br />
-						<button onClick={() => DeleteKirja(kirja)}>VAIN ADMIN VOI POISTAA!</button>
 					</div>
 				</div>
 			</div>

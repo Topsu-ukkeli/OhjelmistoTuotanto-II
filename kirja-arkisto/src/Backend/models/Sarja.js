@@ -9,7 +9,8 @@ const SarjaSchema = new Schema({
     Kuvaus: {type: String, required: true},
     Luokittelu: {type: String, required: true},
     Luokittelu: {type: String, required: true},
-    _id: {type:ObjectId, default:ObjectId}
+    _id: {type:ObjectId, default:ObjectId},
+    image: {type:String,required:true}
 },{versionKey: false })
 
 module.exports = mongoose.model('Sarja', SarjaSchema);
