@@ -107,7 +107,7 @@ const Card = ({ omakirja }) => {
 							<h2>Author: {omakirja.author}</h2>
 							<h2>Published: {omakirja.published}</h2>
 							<h2>Pages: {omakirja.pages}</h2>
-							<button onClick={handleRemoveFromOwn}>Poista omasta kirjastosta</button>
+							<button onClick={DeleteKirja}>Poista omasta kirjastosta</button>
 						</div>}
 					/>}
 				</div>
