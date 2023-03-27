@@ -72,10 +72,14 @@ const Card = ({ omakirja }) => {
 		setIsOpen(!isOpen);
 	}
 
-	const handleRemoveFromOwn = () => {
-		console.log("kirja pitäs varmaan poistaa omastakirjastosta");
-		};
-		
+	const DeleteKirja = async (kirja) => {
+        await fetch(
+            `http://localhost:5000/api/omakirjasto/${omakirja._id}`,
+            {
+                method: "DELETE",
+            }
+        );
+    };
 		
 	const parsePicturePath = (picture) => {
 		const Slash = picture.lastIndexOf("\\");
@@ -103,7 +107,7 @@ const Card = ({ omakirja }) => {
 							<h2>Author: {omakirja.author}</h2>
 							<h2>Published: {omakirja.published}</h2>
 							<h2>Pages: {omakirja.pages}</h2>
-							<button onClick={handleRemoveFromOwn}>Poista omasta kirjastosta</button>
+							<button onClick={DeleteKirja}>Poista omasta kirjastosta</button>
 						</div>}
 					/>}
 				</div>
