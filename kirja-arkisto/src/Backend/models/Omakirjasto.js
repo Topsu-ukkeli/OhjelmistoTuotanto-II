@@ -8,7 +8,7 @@ const OmakirjastoSchema = new Schema({
     author: {type: String, required: true},
     published: {type: String, required: true},
     image: {type:String,required:true},
-    // sivut: {type:String,required:true},
+    page: {type:String,required:true},
     sarjaid: {type:String,required:true},
     UserID: {type:String, required:true},
 },{versionKey: false })
