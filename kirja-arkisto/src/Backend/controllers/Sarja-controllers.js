@@ -188,7 +188,6 @@ const updateSarjaById = async (req, res, next) => {
             sarja.Kustantaja = Kustantaja;
             sarja.Kuvaus = Kuvaus;
             sarja.Luokittelu = Luokittelu;
-            sarja.image = image;
 
             await sarja.save();
             console.log(sarja, "Käyttäjä päivitetty");

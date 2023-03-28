@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import "./Admin.css";
 import { Link } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
 
 
 const Admin = () => {
@@ -12,18 +13,27 @@ const Admin = () => {
     const [sarjaMuokkausVisible, setSarjaMuokkausVisible] = useState(false);
     const [kirjaMuokkaus, setKirjaMuokkaus] = useState([]);
     const [sarjatMuokkausT, setSarjatMuokkausT] = useState([]);
-    const [sarjatMuokkaus, setSarjatMuokkaus] = useState("0");
-    const [Luokittelu, setLuokittelu] = useState("");
+    const [newSarjaid, setNewSarjaid] = useState("0");
+    const [newTitle, setNewTitle] = useState("");
+    const [newAuthor, setNewAuthor] = useState("");
+    const [newPublis, setNewPublis] = useState("");
+    const [newPage, setNewPage] = useState("");
+    const [newLuokittelu, setNewLuokittelu] = useState("");
+    const [kirjaids, setKirjaids] = useState("");
+    const [sarjaids, setSarjaids] = useState("");
+    const [newSarjanimi, setNewSarjanimi] = useState("");
+    const [newKustantaja, setNewKustantaja] = useState("");
+    const [newKuvaus, setNewKuvaus] = useState("");
     const numbers = [
-        {id:1,number:1},
-        {id:2,number:2},
-        {id:3,number:3},
-        {id:4,number:4},
-        {id:5,number:5}
+        { id: 1, number: 1 },
+        { id: 2, number: 2 },
+        { id: 3, number: 3 },
+        { id: 4, number: 4 },
+        { id: 5, number: 5 }
     ]
     useEffect(() => {
         fetchUsers();
-    }, [kirjat])
+    }, [])//<---- tuohon jos laittaa kirja network pyörii 24/7
     const fetchUsers = async () => {
         try {
             const response = await fetch("http://localhost:5000/api/kirja/");
@@ -48,7 +58,7 @@ const Admin = () => {
     const [sarjat, setSarjat] = useState([]);
     useEffect(() => {
         fetchSarjas();
-    }, [kirjat])
+    }, []) //<---- tuohon jos laittaa kirja network pyörii 24/7
     const fetchSarjas = async () => {
         try {
             const response = await fetch("http://localhost:5000/api/sarja/");
@@ -79,31 +89,89 @@ const Admin = () => {
         setKirjaMuokkausVisible(true);
         setVisible((current) => !current);
         setKirjaMuokkaus(kirja);
+        setNewTitle(kirja.title);
+        setNewAuthor(kirja.author);
+        setNewPublis(kirja.published);
+        setNewPage(kirja.page);
+        setNewSarjaid(kirja.sarjaid);
+        setKirjaids(kirja._id);
     }
     const handleSarjaMuokkaus = ({ sarja }) => {
         setSarjaMuokkausVisible(true);
         setVisible((current) => !current);
         setSarjatMuokkausT(sarja)
+        setNewSarjanimi(sarja.Sarjanimi);
+        setNewKustantaja(sarja.Kustantaja);
+        setNewKuvaus(sarja.Kuvaus);
+        setNewLuokittelu(sarja.Luokittelu);
+        setSarjaids(sarja._id);
     }
-    const PaivitaSarja = () => {
-        
+    const PaivitaSarja = async() => {
+        const updatedBook = {
+            Sarjanimi: newSarjanimi,
+            Kustantaja: newKustantaja,
+            Kuvaus: newKuvaus,
+            Luokittelu: newLuokittelu,
+        }
+        try {
+            const response = await fetch(`http://localhost:5000/api/sarja/${sarjaids}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(updatedBook)
+            });
+            const data = await response.json();
+            if (data.ok) {
+                toast.success('Sarjan lisäys onnistui!');
+            } else {
+                toast.error('Sarjan lisäys epäonnistui!');
+            }
+        } catch (err) {
+            console.error(err);
+            toast.error('Tiedoston lataaminen epäonnistui!');
+        }
     }
-    const PaivitaKirja = () => {
-
-    }
+    const PaivitaKirja = async () => {
+        const updatedBook = {
+            title: newTitle,
+            author: newAuthor,
+            published: newPublis,
+            page: newPage,
+            sarjaid: newSarjaid
+        }
+        try {
+            const response = await fetch(`http://localhost:5000/api/kirja/${kirjaids}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(updatedBook)
+            });
+            const data = await response.json();
+            if (data.ok) {
+                toast.success('Sarjan lisäys onnistui!');
+            } else {
+                toast.error('Sarjan lisäys epäonnistui!');
+            }
+        } catch (err) {
+            console.error(err);
+            toast.error('Tiedoston lataaminen epäonnistui!');
+        }
+    };
     return (
         <div>
             <Link to="/Kirjalisaus">
-                <button class="button-85" role="button" >Lisää kirja tietokantaan</button>
+                <button class="button-85">Lisää kirja tietokantaan</button>
             </Link>
             <br />
             <br />
             <Link to="/Sarjalisaus">
-                <button class="button-85" role="button" >Lisää uusi sarja tietokantaan</button>
+                <button class="button-85">Lisää uusi sarja tietokantaan</button>
             </Link>
             <br />
             <br />
-            <button class="button-85" role="button" onClick={() => handleToggle()}>Poista kirja tai sarja tai muokkaa tietoja</button>
+            <button class="button-85" onClick={() => handleToggle()}>Poista kirja tai sarja tai muokkaa tietoja</button>
             <br />
             <br />
             {/* <Link to="/Kirjamuokkaus">
@@ -169,23 +237,23 @@ const Admin = () => {
                 <div className="kirja-admin">
                     <label>
                         Kirjan nimi:
-                        <input type="text" value={kirjaMuokkaus.title}></input>
+                        <input type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)}></input>
                     </label>
                     <label>
                         Kirjoittaja:
-                        <input type="text" value={kirjaMuokkaus.author}></input>
+                        <input type="text" value={newAuthor} onChange={(e) => setNewAuthor(e.target.value)}></input>
                     </label>
                     <label>
                         Julkaisuvuosi:
-                        <input type="text" value={kirjaMuokkaus.published}></input>
+                        <input type="text" value={newPublis} onChange={(e) => setNewPublis(e.target.value)}></input>
                     </label>
                     <label>
                         Sivumäärä:
-                        <input type="text" value={kirjaMuokkaus.page}></input>
+                        <input type="text" value={newPage} onChange={(e) => setNewPage(e.target.value)}></input>
                     </label>
                     <label className='labels'>
                         SeriesID:
-                        <select className='kirja-input' onChange={(e) => setSarjatMuokkaus(e.target.value)}>
+                        <select className='kirja-input' onChange={(e) => setNewSarjaid(e.target.value)}>
                             {sarjat.map((sarja, index) => (
                                 <option key={`${sarja.sarjaid}_${index}`} value={sarja.sarjaid}>{sarja.Sarjanimi}</option>
                             ))}
@@ -198,21 +266,21 @@ const Admin = () => {
                 <div className="kirja-admin">
                     <label>
                         Sarjanimi:
-                        <input type="text" value={sarjatMuokkausT.Sarjanimi}></input>
+                        <input type="text" value={newSarjanimi} onChange={(e) => setNewSarjanimi(e.target.value)}></input>
                     </label>
                     <label>
                         Kustantaja:
-                        <input type="text" value={sarjatMuokkausT.Kustantaja}></input>
+                        <input type="text" value={newKustantaja} onChange={(e) => setNewKustantaja(e.target.value)}></input>
                     </label>
                     <label>
                         Kuvaus:
-                        <input type="text" value={sarjatMuokkausT.Kuvaus}></input>
+                        <input type="text" value={newKuvaus} onChange={(e) => setNewKuvaus(e.target.value)}></input>
                     </label>
                     <label className='labels'>
                         Luokittelu:
-                        <select onChange={(e) => setLuokittelu(e.target.value)}>
+                        <select onChange={(e) => setNewLuokittelu(e.target.value)}>
                             {numbers.map((row) => (
-                            <option key={row.id} value = {row.number}>{row.number}</option>
+                                <option key={row.id} value={row.id}>{row.number}</option>
                             ))}
                         </select>
                     </label>

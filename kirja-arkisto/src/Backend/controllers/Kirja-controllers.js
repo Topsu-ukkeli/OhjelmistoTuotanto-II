@@ -156,7 +156,7 @@ const getAllKirjas = async (req, res, next) => {
 };
 
 const updateKirjaById = async (req, res, next) => {
-    const { title, author, published, page, image, sarjaid } = req.body;
+    const { title, author, published, page, sarjaid } = req.body;
     const kirjasID = req.params._id;
 
     try {
@@ -173,14 +173,13 @@ const updateKirjaById = async (req, res, next) => {
                 );
                 return next(error);
             }
-
             kirjas.title = title;
             kirjas.author = author;
             kirjas.published = published;
-            kirjas.image = image;
             kirjas.page = page;
             kirjas.sarjaid = sarjaid;
 
+            console.log("kirjas saa",kirjas);
             await kirjas.save();
             console.log(kirjas, "Käyttäjä päivitetty");
 
