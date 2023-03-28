@@ -53,7 +53,6 @@ const Card = ({ sarja }) => {
 		if (ids !== "") {
 			fetchKirja();
 		}
-
 	}, [ids])
 	const fetchKirja = async () => {
 		try {

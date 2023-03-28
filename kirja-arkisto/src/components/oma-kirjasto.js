@@ -85,30 +85,30 @@ const Card = ({ omakirja }) => {
 	}
 
 	const DeleteKirja = async () => {
-		if(window.confirm("Haluatko varmasti poistaa kirjan omasta kirjastosta?")){
-		await fetch(
-			`http://localhost:5000/api/omakirjasto/${omakirja._id}`,
-			{
-				method: "DELETE",
-			}
-		).then(response => {
-			if (!response.ok) {
-				console.log("vastaus on", response);
-				setOnnistui(false);
-				throw new Error('Failed to delete book from own library');
-			}
-			if (response.ok) {
-				toast.success('Kirjan poisto omasta kirjastosta onnistui!');
-				setOnnistui(true);
-			}
-			return response.json();
-		})
-			.then(data => {
-				console.log(data);
+		if (window.confirm("Haluatko varmasti poistaa kirjan omasta kirjastosta?")) {
+			await fetch(
+				`http://localhost:5000/api/omakirjasto/${omakirja._id}`,
+				{
+					method: "DELETE",
+				}
+			).then(response => {
+				if (!response.ok) {
+					console.log("vastaus on", response);
+					setOnnistui(false);
+					throw new Error('Failed to delete book from own library');
+				}
+				if (response.ok) {
+					toast.success('Kirjan poisto omasta kirjastosta onnistui!');
+					setOnnistui(true);
+				}
+				return response.json();
 			})
-			.catch(error => {
-				console.error(error);
-			});
+				.then(data => {
+					console.log(data);
+				})
+				.catch(error => {
+					console.error(error);
+				});
 		}
 	};
 
@@ -163,35 +163,38 @@ const Card = ({ omakirja }) => {
 		</div>
 	);
 }
-// const SearchBar = ({ onChange }) => {
-// 	return (
-// 		<div className="search-bar">
-// 			<label htmlFor="search-input">Search by ID:</label>
-// 			<input
-// 				id="search-input"
-// 				type="text"
-// 				onChange={(event) => onChange(event.target.value)}
-// 			/>
-// 		</div>
-// 	);
-// }
+const SearchBar = ({ onChange }) => {
+	return (
+		<div className="search-bar">
+			<label htmlFor="search-input">Search by ID:</label>
+			<input
+				id="search-input"
+				type="text"
+				onChange={(event) => onChange(event.target.value)}
+			/>
+		</div>
+	);
+}
 
 const FrontPage = ({ omatkirjat }) => {
-	// const [searchTerm, setSearchTerm] = useState('');
+	const [searchTerm, setSearchTerm] = useState('');
 
-	// const filteredBooks = omatkirjat.filter(kirja => {
-	// 	return kirja.title.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase());
-	// })
+	const filteredBooks = omatkirjat.filter(kirja => {
+		return kirja.title.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase());
+	})
 
 	return (
 		<div>
-			{/* <SearchBar onChange={setSearchTerm} /> */}
+			<SearchBar onChange={setSearchTerm} />
 			<div>
-				{omatkirjat.map((omakirja) => (
-					<Card key={omakirja.id} omakirja={omakirja} />
-				))}
+				{filteredBooks.length !== 0 ? (
+					filteredBooks.map((omakirja) => (
+						<Card key={omakirja.id} omakirja={omakirja} />
+					))) : (
+					<h2>Valitsemalla hakuehdolla ei löytynyt kirjaa</h2>
+				)}
 			</div>
 		</div>
 	);
 }
-export { OmaKirjasto, FrontPage, OpenMore, Card };
+export { OmaKirjasto, FrontPage, OpenMore, Card, SearchBar };
