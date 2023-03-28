@@ -148,8 +148,8 @@ const Admin = () => {
                 },
                 body: JSON.stringify(updatedBook)
             });
-            const data = await response.json();
-            if (data.ok) {
+            const data2 = await response.json();
+            if (data2.ok) {
                 toast.success('Sarjan lisäys onnistui!');
             } else {
                 toast.error('Sarjan lisäys epäonnistui!');
