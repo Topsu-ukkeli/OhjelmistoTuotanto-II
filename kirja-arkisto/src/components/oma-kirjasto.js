@@ -3,6 +3,7 @@ import "./oma-kirjasto.css";
 import { Link } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import kuvaph from '../images/kuvaplaceholder.png'
 
 
 //https://moog.antikvariaattimakedonia.fi/index.php?sivu=lehdet&moog_sarja_id=342
@@ -126,37 +127,50 @@ const Card = ({ omakirja }) => {
 				<div className="card-info">
 					<h2>{omakirja.title}</h2>
 					<img src={parsePicturePath(omakirja.image)} alt={omakirja.image} className='card_img' />
-					<p>Author: {omakirja.author}</p>
-					<p>Published: {omakirja.published}</p>
-					<p>Pages: {omakirja.page}</p>
+					<h3>Kirjoittaja:</h3><p>{omakirja.author}</p>
 					<button onClick={togglePopup}>Lisätietoja</button>
 					{isOpen && <OpenMore
 						handleClose={togglePopup}
-						content={<div>
-							<h1>{omakirja.title}</h1>
-							<img src={parsePicturePath(omakirja.image)} className='popupcard' />
-							<h2>Author: {omakirja.author}</h2>
-							<h2>Published: {omakirja.published}</h2>
-							<h2>Pages: {omakirja.page}</h2>
-							<button onClick={DeleteKirja}>Poista omasta kirjastosta</button>
-							{onnistui == false &&
-								<h3 style={{ color: "red" }}>Kirjan poisto ei onnistunut</h3>
-							}
-							<ToastContainer
-								position="bottom-center"
-								hideProgressBar={false}
-								closeOnClick
-								pauseOnHover
-								theme="light"
-								autoClose={3000} />
-							{onnistui &&
-								<>
-									{setTimeout(() => {
-										window.location.href = '/oma-kirjasto';
-									}, 3000)}
-								</>
-							}
-						</div>}
+						content={
+							<div className="popupcard">
+								<div className="left-column">
+									<h1>{omakirja.title}</h1>
+									<img src={parsePicturePath(omakirja.image)} />
+								</div>
+								<div className="omakirja-right-column">
+									<div className="omakirja-right-top">
+										<h2>Kirjoittaja:</h2>{omakirja.author}
+										<h2>Julkaistu:</h2>{omakirja.published}
+										<h2>Sivumäärä:</h2>{omakirja.page}
+										<h2>KIRJAN KUNTO TÄHÄN!!</h2>
+									</div>
+									<div className="omakirja-right-bottom">
+										<h1>Käyttäjän lataamia kuvia</h1>
+										<div className="user-pictures">
+											<img src={kuvaph} />
+											<img src={kuvaph} />
+										</div>
+									</div>
+								</div>
+								<button className="lisaa-btn" onClick={DeleteKirja}>Poista omasta kirjastosta</button>
+								{onnistui == false &&
+									<h3 style={{ color: "red" }}>Kirjan poisto ei onnistunut</h3>
+								}
+								<ToastContainer
+									position="bottom-center"
+									hideProgressBar={false}
+									closeOnClick
+									pauseOnHover
+									theme="light"
+									autoClose={3000} />
+								{onnistui &&
+									<>
+										{setTimeout(() => {
+											window.location.href = '/oma-kirjasto';
+										}, 3000)}
+									</>
+								}
+							</div>}
 					/>}
 				</div>
 			</div>
