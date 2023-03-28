@@ -19,6 +19,7 @@
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
+    margin-left: 27px;
 }
 
 .button-85:before {
