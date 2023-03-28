@@ -166,7 +166,7 @@ const Card = ({ omakirja }) => {
 const SearchBar = ({ onChange }) => {
 	return (
 		<div className="search-bar">
-			<label htmlFor="search-input">Search by ID:</label>
+			<label htmlFor="search-input">Hae:</label>
 			<input
 				id="search-input"
 				type="text"
@@ -182,7 +182,6 @@ const FrontPage = ({ omatkirjat }) => {
 	const filteredBooks = omatkirjat.filter(kirja => {
 		return kirja.title.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase());
 	})
-
 	return (
 		<div>
 			<SearchBar onChange={setSearchTerm} />
