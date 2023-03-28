@@ -79,7 +79,6 @@ const Kirjatlisaus = () => {
             toast.error('Error uploading file!');
         }
     }
-
     return (
         <div className='kirjatlisaus-container'>
             <ToastContainer

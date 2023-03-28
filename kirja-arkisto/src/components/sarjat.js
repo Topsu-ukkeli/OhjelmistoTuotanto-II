@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Asterix from '../images/asterix.jpg'
 import "./sarjat.css";
 const mongoose = require('mongoose');
 
@@ -93,8 +92,6 @@ const Card = ({ sarja }) => {
 					<p>Kuvaus: {sarja.Kuvaus}</p>
 					<p>Luokittelu: {sarja.Luokittelu}</p>
 					<button onClick={TogglePopup}>Lisätietoja</button>
-					{/* Tähän tulee toinen nappi jolla voit lisätä tämän kyseisen kirjan itsellesi jahka saadaan se mongo toimimaan -Topi */}
-					{/* Kyseinen nappi siis lisää tietokantaan tiedon kirjasta jonka halusi lisätä tämä on yksinkertainen Schema ratkasu */}
 					{isOpen && <OpenMore
 						handleClose={TogglePopup}
 						content={<div>
