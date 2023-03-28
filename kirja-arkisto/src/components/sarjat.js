@@ -83,37 +83,37 @@ const Card = ({ sarja }) => {
 		return picture.substring(Slash + 1).replace(/\\/g, "/");
 	};
 
-	return (
+	return ( //tämä täytyy miettiä uusiksi, ulkoasu aivan rikki!
 		<div className="card-container">
 			<div className="card">
 				<div className="card-info">
 					<h1>{sarja.Sarjanimi}</h1>
 					<img src={parsePicturePath(sarja.image)} alt="img" className="card_img" />
-					<p>Kuvaus: {sarja.Kuvaus}</p>
-					<p>Luokittelu: {sarja.Luokittelu}</p>
+					<h3>Luokittelu:</h3><p>{sarja.Luokittelu}</p>
 					<button onClick={TogglePopup}>Lisätietoja</button>
 					{isOpen && <OpenMore
 						handleClose={TogglePopup}
-						content={<div>
-							<h1>{sarja.Sarjanimi}</h1>
-							<img src={parsePicturePath(sarja.image)} alt="img" className='popupcard' />
-							<h2>Kuvaus: {sarja.Kuvaus}</h2>
-							<h2>Luokittelu: {sarja.Luokittelu}</h2>
-							{Array.isArray(kirjat) && kirjat.length > 0 ?
-								kirjat.map((kirja) => (
-									<div>
-										<tbody>
-											<tr>
-												<th><img src={parsePicturePath(kirja.image)} alt="img" className="card_img" /></th>
-												<td><h2>{kirja.title}</h2></td>
-											</tr>
-										</tbody>
-									</div>
-								))
-								:
-								<h2>Sarjalla ei ole vielä kirjoja</h2>
-							}
-						</div>}
+						content={
+							<div className="popupcard">
+								<h1>{sarja.Sarjanimi}</h1>
+								<img src={parsePicturePath(sarja.image)} alt="img" />
+								<h2>Kuvaus: {sarja.Kuvaus}</h2>
+								<h2>Luokittelu: {sarja.Luokittelu}</h2>
+								{Array.isArray(kirjat) && kirjat.length > 0 ?
+									kirjat.map((kirja) => (
+										<div>
+											<tbody>
+												<tr>
+													<th><img src={parsePicturePath(kirja.image)} alt="img" className="card_img" /></th>
+													<td><h2>{kirja.title}</h2></td>
+												</tr>
+											</tbody>
+										</div>
+									))
+									:
+									<h2>Sarjalla ei ole vielä kirjoja</h2>
+								}
+							</div>}
 
 					/>}
 				</div>
@@ -147,9 +147,9 @@ const FrontPage = ({ sarjat }) => {
 			<SearchBar onChange={setSearchTerm} />
 			<div>
 				{Filterserie.length !== 0 ? (
-				Filterserie.map((sarja) => (
-					<Card key={sarja.id} sarja={sarja} />
-				))):(
+					Filterserie.map((sarja) => (
+						<Card key={sarja.id} sarja={sarja} />
+					))) : (
 					<h2>Valituilla hakuehdoilla ei löytynyt sarjaa</h2>
 				)}
 			</div>

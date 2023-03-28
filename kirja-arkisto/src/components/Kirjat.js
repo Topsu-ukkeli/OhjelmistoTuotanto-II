@@ -113,32 +113,35 @@ const Card = ({ kirja, UserID }) => {
 				<div className="card-info">
 					<h2>{kirja.title}</h2>
 					<img src={parsePicturePath(kirja.image)} alt="img" className="card_img" />
-					<p>Author: {kirja.author}</p>
-					<p>Published: {kirja.published}</p>
-					<p>Pages: {kirja.page}</p>
+					<h3>Kirjoittaja</h3> <p>{kirja.author}</p>
 					<button onClick={togglePopup}>Lisätietoja</button>
 					{isOpen && <OpenMore
 						handleClose={togglePopup}
-						content={<div>
-							<h1>{kirja.title}</h1>
-							<img src={parsePicturePath(kirja.image)} className='popupcard' />
-							<h2>Author: {kirja.author}</h2>
-							<h2>Published: {kirja.published}</h2>
-							<h2>Pages: {kirja.page}</h2>
-							<h2>Kirjan kuvaus:<br />{kirja.kuvaus}</h2>
-							<h2>Kirjan kuvituksen on piirtäny <br /> {kirja.piirtajat}</h2>
-							<button onClick={AddtoOwn}>Lisää omaan kirjastoon</button>
-							{onnistui == false &&
-								<h3 style={{ color: "red" }}>Kirjan lisäys ei onnistunut</h3>
-							}
-							<ToastContainer
-								position="bottom-center"
-								hideProgressBar={false}
-								closeOnClick
-								pauseOnHover
-								theme="light"
-								autoClose={5000} />
-						</div>}
+						content={
+							<div className="popupcard">
+								<div className="left-column">
+									<h1>{kirja.title}</h1>
+									<img src={parsePicturePath(kirja.image)} />
+								</div>
+								<div className="right-column">
+									<h2>Kirjoittaja</h2><p>{kirja.author}</p>
+									<h2>Julkaistu</h2><p>{kirja.published}</p>
+									<h2>Sivumäärä</h2><p>{kirja.page}</p>
+									<h2>Kirjan kuvaus </h2><p>{kirja.kuvaus}</p>
+									<h2>Kirjan kuvituksen on piirtänyt</h2><p>{kirja.piirtajat}</p>
+								</div>
+								<button className="lisaa-btn" onClick={AddtoOwn}>Lisää omaan kirjastoon</button>
+								{onnistui == false &&
+									<h3 style={{ color: "red" }}>Kirjan lisäys ei onnistunut</h3>
+								}
+								<ToastContainer
+									position="bottom-center"
+									hideProgressBar={false}
+									closeOnClick
+									pauseOnHover
+									theme="light"
+									autoClose={5000} />
+							</div>}
 					/>}
 				</div>
 			</div>
@@ -169,15 +172,18 @@ const FrontPage = ({ kirjat, UserID }) => {
 		<div>
 			<h1>Kirjat</h1>
 			<SearchBar onChange={setSearchTerm} />
+			<Link to="/kirjalisaus">
+				<button>Lisää kirja kirjastoon</button>
+			</Link>
 			<div>
 				{filteredBooks.length !== 0 ? (
-				filteredBooks.map((kirja) => (
-					<Card key={kirja.id} kirja={kirja} UserID={UserID} />
-				))):(
+					filteredBooks.map((kirja) => (
+						<Card key={kirja.id} kirja={kirja} UserID={UserID} />
+					))) : (
 					<h2>Valitsemalla hakuehdolla ei löytynyt kirjaa</h2>
 				)}
 			</div>
-			
+
 		</div>
 	);
 }

@@ -59,8 +59,12 @@ body{
     border-radius: 5%;
 }
 
+.card-info{
+  
+}
+
 .card_img {
-    max-height: 120px;
+    max-height: 160px;
     width: auto;
     object-fit: cover;
     margin: auto;
@@ -124,5 +128,29 @@ body{
 
   
   .popupcard{
-    max-height: 400px;
+    display: inline-flex;
+    padding: 10px;
+    width: 100%;
+  }
+
+  .popupcard img{
+    max-width:500px;
+    max-height:400px;
+    width: auto;
+    height: auto;
+  }
+
+  .lisaa-btn{
+    max-height: 50px;
+    position: fixed;
+    right: calc(15% - 40px);
+    top: 30px; 
+  }
+
+  .left-column{
+    width: 40%;
+  }
+
+    .right-column{
+    width: 55%;
   }
