@@ -170,10 +170,14 @@ const FrontPage = ({ kirjat, UserID }) => {
 			<h1>Kirjat</h1>
 			<SearchBar onChange={setSearchTerm} />
 			<div>
-				{filteredBooks.map((kirja) => (
+				{filteredBooks.length !== 0 ? (
+				filteredBooks.map((kirja) => (
 					<Card key={kirja.id} kirja={kirja} UserID={UserID} />
-				))}
+				))):(
+					<h2>Valitsemalla hakuehdolla ei löytynyt kirjaa</h2>
+				)}
 			</div>
+			
 		</div>
 	);
 }

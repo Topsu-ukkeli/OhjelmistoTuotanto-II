@@ -149,9 +149,12 @@ const FrontPage = ({ sarjat }) => {
 			<h1>Sarjat</h1>
 			<SearchBar onChange={setSearchTerm} />
 			<div>
-				{Filterserie.map((sarja) => (
+				{Filterserie.length !== 0 ? (
+				Filterserie.map((sarja) => (
 					<Card key={sarja.id} sarja={sarja} />
-				))}
+				))):(
+					<h2>Valituilla hakuehdoilla ei löytynyt sarjaa</h2>
+				)}
 			</div>
 		</div>
 	);

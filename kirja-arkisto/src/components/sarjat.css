@@ -68,7 +68,7 @@ body{
 
 .card:hover {
   /* Tähän täytyy keksiä jotain ettei kaikki kortit hypi miten sattuu */
-    border: 3px solid rgb(6, 90, 247);
+    border: 0.5px solid rgb(6, 90, 247);
     /* border-radius: 0%; */
     /* box-shadow: 0 0 15px #333;
     -webkit-box-shadow: 0 0 15px #333;

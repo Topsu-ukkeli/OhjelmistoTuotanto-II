@@ -44,7 +44,7 @@ const Kirjatlisaus = () => {
         }
         getSarjat();
     }, [])
-    
+
     function handleImageChange(e) {
         setImage(e.target.files[0]);
     }
@@ -103,7 +103,7 @@ const Kirjatlisaus = () => {
                     </label>
                     <br />
                     <label className='labels'>
-                        Julkaisuaika:
+                        Julkaisuvuosi:
                         <input type="text" className='kirja-input' value={published} onChange={e => setPublished(e.target.value)}></input>
                     </label>
                     <br />
