@@ -102,17 +102,22 @@ const Card = ({ sarja }) => {
 							<img src={parsePicturePath(sarja.image)} alt="img" className='popupcard' />
 							<h2>Kuvaus: {sarja.Kuvaus}</h2>
 							<h2>Luokittelu: {sarja.Luokittelu}</h2>
-							{kirjat.map((kirja) => (
-								<div>
-									<tbody>
-										<tr>
-											<th><img src={parsePicturePath(kirja.image)} alt="img" className="card_img" /></th>
-											<td><h2>{kirja.title}</h2></td>
-										</tr>
-									</tbody>
-								</div>
-							))}
+							{Array.isArray(kirjat) && kirjat.length > 0 ?
+								kirjat.map((kirja) => (
+									<div>
+										<tbody>
+											<tr>
+												<th><img src={parsePicturePath(kirja.image)} alt="img" className="card_img" /></th>
+												<td><h2>{kirja.title}</h2></td>
+											</tr>
+										</tbody>
+									</div>
+								))
+								:
+								<h2>Sarjalla ei ole vielä kirjoja</h2>
+							}
 						</div>}
+
 					/>}
 				</div>
 			</div>

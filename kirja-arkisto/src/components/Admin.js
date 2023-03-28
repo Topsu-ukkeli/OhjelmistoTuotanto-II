@@ -22,13 +22,15 @@ const Admin = () => {
             setError(err);
         }
     }
-    const DeleteKirja = async (kirja) => {
+    const DeleteKirja = async (kirja) => { // tässä tarkistus varmistaakseen että käyttäjä haluaa poistaa kirjan
+        if(window.confirm("Haluatko varmasti poistaa kirjan?")){
         await fetch(
             `http://localhost:5000/api/kirja/deletekirja/${kirja._id}`,
             {
                 method: "DELETE",
             }
         );
+    }
     };
 
     const [sarjat, setSarjat] = useState([]);
@@ -45,13 +47,15 @@ const Admin = () => {
             setError(err);
         }
     }
-    const DeleteSarja = async (sarja) => {
+    const DeleteSarja = async (sarja) => { // tässä tarkistus varmistaakseen että käyttäjä haluaa poistaa sarjan
+        if(window.confirm("Haluatko varmasti poistaa sarjan?")){
         await fetch(
             `http://localhost:5000/api/sarja/${sarja._id}`,
             {
                 method: "DELETE",
             }
         );
+        }
     };
 
     const handleToggle = () => {
@@ -122,7 +126,7 @@ const Admin = () => {
                                 {sarja.Luokittelu}
                             </td>
                             <td>
-                                <button onClick={DeleteSarja}>Poista sarja</button>
+                                <button onClick={() => DeleteSarja(sarja)}>Poista sarja</button>
                             </td>
                         </tr>
                     ))}
@@ -147,7 +151,7 @@ const Admin = () => {
                                 {kirja.published}
                             </td>
                             <td>
-                                <button onClick={DeleteKirja}>Poista kirja </button>
+                                <button onClick={() => DeleteKirja(kirja)}>Poista kirja </button>
                             </td>
                         </tr>
                     ))}

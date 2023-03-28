@@ -84,7 +84,8 @@ const Card = ({ omakirja }) => {
 		setIsOpen(!isOpen);
 	}
 
-	const DeleteKirja = async (kirja) => {
+	const DeleteKirja = async () => {
+		if(window.confirm("Haluatko varmasti poistaa kirjan omasta kirjastosta?")){
 		await fetch(
 			`http://localhost:5000/api/omakirjasto/${omakirja._id}`,
 			{
@@ -108,6 +109,7 @@ const Card = ({ omakirja }) => {
 			.catch(error => {
 				console.error(error);
 			});
+		}
 	};
 
 	const parsePicturePath = (picture) => {
@@ -135,7 +137,7 @@ const Card = ({ omakirja }) => {
 							<img src={parsePicturePath(omakirja.image)} className='popupcard' />
 							<h2>Author: {omakirja.author}</h2>
 							<h2>Published: {omakirja.published}</h2>
-							<h2>Pages: {omakirja.pages}</h2>
+							<h2>Pages: {omakirja.page}</h2>
 							<button onClick={DeleteKirja}>Poista omasta kirjastosta</button>
 							{onnistui == false &&
 								<h3 style={{ color: "red" }}>Kirjan poisto ei onnistunut</h3>
