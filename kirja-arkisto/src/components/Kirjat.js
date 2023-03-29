@@ -48,14 +48,13 @@ const OpenMore = props => {
 	)
 }
 const Card = ({ kirja, UserID }) => {
-	const [query, setQuery] = useState("");
-	const [find, setFind] = useState("");
 	const [isOpen, setIsOpen] = useState(false);
-	const [omatkirjat, setOmatkirjat] = useState([]);
-	const [error, setError] = useState(null);
 	const [onnistui, setOnnistui] = useState(null);
 
 	const AddtoOwn = () => {
+		const Kunto = prompt("Anna kirjan kunto asteikolla 1-5")
+		const Hinta = prompt("Anna kirjan ostohinta")
+		const HankintaAika = prompt("Hankinta-aika muodossa dd.MM.yyyy")
 		const newBook = {
 			title: kirja.title,
 			author: kirja.author,
@@ -64,6 +63,9 @@ const Card = ({ kirja, UserID }) => {
 			image: kirja.image,
 			sarjaid: kirja.sarjaid,
 			UserID: UserID,
+			Kunto: Kunto,
+            Hinta: Hinta,
+            HankintaAika:HankintaAika,
 		};
 		console.log(UserID);
 		fetch("http://localhost:5000/api/omakirjasto/createOmakirjasto", {

@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const Omakirjasto = require("../models/Omakirjasto");
 
 const createdOmakirjasto = async (req, res, next) => {
-    const { title, author, published, page, image, sarjaid ,UserID} = req.body;
+    const { title, author, published, page, image, sarjaid ,UserID, Kunto, Hinta,HankintaAika} = req.body;
     try {
         const newid = new mongoose.Types.ObjectId().toHexString();
         const createdomakirjasto = new OmaKirjastos({ //muuta kirja tiedot
@@ -16,6 +16,9 @@ const createdOmakirjasto = async (req, res, next) => {
             image: image,
             sarjaid: sarjaid,
             UserID: UserID,
+            Kunto: Kunto,
+            Hinta: Hinta,
+            HankintaAika:HankintaAika,
         });
         console.log("userid on",UserID);
         console.log("serverin päässä saa", createdomakirjasto);

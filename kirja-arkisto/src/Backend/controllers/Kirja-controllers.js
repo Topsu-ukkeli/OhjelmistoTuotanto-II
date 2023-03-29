@@ -44,7 +44,7 @@ const createKirja = async (req, res, next) => {
             const file = req.file;
             console.log(file);
 
-            const { title, author, published, page, sarjaid,kuvaus, piirataja } = req.body;
+            const { title, author, published, page, sarjaid,kuvaus, piirtajat } = req.body;
 
             const newid = new mongoose.Types.ObjectId().toHexString();
 
@@ -57,7 +57,7 @@ const createKirja = async (req, res, next) => {
                 image: file.path,
                 sarjaid: sarjaid,
                 kuvaus:kuvaus,
-                piirtajat: piirataja
+                piirtajat: piirtajat
             });
 
             try {

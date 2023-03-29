@@ -11,6 +11,9 @@ const OmakirjastoSchema = new Schema({
     page: {type:String,required:true},
     sarjaid: {type:String,required:true},
     UserID: {type:String, required:true},
+    Kunto:{type:String,required:true},
+    Hinta:{type:String,required:true},
+    HankintaAika:{type:String,required:true},
 },{versionKey: false })
 
 module.exports = mongoose.model('Omakirjasto', OmakirjastoSchema);

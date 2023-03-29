@@ -142,7 +142,9 @@ const Card = ({ omakirja }) => {
 										<h2>Kirjoittaja:</h2>{omakirja.author}
 										<h2>Julkaistu:</h2>{omakirja.published}
 										<h2>Sivumäärä:</h2>{omakirja.page}
-										<h2>KIRJAN KUNTO TÄHÄN!!</h2>
+										<h2>Kirjan kunto:{omakirja.Kunto}</h2>
+										<h2>Kirjan ostohinta: {omakirja.Hinta}</h2>
+										<h2>Ostoaika: {omakirja.HankintaAika}</h2>
 									</div>
 									<div className="omakirja-right-bottom">
 										<h1>Käyttäjän lataamia kuvia</h1>
@@ -179,9 +181,9 @@ const Card = ({ omakirja }) => {
 }
 const SearchBar = ({ onChange }) => {
 	return (
-		<div className="search-bar">
+		<div className="search-bar-container">
 			<label htmlFor="search-input">Hae:</label>
-			<input
+			<input className="search-bar"
 				id="search-input"
 				type="text"
 				onChange={(event) => onChange(event.target.value)}
