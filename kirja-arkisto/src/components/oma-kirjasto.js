@@ -10,7 +10,6 @@ import kuvaph from '../images/kuvaplaceholder.png'
 const OmaKirjasto = ({ UserID }) => {
 	console.log("Käyttäjä", UserID);
 	const [omatkirjat, setOmatkirjat] = useState([]);
-	const [error, setError] = useState(null);
 
 	useEffect(() => {
 
@@ -25,7 +24,6 @@ const OmaKirjasto = ({ UserID }) => {
 				console.log("omatkirjat", omatkirjat);
 			}
 			catch (err) {
-				setError(err);
 			}
 		}
 		if (UserID) {
@@ -155,7 +153,7 @@ const Card = ({ omakirja }) => {
 									</div>
 								</div>
 								<button className="lisaa-btn" onClick={DeleteKirja}>Poista omasta kirjastosta</button>
-								{onnistui == false &&
+								{onnistui === false &&
 									<h3 style={{ color: "red" }}>Kirjan poisto ei onnistunut</h3>
 								}
 								<ToastContainer
