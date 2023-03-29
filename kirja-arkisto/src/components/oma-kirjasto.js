@@ -9,7 +9,6 @@ import kuvaph from '../images/kuvaplaceholder.png'
 //https://moog.antikvariaattimakedonia.fi/index.php?sivu=lehdet&moog_sarja_id=342
 const OmaKirjasto = ({ UserID }) => {
 	const [omatkirjat, setOmatkirjat] = useState([]);
-	const [error, setError] = useState(null);
 
 	useEffect(() => {
 
@@ -22,7 +21,6 @@ const OmaKirjasto = ({ UserID }) => {
 				setOmatkirjat(data);
 			}
 			catch (err) {
-				setError(err);
 			}
 		}
 		if (UserID) {
@@ -149,7 +147,7 @@ const Card = ({ omakirja }) => {
 									</div>
 								</div>
 								<button className="lisaa-btn" onClick={DeleteKirja}>Poista omasta kirjastosta</button>
-								{onnistui == false &&
+								{onnistui === false &&
 									<h3 style={{ color: "red" }}>Kirjan poisto ei onnistunut</h3>
 								}
 								<ToastContainer

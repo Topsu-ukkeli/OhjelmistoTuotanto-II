@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 
 const Sarjat = () => {
 	const [sarjat, setSarjat] = useState([]);
-	const [error, setError] = useState(null);
 	useEffect(() => {
 		fetchUsers();
 	}, [])
@@ -16,7 +15,6 @@ const Sarjat = () => {
 			setSarjat(data);
 		}
 		catch (err) {
-			setError(err);
 		}
 	}
 
@@ -46,7 +44,6 @@ const OpenMore = props => {
 }
 const Card = ({ sarja }) => {
 	const [kirjat, setKirjat] = useState([]);
-	const [error, setError] = useState(null);
 	const [ids, setIds] = useState("");
 	const [isOpen, setIsOpen] = useState(false);
 	useEffect(() => {
@@ -61,7 +58,6 @@ const Card = ({ sarja }) => {
 			setKirjat(data);
 		}
 		catch (err) {
-			setError(err);
 		}
 	}
 
