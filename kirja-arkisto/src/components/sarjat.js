@@ -96,7 +96,7 @@ const Card = ({ sarja }) => {
 							<div className="popupcard">
 								<h1>{sarja.Sarjanimi}</h1>
 								<img src={parsePicturePath(sarja.image)} alt="img" />
-								<h2>Kuvaus: {sarja.Kuvaus}</h2>
+								<h2>Kuvaus: </h2>{sarja.Kuvaus}
 								<h2>Luokittelu: {sarja.Luokittelu}</h2>
 								{Array.isArray(kirjat) && kirjat.length > 0 ?
 									kirjat.map((kirja) => (
