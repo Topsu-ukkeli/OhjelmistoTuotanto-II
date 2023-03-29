@@ -20,8 +20,6 @@ const createdOmakirjasto = async (req, res, next) => {
             Hinta: Hinta,
             HankintaAika:HankintaAika,
         });
-        console.log("userid on",UserID);
-        console.log("serverin päässä saa", createdomakirjasto);
 
         // Save the new kirja to the database
         if (await OmaKirjastos.findOne({ $and: [{ title },{UserID}] })) {
@@ -42,7 +40,6 @@ const getOmakirjastoById = async(req,res,next) => {
     let omakirjasto;
     try{
         omakirjasto = await OmaKirjastos.find({UserID});
-        console.log("tässä saan?",omakirjasto,UserID);
     }catch (err) {
 
         return next(err);

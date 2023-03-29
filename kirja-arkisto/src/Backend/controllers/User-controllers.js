@@ -23,12 +23,10 @@ const createdUser = async (req, res, next) => {
                 Email: Email,
             });
             try {
-                console.log("ja mehän saadaa", createdUser);
                 try {
                     await createdUser.save();
                 }
                 catch (err) {
-                    console.log("Miksi",000);
                 }
 
             } catch (err) {
@@ -101,7 +99,6 @@ const updateUserById = async (req, res, next) => {
             user.Email = Email;
 
             await user.save();
-            console.log(user, "Käyttäjä päivitetty");
 
             res.json({ Users: user.toObject({ getters: true }) });
         } else {
@@ -109,7 +106,6 @@ const updateUserById = async (req, res, next) => {
             return next(error);
         }
     } catch (err) {
-        console.log(err);
         const error = new HttpError("Server error", 500);
         return next(error);
     }

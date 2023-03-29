@@ -42,7 +42,6 @@ const createKirja = async (req, res, next) => {
             return res.status(500).json({ message: "Virhe.", err });
         } else {
             const file = req.file;
-            console.log(file);
 
             const { title, author, published, page, sarjaid,kuvaus, piirtajat } = req.body;
 
@@ -73,13 +72,10 @@ const createKirja = async (req, res, next) => {
 
 const getKirjaById = async (req, res, next) => {
     const kirjaId = req.params._id;
-    console.log(`Received get request for kirja with id: ${kirjaId}`);
     let kirja;
     try {
         kirja = await Kirjas.findById(kirjaId);
-        console.log(`Found kirja: ${JSON.stringify(kirja)}`);
     } catch (err) {
-        console.log(`Error finding kirja with id ${kirjaId}: ${err}`);
         const error = new HttpError('Could not find kirja', 500);
         return next(error);
     }
@@ -95,13 +91,10 @@ const getKirjaBySarjaid = async (req, res, next) => {
         const error = new HttpError('Invalid sarjaid parameter', 400);
         return next(error);
     }
-    console.log(`Received get request for kirja with sarjaid: ${sarjaid}`);
     let kirja;
     try {
         kirja = await Kirjas.find({"sarjaid": sarjaid});
-        console.log(`Found kirja: ${JSON.stringify(kirja)}`);
     } catch (err) {
-        console.log(`Error finding kirja with sarjaid ${sarjaid}: ${err}`);
         const error = new HttpError('Could not find kirja', 500);
         return next(error);
     }
@@ -113,13 +106,10 @@ const getKirjaBySarjaid = async (req, res, next) => {
 };
 const deleteKirjas = async (req, res, next) => {
     const kirjaId = req.params._id;
-    console.log(`Received delete request for kirja with id: ${kirjaId}`);
     let kirja;
     try {
         kirja = await Kirjas.findById(kirjaId);
-        console.log(`Found kirja: ${JSON.stringify(kirja)}`);
     } catch (err) {
-        console.log(`Error finding kirja with id ${kirjaId}: ${err}`);
         const error = new HttpError('Could not delete kirja', 500);
         return next(error);
     }
@@ -128,11 +118,8 @@ const deleteKirjas = async (req, res, next) => {
         return next(error);
     }
     try {
-        console.log(`Deleting kirja with id: ${kirja._id}`);
         await Kirjas.deleteOne({ _id: kirjaId })
-        console.log(`Kirja with id ${kirja._id} deleted successfully`);
     } catch (err) {
-        console.log(`Error deleting kirja with id ${kirjaId}: ${err}`);
         const error = new HttpError('Could not delete kirja', 500);
         return next(error);
     }
@@ -179,9 +166,7 @@ const updateKirjaById = async (req, res, next) => {
             kirjas.page = page;
             kirjas.sarjaid = sarjaid;
 
-            console.log("kirjas saa",kirjas);
             await kirjas.save();
-            console.log(kirjas, "Käyttäjä päivitetty");
 
             res.json({ Kirjas: kirjas.toObject({ getters: true }) });
         } else {
@@ -189,7 +174,6 @@ const updateKirjaById = async (req, res, next) => {
             return next(error);
         }
     } catch (err) {
-        console.log(err);
         const error = new HttpError("Server error", 500);
         return next(error);
     }

@@ -67,7 +67,6 @@ const Card = ({ kirja, UserID }) => {
             Hinta: Hinta,
             HankintaAika:HankintaAika,
 		};
-		console.log(UserID);
 		fetch("http://localhost:5000/api/omakirjasto/createOmakirjasto", {
 			method: 'POST',
 			headers: {
@@ -77,7 +76,6 @@ const Card = ({ kirja, UserID }) => {
 		})
 			.then(response => {
 				if (!response.ok) {
-					console.log("vastaus on", response);
 					setOnnistui(false);
 					throw new Error('Failed to add book to own library');
 				}
@@ -88,7 +86,6 @@ const Card = ({ kirja, UserID }) => {
 				return response.json();
 			})
 			.then(data => {
-				console.log(data);
 			})
 			.catch(error => {
 				console.error(error);
@@ -103,7 +100,6 @@ const Card = ({ kirja, UserID }) => {
 	const parsePicturePath = (picture) => {
 		const Slash = picture.lastIndexOf("\\");
 		if (Slash === -1) {
-			console.log(picture);
 			return picture;
 		}
 		return picture.substring(Slash + 1).replace(/\\/g, "/");

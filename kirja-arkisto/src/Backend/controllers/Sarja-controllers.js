@@ -42,7 +42,6 @@ const createdSarja = async (req, res, next) => {
             return res.status(500).json({ message: "Virhe.", err });
         } else {
             const file = req.file;
-            console.log(file);
 
             const { Sarjanimi, Kustantaja, Kuvaus, Luokittelu, sarjaid } = req.body;
 
@@ -93,14 +92,12 @@ exports.getSarjaImage = async (req, res, next) => {
         const readStream = gfs.createReadStream({ _id: imageId });
 
         readStream.on('error', (err) => {
-            console.log('Error reading image:', err);
             res.status(404).send('Image not found');
         });
 
         res.set('Content-Type', 'image/jpeg');
         readStream.pipe(res);
     } catch (error) {
-        console.log('Error connecting to MongoDB:', error);
         res.status(500).send('Internal server error');
     }
 };
@@ -138,13 +135,10 @@ const getAllSarjas = async (req, res, next) => {
 
 const DeleteSarjas = async (req, res, next) => {
     const sarjaid = req.params._id;
-    console.log(`Received delete request for kirja with id: ${sarjaid}`);
     let sarja;
     try {
         sarja = await Sarjas.findById(sarjaid);
-        console.log(`Found kirja: ${JSON.stringify(sarja)}`);
     } catch (err) {
-        console.log(`Error finding kirja with id ${sarjaid}: ${err}`);
         const error = new HttpError('Could not delete kirja', 500);
         return next(error);
     }
@@ -153,11 +147,8 @@ const DeleteSarjas = async (req, res, next) => {
         return next(error);
     }
     try {
-        console.log(`Deleting kirja with id: ${sarja._id}`);
         await Sarjas.deleteOne({ _id: sarjaid })
-        console.log(`Kirja with id ${sarja._id} deleted successfully`);
     } catch (err) {
-        console.log(`Error deleting kirja with id ${sarjaid}: ${err}`);
         const error = new HttpError('Could not delete kirja', 500);
         return next(error);
     }
@@ -190,7 +181,6 @@ const updateSarjaById = async (req, res, next) => {
             sarja.Luokittelu = Luokittelu;
 
             await sarja.save();
-            console.log(sarja, "Käyttäjä päivitetty");
 
             res.json({ Sarjas: sarja.toObject({ getters: true }) });
         } else {
@@ -198,7 +188,6 @@ const updateSarjaById = async (req, res, next) => {
             return next(error);
         }
     } catch (err) {
-        console.log(err);
         const error = new HttpError("Server error", 500);
         return next(error);
     }

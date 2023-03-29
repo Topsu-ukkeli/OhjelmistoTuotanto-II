@@ -24,7 +24,6 @@ function App() {
   
   useEffect(() => {
     const userid =  JSON.parse(localStorage.getItem("user"));
-    console.log("userid saa",userid)
     if(userid)
     {
       setUserID(userid);

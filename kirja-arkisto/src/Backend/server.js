@@ -34,5 +34,4 @@ mongoose
         server.listen(5000);
     })
     .catch(error => {
-        console.log("ei päästy sisään", error);
     })

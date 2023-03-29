@@ -55,11 +55,9 @@ const Login = ({ setUserID, setAdminlogged, setKirjauduttu, kirjauduttu }) => {
         setUserID(KID);
     }
     const handleKirjauduulos = () => {
-        console.log("kävin poistossa");
         try {
             localStorage.removeItem("user");
         } catch (err) {
-            console.log("ei heitä");
         }
 
         setKirjauduttu(false);

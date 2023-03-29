@@ -8,7 +8,6 @@ import kuvaph from '../images/kuvaplaceholder.png'
 
 //https://moog.antikvariaattimakedonia.fi/index.php?sivu=lehdet&moog_sarja_id=342
 const OmaKirjasto = ({ UserID }) => {
-	console.log("Käyttäjä", UserID);
 	const [omatkirjat, setOmatkirjat] = useState([]);
 	const [error, setError] = useState(null);
 
@@ -18,11 +17,9 @@ const OmaKirjasto = ({ UserID }) => {
 	useEffect(() => {
 		const fetchUsers = async () => {
 			try {
-				console.log(UserID);
 				const response = await fetch(`http://localhost:5000/api/omakirjasto/${UserID}`);
 				const data = await response.json();
 				setOmatkirjat(data);
-				console.log("omatkirjat", omatkirjat);
 			}
 			catch (err) {
 				setError(err);
@@ -94,7 +91,6 @@ const Card = ({ omakirja }) => {
 				}
 			).then(response => {
 				if (!response.ok) {
-					console.log("vastaus on", response);
 					setOnnistui(false);
 					throw new Error('Failed to delete book from own library');
 				}
@@ -105,7 +101,6 @@ const Card = ({ omakirja }) => {
 				return response.json();
 			})
 				.then(data => {
-					console.log(data);
 				})
 				.catch(error => {
 					console.error(error);
@@ -116,7 +111,6 @@ const Card = ({ omakirja }) => {
 	const parsePicturePath = (picture) => {
 		const Slash = picture.lastIndexOf("\\");
 		if (Slash === -1) {
-			console.log(picture);
 			return picture;
 		}
 		return picture.substring(Slash + 1).replace(/\\/g, "/");

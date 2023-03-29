@@ -45,12 +45,10 @@ const SarjatLisaus = () => {
                 body: formData
             });
             const data = await response.json();
-            console.log(data);
 
             if (response.ok) {
                 toast.success('Sarja lisätty onnistuneesti!');
             } else {
-                console.log(formData)
                 toast.error('Sarjan lisäys epäonnistui!');
             }
         } catch (err) {

@@ -37,13 +37,11 @@ export const Navbar = ({ login, adminlogged, setAdminlogged, setKirjauduttu, kir
         }
     }, [setKid])
     const handleKirjauduulos = () => {
-        console.log("kävin poistossa");
         try {
             localStorage.removeItem("user");
             setAdminlogged(false);
             setKirjauduttu(false);
         } catch (err) {
-            console.log("ei heitä");
         }
     }
     return (
