@@ -5,11 +5,6 @@
     color:white;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
 label {
     margin-bottom: 0.5rem;
@@ -23,7 +18,7 @@ input {
     border-radius: 0.25rem;
 }
 
-button {
+.login-napit {
     padding: 0.5rem 1rem;
     background-color: #007bff;
     color: #fff;
@@ -32,8 +27,18 @@ button {
     cursor: pointer;
 }
 
+.register-btn{
+    background-color: white;
+    color:#007bff;
+}
 
-button:hover {
+.register-btn:hover{
+    background-color: darkgray;
+    color:#007bff;
+}
+
+
+.login-napit:hover {
     background-color: #0069d9;
 }
 
@@ -41,11 +46,17 @@ button:hover {
 .newlogin{
     font-size: large;
     border: 2px black ridge;
-    
 }
 
 .napit{
     display: flex;
-    gap: 10px;
-    align-items: center;
 }
+
+.napit :first-of-type{
+    margin-right: auto;
+}
+.napit :last-of-type{
+    margin-left: auto;
+}
+
+

@@ -74,7 +74,7 @@ const Login = ({ setUserID, setAdminlogged, setKirjauduttu, kirjauduttu }) => {
                     <h1>Kirjaudu sisään</h1>
                     <div>
                         <label>Käyttäjä:</label>
-                        <input type="käyttäjätunnus"
+                        <input type="käyttäjätunnus" autoFocus
                             value={käyttäjä} onChange={(event) => setKäyttäjä(event.target.value)} />
                     </div>
                     <div>
@@ -82,11 +82,11 @@ const Login = ({ setUserID, setAdminlogged, setKirjauduttu, kirjauduttu }) => {
                         <input type="password" id="password"
                             value={salasana} onChange={(event) => setSalasana(event.target.value)} />
                     </div>
-                    <div>
-                        <button class="button-85" role="button" onClick={handleKirjaudu}>Kirjaudu</button>
+                    <div className="napit">
                         <Link to="/register">
-                            <button class="button-85" role="button">Rekisteröidy</button>
+                            <button className="register-btn">Rekisteröidy</button>
                         </Link>
+                        <button onClick={handleKirjaudu}>Kirjaudu</button>
                     </div>
                 </div>
             }

@@ -29,7 +29,7 @@ const Register = () => {
         })
             .then(response => {
                 if (!response.ok) {
-                    console.log("vastaus on",response);
+                    console.log("vastaus on", response);
                     setOnnistui(false);
                     throw new Error('Failed to create user');
                 }
@@ -48,55 +48,57 @@ const Register = () => {
     }
 
     return (
-        <form className="register-container">
-            <h1>Luo uusi tili</h1>
-            <div>
-                <div>
-                    <label>
-                        Anna nimesi:
-                        <input type="text" onChange={(e) => setUusiNimi(e.target.value)}></input>
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Anna käyttäjänimi:
-                        <input type="text" onChange={(e) => setUusiKNimi(e.target.value)}></input>
-                    </label>
-                </div>
+        <div className="register-container">
+            <form>
+                <h1>Luo uusi tili</h1>
                 <div>
                     <div>
                         <label>
-                            Anna salasana:
-                            <input type="password" onChange={(e) => setUusiSala(e.target.value)}></input>
+                            Anna nimesi:
+                            <input type="text" onChange={(e) => setUusiNimi(e.target.value)}></input>
                         </label>
                     </div>
                     <div>
                         <label>
-                            Anna sähköpostiosoitteesi:
-                            <input type="text" onChange={(e) => setUusiSahko(e.target.value)}></input>
+                            Anna käyttäjänimi:
+                            <input type="text" onChange={(e) => setUusiKNimi(e.target.value)}></input>
                         </label>
                     </div>
-                    <button onClick={(e) => Tallenna(e)}>Rekisteröi uudet tiedot</button>
-                    {onnistui == false &&
-                        <h3 style={{ color: "red" }}>Rekisteröinti ei onnistunut, yritä uudelleen</h3>
-                    }
-                    <ToastContainer
-                    position="bottom-center"
-                    hideProgressBar={false}
-                    closeOnClick
-                    pauseOnHover
-                    theme="light"
-                    autoClose={5000} />
-                    {onnistui &&
-                        <>
-                            {setTimeout(() => {
-                                window.location.href = '/login';
-                            }, 5000)}
-                        </>
-                    }
+                    <div>
+                        <div>
+                            <label>
+                                Anna salasana:
+                                <input type="password" onChange={(e) => setUusiSala(e.target.value)}></input>
+                            </label>
+                        </div>
+                        <div>
+                            <label>
+                                Anna sähköpostiosoitteesi:
+                                <input type="text" onChange={(e) => setUusiSahko(e.target.value)}></input>
+                            </label>
+                        </div>
+                        <button onClick={(e) => Tallenna(e)}>Rekisteröi uudet tiedot</button>
+                        {onnistui == false &&
+                            <h3 style={{ color: "red" }}>Rekisteröinti ei onnistunut, yritä uudelleen</h3>
+                        }
+                        <ToastContainer
+                            position="bottom-center"
+                            hideProgressBar={false}
+                            closeOnClick
+                            pauseOnHover
+                            theme="light"
+                            autoClose={5000} />
+                        {onnistui &&
+                            <>
+                                {setTimeout(() => {
+                                    window.location.href = '/login';
+                                }, 5000)}
+                            </>
+                        }
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     )
 }
 export { Register };

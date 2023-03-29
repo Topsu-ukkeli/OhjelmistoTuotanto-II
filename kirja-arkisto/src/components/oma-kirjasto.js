@@ -136,15 +136,15 @@ const Card = ({ omakirja }) => {
 								<div className="left-column">
 									<h1>{omakirja.title}</h1>
 									<img src={parsePicturePath(omakirja.image)} />
+									<h2>Kirjoittaja:</h2>{omakirja.author}
 								</div>
 								<div className="omakirja-right-column">
 									<div className="omakirja-right-top">
-										<h2>Kirjoittaja:</h2>{omakirja.author}
 										<h2>Julkaistu:</h2>{omakirja.published}
 										<h2>Sivumäärä:</h2>{omakirja.page}
-										<h2>Kirjan kunto:{omakirja.Kunto}</h2>
-										<h2>Kirjan ostohinta: {omakirja.Hinta}</h2>
-										<h2>Ostoaika: {omakirja.HankintaAika}</h2>
+										<h2>Kirjan kunto:</h2>{omakirja.Kunto}
+										<h2>Kirjan ostohinta:</h2>{omakirja.Hinta}
+										<h2>Ostoaika:</h2>{omakirja.HankintaAika}
 									</div>
 									<div className="omakirja-right-bottom">
 										<h1>Käyttäjän lataamia kuvia</h1>

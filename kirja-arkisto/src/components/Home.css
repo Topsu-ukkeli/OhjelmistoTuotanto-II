@@ -39,11 +39,11 @@
 
 .postaus {
   display: wrap;
-  background-color: white;
   width: 51%;
   padding: 15px;
   align-items: center;
   justify-content: center;
+  background-color: rgba(255, 255, 255, 0.4);
 }
 
 .postaus img {

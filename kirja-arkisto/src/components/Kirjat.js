@@ -124,9 +124,9 @@ const Card = ({ kirja, UserID }) => {
 								<div className="left-column">
 									<h1>{kirja.title}</h1>
 									<img src={parsePicturePath(kirja.image)} />
+									<h2>Kirjoittaja</h2><p>{kirja.author}</p>
 								</div>
 								<div className="right-column">
-									<h2>Kirjoittaja</h2><p>{kirja.author}</p>
 									<h2>Julkaistu</h2><p>{kirja.published}</p>
 									<h2>Sivumäärä</h2><p>{kirja.page}</p>
 									<h2>Kirjan kuvaus </h2><p>{kirja.kuvaus}</p>
