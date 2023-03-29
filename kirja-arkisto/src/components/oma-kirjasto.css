@@ -3,5 +3,31 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color:white;
+    color: white;
+    width: 98%;
+}
+
+.omakirjasto-container input {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+}
+
+.somakirjasto-container label {
+    margin-bottom: 0.5rem;
+    padding: 1rem;
+}
+
+.omakirjasto-container button {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+.omakirjasto-container button:hover {
+    background-color: #0069d9;
 }

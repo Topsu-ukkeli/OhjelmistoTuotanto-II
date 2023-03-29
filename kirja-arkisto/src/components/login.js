@@ -80,21 +80,20 @@ const Login = ({ setUserID, setAdminlogged, setKirjauduttu, kirjauduttu }) => {
                         <input type="password" id="password"
                             value={salasana} onChange={(event) => setSalasana(event.target.value)} />
                     </div>
-                    <div className="napit">
-                        <Link to="/register">
-                            <button className="register-btn">Rekisteröidy</button>
-                        </Link>
-                        <button onClick={handleKirjaudu}>Kirjaudu</button>
-                    </div>
+                        <button onClick={handleKirjaudu}>Kirjaudu sisään</button>
+                    <p className="">Mikäli sinulla ei ole vielä tunnuksia pääset rekisteröitymään
+                        <a><Link to="/register"> tästä. </Link></a></p>
                 </div>
             }
             {kirjauduttu &&
                 <div>
                     <h1>Hei {käyttäjä}!</h1>
+                    <div className="napit">
                     <Link to="/oma-kirjasto">
                         <button>Omaan kirjastoon</button>
                     </Link>
                     <button onClick={handleKirjauduulos}>Kirjaudu ulos</button>
+                    </div>
                 </div>
             }
         </form >

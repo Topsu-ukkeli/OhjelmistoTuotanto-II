@@ -5,20 +5,25 @@
     color:white;
 }
 
+.login-container p{
+    color:darkgray;
+    font-size: large;
+}
 
-label {
+
+.login-container label {
     margin-bottom: 0.5rem;
     padding: 1rem;
 }
 
-input {
+.login-container input {
     padding: 0.5rem;
     margin-bottom: 1rem;
     border: 1px solid #ccc;
     border-radius: 0.25rem;
 }
 
-.login-napit {
+.login-container button{
     padding: 0.5rem 1rem;
     background-color: #007bff;
     color: #fff;
@@ -27,36 +32,14 @@ input {
     cursor: pointer;
 }
 
-.register-btn{
-    background-color: white;
-    color:#007bff;
-}
-
-.register-btn:hover{
-    background-color: darkgray;
-    color:#007bff;
-}
-
-
-.login-napit:hover {
+.login-container button:hover {
     background-color: #0069d9;
 }
 
-
-.newlogin{
-    font-size: large;
-    border: 2px black ridge;
+.login-container a{
+    text-decoration: none;
 }
 
-.napit{
-    display: flex;
+.napit button{
+    margin-left:20px;
 }
-
-.napit :first-of-type{
-    margin-right: auto;
-}
-.napit :last-of-type{
-    margin-left: auto;
-}
-
-

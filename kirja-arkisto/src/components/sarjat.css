@@ -11,6 +11,44 @@ body{
   width: 98%;
 }
 
+.sarjat-container input {
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+}
+
+.sarjat-container label {
+  margin-bottom: 0.5rem;
+  padding: 1rem;
+}
+
+.sarjat-container button{
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.sarjat-container button:hover {
+  background-color: #0069d9;
+}
+
+.card-info{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+} 
+
+.lisatietobutton{
+  margin-top: auto;
+  margin-bottom: 15px;
+}
+
   /* Kaikki täällä tehtävät määritykset kortteihin ja hakupalkkeihin
   on tarkoitus vaikuttaa kaikkialle tämän
   projektin elementteihin! */
@@ -51,7 +89,6 @@ body{
     overflow: hidden;
     color:black;
     box-shadow: 0 0px 10px rgb(0, 0, 0);
-    margin: auto;
     width: 400px;
     height: 400px;
     background-color: rgb(255, 255, 255);
@@ -63,20 +100,11 @@ body{
     max-height: 160px;
     width: auto;
     object-fit: cover;
-    margin: auto;
 }
 
 .card:hover {
-  /* Tähän täytyy keksiä jotain ettei kaikki kortit hypi miten sattuu */
     border: 0.5px solid rgb(6, 90, 247);
-    /* border-radius: 0%; */
-    /* box-shadow: 0 0 15px #333;
-    -webkit-box-shadow: 0 0 15px #333;
-    -moz-box-shadow: 0 0 15px #333;
-    -o-box-shadow: 0 0 15px #333;
-    -ms-box-shadow: 0 0 15px #333; */
 }
-
 
   .popup-box{
     position:fixed;

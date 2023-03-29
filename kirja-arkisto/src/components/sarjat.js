@@ -84,8 +84,7 @@ const Card = ({ sarja }) => {
 				<div className="card-info">
 					<h1>{sarja.Sarjanimi}</h1>
 					<img src={parsePicturePath(sarja.image)} alt="img" className="card_img" />
-					<h3>Luokittelu:</h3><p>{sarja.Luokittelu}</p>
-					<button onClick={TogglePopup}>Lisätietoja</button>
+					<button className="lisatietobutton" onClick={TogglePopup}>Lisätietoja</button>
 					{isOpen && <OpenMore
 						handleClose={TogglePopup}
 						content={
@@ -109,7 +108,6 @@ const Card = ({ sarja }) => {
 									<h2>Sarjalla ei ole vielä kirjoja</h2>
 								}
 							</div>}
-
 					/>}
 				</div>
 			</div>
