@@ -1,7 +1,6 @@
 const HttpError = require("../models/http-error");
 const OmaKirjastos = require("../models/Omakirjasto");
 const mongoose = require("mongoose");
-const Omakirjasto = require("../models/Omakirjasto");
 
 const createdOmakirjasto = async (req, res, next) => {
     const { title, author, published, page, image, sarjaid ,UserID, Kunto, Hinta,HankintaAika} = req.body;
@@ -70,6 +69,40 @@ const DeleteOmakirja = async (req, res, next) => {
 
     res.status(200).json({ message: 'Deleted omakirja' });
 }
+const updateOmakirjairjaById = async (req, res, next) => {
+    const { Kunto, Hinta, HankintaAika} = req.body;
+    const omakirjasID = req.params._id;
+    try {
+        const omakirjas = await OmaKirjastos.findById(omakirjasID);
+
+        if (omakirjas) {
+            const existingKirja = await OmaKirjastos.findOne({
+                $and: [{ _id: { $ne: omakirjasID } }],
+            });
+            if (!existingKirja) {
+                const error = new HttpError(
+                    "Käyttäjänimi tai sähköposti on jo käytössä",
+                    422
+                );
+                return next(error);
+            }
+            omakirjas.Kunto = Kunto;
+            omakirjas.Hinta = Hinta;
+            omakirjas.HankintaAika = HankintaAika;
+
+            await omakirjas.save();
+
+            res.json({ OmaKirjastos: omakirjas.toObject({ getters: true }) });
+        } else {
+            const error = new HttpError("Käyttäjää ei löydetty", 404);
+            return next(error);
+        }
+    } catch (err) {
+        const error = new HttpError("Server error", 500);
+        return next(error);
+    }
+};
+exports.updateOmakirjairjaById = updateOmakirjairjaById;
 exports.createdOmakirjasto = createdOmakirjasto;
 exports.DeleteOmakirja = DeleteOmakirja;
 exports.getOmakirjastoById = getOmakirjastoById;

@@ -75,6 +75,11 @@ const OpenMore = props => {
 const Card = ({ omakirja }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [onnistui, setOnnistui] = useState(null);
+	const [showEdit, setShowEdit] = useState(true);
+	const [muokattuKunto, setMuokattuKunto] = useState('');
+	const [muokattuHinta, setMuokattuHinta] = useState('');
+	const [muokattuOstoaika, setMuokattuOstoaika] = useState('');
+	const [muokattuID, setMuokattuID] = useState('');
 
 	const togglePopup = () => {
 		setIsOpen(!isOpen);
@@ -106,6 +111,40 @@ const Card = ({ omakirja }) => {
 		}
 	};
 
+	const Muokkaa = () => {
+		setMuokattuHinta(omakirja.Hinta);
+		setMuokattuKunto(omakirja.Kunto);
+		setMuokattuOstoaika(omakirja.HankintaAika);
+		setMuokattuID(omakirja._id)
+		setShowEdit(!showEdit);
+	}
+	const PaivitaTiedot = async () => {
+		const updatedBook = {
+			Kunto: muokattuKunto,
+			Hinta: muokattuHinta,
+			HankintaAika: muokattuOstoaika,
+		}
+		try {
+			const response = await fetch(`http://localhost:5000/api/omakirjasto/${muokattuID}`, {
+				method: "PATCH",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify(updatedBook)
+			});
+			const data = await response.json();
+			if (data.ok) {
+				setOnnistui(false);
+				toast.error('Kirjan tietojen päivitys epäonnistui!');
+			} else {
+				toast.success('Kirjan tietojen päivitys onnistui!');
+				setOnnistui(true);
+			}
+		} catch (err) {
+			console.error(err);
+			toast.error('Tiedoston lataaminen epäonnistui!');
+		}
+	}
 	const parsePicturePath = (picture) => {
 		const Slash = picture.lastIndexOf("\\");
 		if (Slash === -1) {
@@ -131,13 +170,23 @@ const Card = ({ omakirja }) => {
 									<h2>Kirjoittaja:</h2>{omakirja.author}
 								</div>
 								<div className="omakirja-right-column">
-									<div className="omakirja-right-top">
-										<h2>Julkaistu:</h2>{omakirja.published}
-										<h2>Sivumäärä:</h2>{omakirja.page}
-										<h2>Kirjan kunto:</h2>{omakirja.Kunto}
-										<h2>Kirjan ostohinta:</h2>{omakirja.Hinta}
-										<h2>Ostoaika:</h2>{omakirja.HankintaAika}
-									</div>
+									{showEdit ? (
+										<div className="omakirja-right-top">
+											<h2>Julkaistu:</h2>{omakirja.published}
+											<h2>Sivumäärä:</h2>{omakirja.page}
+											<h2>Kirjan kunto:</h2>{omakirja.Kunto}
+											<h2>Kirjan ostohinta:</h2>{omakirja.Hinta}
+											<h2>Ostoaika:</h2>{omakirja.HankintaAika}
+										</div>
+									) : (
+										<div>
+											<h2>Julkaistu:</h2>{omakirja.published}
+											<h2>Sivumäärä:</h2>{omakirja.page}
+											<h4>Muokkaa kirjan kunto:<input value={muokattuKunto} onChange={(e) => setMuokattuKunto(e.target.value)} ></input></h4>
+											<h4>Muokkaa kirjan hinta:<input value={muokattuHinta} onChange={(e) => setMuokattuHinta(e.target.value)}></input></h4>
+											<h4>Muokkaa kirjan ostoaika:<input value={muokattuOstoaika} onChange={(e) => setMuokattuOstoaika(e.target.value)}></input> <button onClick={PaivitaTiedot}>Päivitä</button></h4>
+										</div>
+									)}
 									<div className="omakirja-right-bottom">
 										<h1>Käyttäjän lataamia kuvia</h1>
 										<div className="user-pictures">
@@ -147,6 +196,7 @@ const Card = ({ omakirja }) => {
 									</div>
 								</div>
 								<button className="lisaa-btn" onClick={DeleteKirja}>Poista omasta kirjastosta</button>
+								<button onClick={Muokkaa} className='lisaa-btn'>Muokkaa tietoja</button>
 								{onnistui === false &&
 									<h3 style={{ color: "red" }}>Kirjan poisto ei onnistunut</h3>
 								}
