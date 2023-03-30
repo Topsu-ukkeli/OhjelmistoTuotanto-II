@@ -10,6 +10,11 @@
     font-size: large;
 }
 
+.login-container a{
+    color:white;
+    font-size: large;
+}
+
 
 .login-container label {
     margin-bottom: 0.5rem;
@@ -36,9 +41,6 @@
     background-color: #0069d9;
 }
 
-.login-container a{
-    text-decoration: none;
-}
 
 .napit button{
     margin-left:20px;

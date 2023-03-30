@@ -24,9 +24,9 @@ const Kirjatlisaus = () => {
         setShowSelect(!e.target.checked);
         // reset serieid value if checkbox is checked
         if (e.target.checked) {
-          setSerieid('0');
+            setSerieid('0');
         }
-      };
+    };
     useEffect(() => {
         const kirjautumisdata = localStorage.getItem('KIRJAUDUTTU_DATA');
         setKirjauduttu(JSON.parse(kirjautumisdata));
@@ -57,8 +57,8 @@ const Kirjatlisaus = () => {
         formData.append('page', page);
         formData.append('image', image);
         formData.append('sarjaid', sarjaid);
-        formData.append('kuvaus',kuvateksti);
-        formData.append('piirtajat',piirtajat);
+        formData.append('kuvaus', kuvateksti);
+        formData.append('piirtajat', piirtajat);
 
         try {
             const response = await fetch("http://localhost:5000/api/Kirja/Kirjat", {
@@ -126,17 +126,17 @@ const Kirjatlisaus = () => {
                     </label>
                     <br />
                     <input type="checkbox" checked={!showSelect} onChange={handleCheckboxChange} /> Ei kuulu mihinkään sarjaan
-                    <br/>
+                    <br />
                     {showSelect && (
-                    <label className='labels'>
-                        SeriesID:
-                        <select className='kirja-input' onChange={(e) => setSerieid(e.target.value)}>
-                            {sarjas.map((sarja, index) => (
-                                <option key={`${sarja.sarjaid}_${index}`} value={sarja.sarjaid}>{sarja.Sarjanimi}</option>
-                            ))}
-                        </select>
-                    </label>
-                     )}
+                        <label className='labels'>
+                            SeriesID:
+                            <select className='kirja-input' onChange={(e) => setSerieid(e.target.value)}>
+                                {sarjas.map((sarja, index) => (
+                                    <option key={`${sarja.sarjaid}_${index}`} value={sarja.sarjaid}>{sarja.Sarjanimi}</option>
+                                ))}
+                            </select>
+                        </label>
+                    )}
                     <button onClick={Tallenna} type="submit">Tallenna uusi kirja</button>
                 </div>
 
