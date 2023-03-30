@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import "./Kirjatlisaus.css";
 import { Link } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Kirjatlisaus = () => {
     const [showSelect, setShowSelect] = useState(true);
@@ -19,6 +20,7 @@ const Kirjatlisaus = () => {
     const [showMsg, setShowmsg] = useState(false);
     const [sarjas, setSarjas] = useState([]);
     const [kirjauduttu, setKirjauduttu] = useState(false);
+    const [onnistui, setOnnistui] = useState(null);
 
     const handleCheckboxChange = (e) => {
         setShowSelect(!e.target.checked);
@@ -87,49 +89,45 @@ const Kirjatlisaus = () => {
                 pauseOnHover
                 theme="light"
                 autoClose={10000} />
-            <h1>Kirjan lisäys</h1>
             {kirjauduttu ? (
                 <form>
+                    <h1>Kirjan lisäys</h1>
+                    <p>Syötä tiedot alla oleviin kenttiin</p>
                     <label className='labels'>
                         Kirjan nimi:
                         <input type="text" className='kirja-input' value={title} onChange={e => setTitle(e.target.value)}></input>
                     </label>
-                    <br />
                     <label className='labels'>
                         Kirjoittaja:
                         <input type="text" className='kirja-input' value={author} onChange={e => setAuthor(e.target.value)}></input>
                     </label>
-                    <br />
                     <label className='labels'>
                         Julkaisuvuosi:
                         <input type="text" className='kirja-input' value={published} onChange={e => setPublished(e.target.value)}></input>
                     </label>
-                    <br />
                     <label className='labels'>
                         Sivumäärä:
                         <input type="text" className='kirja-input' value={page} onChange={e => setPages(e.target.value)}></input>
                     </label>
-                    <br />
                     <label className='labels'>
                         Kuvateksti:
                         <input type="text" className='kirja-input' value={kuvateksti} onChange={e => setKuvateksti(e.target.value)}></input>
                     </label>
-                    <br />
                     <label className='labels'>
                         Kirjan piirtäjät:
                         <input type="text" className='kirja-input' value={piirtajat} onChange={e => setPiirtajat(e.target.value)}></input>
                     </label>
-                    <br />
                     <label className='labels'>
                         Kansikuva:
                         <input type="file" className='kirja-input' onChange={handleImageChange}></input>
                     </label>
-                    <br />
-                    <input type="checkbox" checked={!showSelect} onChange={handleCheckboxChange} /> Ei kuulu mihinkään sarjaan
-                    <br />
+                    <label>
+                        Kirja ei kuulu mihinkään sarjaan
+                    <input type="checkbox" checked={!showSelect} onChange={handleCheckboxChange} />
+                    </label>
                     {showSelect && (
-                        <label className='labels'>
-                            SeriesID:
+                        <label>
+                            Kirjasarja:
                             <select className='kirja-input' onChange={(e) => setSerieid(e.target.value)}>
                                 {sarjas.map((sarja, index) => (
                                     <option key={`${sarja.sarjaid}_${index}`} value={sarja.sarjaid}>{sarja.Sarjanimi}</option>
