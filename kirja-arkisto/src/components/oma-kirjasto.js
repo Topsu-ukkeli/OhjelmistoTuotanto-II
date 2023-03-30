@@ -53,7 +53,7 @@ const OmaKirjasto = ({ UserID }) => {
 				)
 			) : (
 				<>
-					<h1>Sinun on kirjauduttava sisään jotta voit käyttää omaa kirjastoa</h1>
+					<h3>Sinun on kirjauduttava sisään jotta voit käyttää omaa kirjastoa</h3>
 					<Link to="/login">
 						<button>Kirjautumissivulle</button>
 					</Link>
