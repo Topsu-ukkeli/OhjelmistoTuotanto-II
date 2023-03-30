@@ -49,29 +49,30 @@ const Register = () => {
         <div className="register-container">
             <form>
                 <h1>Luo uusi tili</h1>
+                <p>Syötä tietosi alla oleviin kenttiin</p>
                 <div>
                     <div>
                         <label>
-                            Anna nimesi:
+                            Nimi
                             <input type="text" onChange={(e) => setUusiNimi(e.target.value)}></input>
                         </label>
                     </div>
                     <div>
                         <label>
-                            Anna käyttäjänimi:
+                            Käyttäjänimi
                             <input type="text" onChange={(e) => setUusiKNimi(e.target.value)}></input>
                         </label>
                     </div>
                     <div>
                         <div>
                             <label>
-                                Anna salasana:
+                                Salasana
                                 <input type="password" onChange={(e) => setUusiSala(e.target.value)}></input>
                             </label>
                         </div>
                         <div>
                             <label>
-                                Anna sähköpostiosoitteesi:
+                                Sähköpostiosoite
                                 <input type="text" onChange={(e) => setUusiSahko(e.target.value)}></input>
                             </label>
                         </div>

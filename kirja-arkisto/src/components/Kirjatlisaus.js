@@ -89,7 +89,7 @@ const Kirjatlisaus = () => {
                 autoClose={10000} />
             <h1>Kirjan lisäys</h1>
             {kirjauduttu ? (
-                <div className="inputs-container">
+                <form>
                     <label className='labels'>
                         Kirjan nimi:
                         <input type="text" className='kirja-input' value={title} onChange={e => setTitle(e.target.value)}></input>
@@ -138,8 +138,7 @@ const Kirjatlisaus = () => {
                         </label>
                     )}
                     <button onClick={Tallenna} type="submit">Tallenna uusi kirja</button>
-                </div>
-
+                </form>
             ) : (
                 <div>
                     <h3>Kirjaudu sisään lisätäksesi kirja</h3>
