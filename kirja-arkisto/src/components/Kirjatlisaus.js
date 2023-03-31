@@ -21,6 +21,7 @@ const Kirjatlisaus = () => {
     const [sarjas, setSarjas] = useState([]);
     const [kirjauduttu, setKirjauduttu] = useState(false);
     const [onnistui, setOnnistui] = useState(null);
+    const [file, setFile] = useState();
 
     const handleCheckboxChange = (e) => {
         setShowSelect(!e.target.checked);
@@ -49,6 +50,7 @@ const Kirjatlisaus = () => {
 
     function handleImageChange(e) {
         setImage(e.target.files[0]);
+        setFile(URL.createObjectURL(e.target.files[0]));
     }
 
     async function Tallenna() {
@@ -80,6 +82,24 @@ const Kirjatlisaus = () => {
             toast.error('Error uploading file!');
         }
     }
+   document.addEventListener("DOMContentLoaded", () => {
+  const imgInput = document.querySelector("#image-input");
+  const imgPreview = document.querySelector("#image-preview");
+  
+  imgInput.addEventListener("change", () => {
+    const file = imgInput.files[0];
+    
+    if (file) {
+      const reader = new FileReader();
+      
+      reader.addEventListener("load", () => {
+        imgPreview.src = reader.result;
+      });
+      
+      reader.readAsDataURL(file);
+    }
+  });
+});
     return (
         <div className='kirjatlisaus-container'>
             <ToastContainer
@@ -119,7 +139,7 @@ const Kirjatlisaus = () => {
                     </label>
                     <label className='labels'>
                         Kansikuva:
-                        <input type="file" className='kirja-input' onChange={handleImageChange}></input>
+                        <input type="file" className='kirja-input'  onChange={handleImageChange}></input>
                     </label>
                     <label>
                         Kirja ei kuulu mihinkään sarjaan
@@ -145,6 +165,14 @@ const Kirjatlisaus = () => {
                     </Link>
                 </div>
             )}
+            <div>
+                <label>
+                    Alla näet kuvasi jonka aiot lisätä:
+                    <br/>
+                    <img src={file} />
+                    </label>
+            
+            </div>
         </div>
     )
 }
