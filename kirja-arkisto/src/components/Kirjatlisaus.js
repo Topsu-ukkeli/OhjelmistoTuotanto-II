@@ -82,24 +82,6 @@ const Kirjatlisaus = () => {
             toast.error('Error uploading file!');
         }
     }
-   document.addEventListener("DOMContentLoaded", () => {
-  const imgInput = document.querySelector("#image-input");
-  const imgPreview = document.querySelector("#image-preview");
-  
-  imgInput.addEventListener("change", () => {
-    const file = imgInput.files[0];
-    
-    if (file) {
-      const reader = new FileReader();
-      
-      reader.addEventListener("load", () => {
-        imgPreview.src = reader.result;
-      });
-      
-      reader.readAsDataURL(file);
-    }
-  });
-});
     return (
         <div className='kirjatlisaus-container'>
             <ToastContainer
@@ -171,7 +153,6 @@ const Kirjatlisaus = () => {
                     <br/>
                     <img src={file} />
                     </label>
-            
             </div>
         </div>
     )

@@ -13,13 +13,14 @@ const SarjatLisaus = () => {
     const [sarjaid, setSerieid] = useState('');
     const [img, setimg] = useState('');
     const [kirjauduttu, setKirjauduttu] = useState(false);
+    const [file, setFile] = useState();
 
     const numbers = [
-        {id:1,number:1},
-        {id:2,number:2},
-        {id:3,number:3},
-        {id:4,number:4},
-        {id:5,number:5}
+        { id: 1, number: 1 },
+        { id: 2, number: 2 },
+        { id: 3, number: 3 },
+        { id: 4, number: 4 },
+        { id: 5, number: 5 }
     ]
     useEffect(() => {
         const kirjautumisdata = localStorage.getItem('KIRJAUDUTTU_DATA');
@@ -29,6 +30,7 @@ const SarjatLisaus = () => {
 
     function handleImageChange(e) {
         setimg(e.target.files[0]);
+        setFile(URL.createObjectURL(e.target.files[0]));
     }
 
     async function Tallenna() {
@@ -88,17 +90,17 @@ const SarjatLisaus = () => {
                         Luokittelu:
                         <select onChange={(e) => setLuokittelu(e.target.value)}>
                             {numbers.map((row) => (
-                            <option key={row.id} value = {row.number}>{row.number}</option>
+                                <option key={row.id} value={row.number}>{row.number}</option>
                             ))}
                         </select>
                     </label>
                     <br />
-                    <br/>
+                    <br />
                     <label>
                         Luo sarjaid:
                         <input type='number' onChange={(e) => setSerieid(e.target.value)}></input>
                     </label>
-                    <br/>
+                    <br />
                     <label className='labels'>
                         Sarjan kansikuva:
                         <input type="file" className='kirja-input' onChange={handleImageChange}></input>
@@ -115,6 +117,13 @@ const SarjatLisaus = () => {
                     </Link>
                 </div>
             )}
+            <div>
+                <label>
+                    Alla näet kuvasi jonka aiot lisätä:
+                    <br />
+                    <img src={file} />
+                </label>
+            </div>
         </div>
     )
 }
