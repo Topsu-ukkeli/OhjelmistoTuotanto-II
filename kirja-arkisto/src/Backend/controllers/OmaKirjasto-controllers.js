@@ -21,6 +21,7 @@ const createdOmakirjasto = async (req, res, next) => {
         });
 
         // Save the new kirja to the database
+        //jos tämän poistaa voi käyttäjä lisätä useamman saman kirjan itselleen
         if (await OmaKirjastos.findOne({ $and: [{ title },{UserID}] })) {
             const error = new HttpError("Löytyy jo", 422);
             return next(error);

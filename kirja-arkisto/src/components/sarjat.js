@@ -66,8 +66,11 @@ const Card = ({ sarja }) => {
 		setTimeout(() => {
 			setIsOpen(!isOpen);
 		}, 200);
-
-
+	}
+	const togglesulje = () => {
+		setTimeout(() => {
+			setIsOpen(!isOpen);
+		}, 200);
 	}
 
 	const parsePicturePath = (picture) => {
@@ -79,13 +82,44 @@ const Card = ({ sarja }) => {
 	};
 
 	return ( //tämä täytyy miettiä uusiksi, ulkoasu aivan rikki!
-		<div className="card-container">
-			<div className="card">
-				<div className="card-info">
-					<h1>{sarja.Sarjanimi}</h1>
-					<img src={parsePicturePath(sarja.image)} alt="img" className="card_img" />
-					<button className="lisatietobutton" onClick={TogglePopup}>Lisätietoja</button>
-					{isOpen && <OpenMore
+		<div>
+			<div className="card-container">
+				{!isOpen ? (
+					<div className="card">
+						<div className="card-info">
+							<h1>{sarja.Sarjanimi}</h1>
+							<img src={parsePicturePath(sarja.image)} alt="img" className="card_img" />
+							<button className="lisatietobutton" onClick={TogglePopup}>Lisätietoja</button>
+						</div>
+					</div>
+				) : (
+					<div>
+						<h1>{sarja.Sarjanimi}</h1>
+						<img src={parsePicturePath(sarja.image)} alt="img" />
+						<h2>Kuvaus: </h2>{sarja.Kuvaus}
+						<h2>Luokittelu: {sarja.Luokittelu}</h2>
+						{Array.isArray(kirjat) && kirjat.length > 0 ?
+							kirjat.map((kirja) => (
+								<div>
+									<tbody>
+										<tr>
+											<th><img src={parsePicturePath(kirja.image)} alt="img" className="card_img" /></th>
+											<td><h2>{kirja.title}</h2></td>
+										</tr>
+									</tbody>
+								</div>
+							))
+							:
+							<h2>Sarjalla ei ole vielä kirjoja</h2>
+						}
+						<button onClick={togglesulje}>Sulje</button>
+					</div>
+				)}
+			</div>
+		</div>
+	);
+}
+{/* {isOpen && <OpenMore
 						handleClose={TogglePopup}
 						content={
 							<div className="popupcard">
@@ -108,12 +142,7 @@ const Card = ({ sarja }) => {
 									<h2>Sarjalla ei ole vielä kirjoja</h2>
 								}
 							</div>}
-					/>}
-				</div>
-			</div>
-		</div>
-	);
-}
+					/>} */}
 
 const SearchBar = ({ onChange }) => {
 	return (
