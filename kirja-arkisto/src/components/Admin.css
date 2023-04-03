@@ -58,7 +58,12 @@ dl>* {
     padding: 1rem;
 }
 
-.card_img {
+.sarja_img {
+    width: 7.5%;
+    height: 120px;
+}
+
+.kirja_img {
     width: 7.5%;
     height: 120px;
 }

@@ -194,7 +194,7 @@ const Admin = () => {
                         <h1>Sarjat:</h1>
                         {sarjat.map((sarja) => (
                             <dl>
-                                <img src={parsePicturePath(sarja.image)} alt="img" className="card_img" />
+                                <img src={parsePicturePath(sarja.image)} alt="img" className="sarja_img" />
                                 <dd>
                                     Sarjanimi:
                                     <br />
@@ -226,7 +226,7 @@ const Admin = () => {
                         <h1>Kirjat:</h1>
                         {kirjat.map((kirja) => (
                             <dl>
-                                <img src={parsePicturePath(kirja.image)} alt="img" className="card_img" />
+                                <img src={parsePicturePath(kirja.image)} alt="img" className="kirja_img" />
                                 <dd>
                                     Kirjanimi:
                                     <br />
