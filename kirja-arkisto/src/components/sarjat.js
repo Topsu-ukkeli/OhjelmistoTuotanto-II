@@ -31,17 +31,6 @@ const Sarjat = () => {
 		</div>
 	)
 }
-
-const OpenMore = props => {
-	return (
-		<div className="popup-box">
-			<div className="box">
-				<button className="btn-close" onClick={props.handleClose}>sulje</button>
-				{props.content}
-			</div>
-		</div>
-	)
-}
 const Card = ({ sarja }) => {
 	const [kirjat, setKirjat] = useState([]);
 	const [ids, setIds] = useState("");
@@ -83,8 +72,8 @@ const Card = ({ sarja }) => {
 
 	return ( //tämä täytyy miettiä uusiksi, ulkoasu aivan rikki!
 		<div>
-			<div className="card-container">
-				{!isOpen ? (
+			{!isOpen ? (
+				<div className="card-container">
 					<div className="card">
 						<div className="card-info">
 							<h1>{sarja.Sarjanimi}</h1>
@@ -92,30 +81,27 @@ const Card = ({ sarja }) => {
 							<button className="lisatietobutton" onClick={TogglePopup}>Lisätietoja</button>
 						</div>
 					</div>
-				) : (
-					<div>
-						<h1>{sarja.Sarjanimi}</h1>
-						<img src={parsePicturePath(sarja.image)} alt="img" />
-						<h2>Kuvaus: </h2>{sarja.Kuvaus}
-						<h2>Luokittelu: {sarja.Luokittelu}</h2>
-						{Array.isArray(kirjat) && kirjat.length > 0 ?
-							kirjat.map((kirja) => (
-								<div>
-									<tbody>
-										<tr>
-											<th><img src={parsePicturePath(kirja.image)} alt="img" className="card_img" /></th>
-											<td><h2>{kirja.title}</h2></td>
-										</tr>
-									</tbody>
-								</div>
-							))
-							:
-							<h2>Sarjalla ei ole vielä kirjoja</h2>
-						}
-						<button onClick={togglesulje}>Sulje</button>
-					</div>
-				)}
-			</div>
+				</div>
+			) : (
+				<div >
+					<h1>{sarja.Sarjanimi}</h1>
+					<img src={parsePicturePath(sarja.image)} alt="img" />
+					<h2>Kuvaus: </h2>{sarja.Kuvaus}
+					<h2>Luokittelu: {sarja.Luokittelu}</h2>
+					{Array.isArray(kirjat) && kirjat.length > 0 ?
+						kirjat.map((kirja) => (
+							<div classname="Sarjatietoja">
+								<img src={parsePicturePath(kirja.image)} alt="img" className="card_img" />
+								<h2>{kirja.title}</h2>
+							</div>
+						))
+						:
+						<h2>Sarjalla ei ole vielä kirjoja</h2>
+					}
+					<button onClick={togglesulje}>Sulje</button>
+				</div>
+
+			)}
 		</div>
 	);
 }
@@ -167,7 +153,7 @@ const FrontPage = ({ sarjat }) => {
 		<div>
 			<h1>Sarjat</h1>
 			<SearchBar onChange={setSearchTerm} />
-			<div>
+			<div >
 				{Filterserie.length !== 0 ? (
 					Filterserie.map((sarja) => (
 						<Card key={sarja.id} sarja={sarja} />
@@ -178,4 +164,4 @@ const FrontPage = ({ sarjat }) => {
 		</div>
 	);
 }
-export { SearchBar, FrontPage, Card, Sarjat, OpenMore };
+export { SearchBar, FrontPage, Card, Sarjat };
