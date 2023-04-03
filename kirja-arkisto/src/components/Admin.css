@@ -1,7 +1,64 @@
+body {
+    margin: 0;
+    padding: 1rem;
+}
+
 .sarja-admin {
-    color: rgb(138, 38, 252);
+    color: white;
 }
 
 .kirja-admin {
-    color: rgb(138, 38, 252);
+    color: white;
+}
+
+h1 {
+    margin: 0;
+    text-align: left;
+    padding: 1.5rem;
+}
+
+.button {
+    margin-right: 15px;
+    margin-left: 15px;
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0069d9;
+}
+
+article {
+    max-width: 70rem;
+    margin: 0 auto;
+    border-style: outset;
+    border-width: 5px;
+    border-color: #f1f1f0;
+    border-radius: 10px;
+    padding: 5px;
+    display: block;
+}
+
+dl {
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem 0;
+    margin: 0;
+    padding: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+dl>* {
+    padding: 1rem;
+}
+
+.card_img {
+    width: 7.5%;
+    height: 120px;
 }

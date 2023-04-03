@@ -106,13 +106,23 @@ const Admin = () => {
         setNewLuokittelu(sarja.Luokittelu);
         setSarjaids(sarja._id);
     }
-    const PaivitaSarja = async() => {
+
+    const parsePicturePath = (picture) => {
+		const Slash = picture.lastIndexOf("\\");
+		if (Slash === -1) {
+			return picture;
+		}
+		return picture.substring(Slash + 1).replace(/\\/g, "/");
+	};
+
+    const PaivitaSarja = async () => {
         const updatedBook = {
             Sarjanimi: newSarjanimi,
             Kustantaja: newKustantaja,
             Kuvaus: newKuvaus,
             Luokittelu: newLuokittelu,
         }
+    
         try {
             const response = await fetch(`http://localhost:5000/api/sarja/${sarjaids}`, {
                 method: "PATCH",
@@ -162,16 +172,16 @@ const Admin = () => {
     return (
         <div>
             <Link to="/Kirjalisaus">
-                <button class="button-85">Lisää kirja tietokantaan</button>
+                <button class="button">Lisää kirja tietokantaan</button>
             </Link>
             <br />
             <br />
             <Link to="/Sarjalisaus">
-                <button class="button-85">Lisää uusi sarja tietokantaan</button>
+                <button class="button">Lisää uusi sarja tietokantaan</button>
             </Link>
             <br />
             <br />
-            <button class="button-85" onClick={() => handleToggle()}>Poista kirja tai sarja tai muokkaa tietoja</button>
+            <button class="button" onClick={() => handleToggle()}>Poista kirja tai sarja tai muokkaa tietoja</button>
             <br />
             <br />
             {/* <Link to="/Kirjamuokkaus">
@@ -180,58 +190,66 @@ const Admin = () => {
 
             {visible && (
                 <div className="sarja-admin">
-                    <h1>Sarjat:</h1>
-                    {sarjat.map((sarja) => (
-                        <tr>
-                            <td>
-                                Sarjanimi:
-                                {sarja.Sarjanimi}
-                            </td>
-                            <td>
-                                Kustantaja:
-                                {sarja.Kustantaja}
-                            </td>
-                            <td>
-                                Kuvaus:
-                                {sarja.Kuvaus}
-                            </td>
-                            <td>
-                                Kunto:
-                                {sarja.Luokittelu}
-                            </td>
-                            <td>
-                                <button class="button-85" onClick={() => DeleteSarja(sarja)}>Poista sarja</button>
-                                <button class="button-85" onClick={() => handleSarjaMuokkaus({ sarja })}>Muokkaa sarjaa</button>
-                            </td>
-                        </tr>
-                    ))}
+                    <article>
+                        <h1>Sarjat:</h1>
+                        {sarjat.map((sarja) => (
+                            <dl>
+                                <img src={parsePicturePath(sarja.image)} alt="img" className="card_img" />
+                                <dd>
+                                    Sarjanimi:
+                                    <br />
+                                    {sarja.Sarjanimi}
+                                </dd>
+                                <dd>
+                                    Kustantaja:
+                                    <br />
+                                    {sarja.Kustantaja}
+                                </dd>
+                                <dd>
+                                    Kunto:
+                                    <br />
+                                    {sarja.Luokittelu}
+                                </dd>
+                                <dd>
+                                    <button class="button" onClick={() => DeleteSarja(sarja)}>Poista sarja</button>
+                                    <button class="button" onClick={() => handleSarjaMuokkaus({ sarja })}>Muokkaa sarja</button>
+                                </dd>
+                            </dl>
+                        ))}
+                    </article>
                 </div>
             )}
             < br />
             {visible && (
-                <div className="kirja-admin">
-                    <h1>Kirjat:</h1>
-                    {kirjat.map((kirja) => (
-                        <tr>
-                            <td>
-                                Kirjanimi:
-                                {kirja.title}
-                            </td>
-                            <td>
-                                Kirjailija:
-                                {kirja.author}
-                            </td>
-                            <td>
-                                Julkaisuvuosi:
-                                {kirja.published}
-                            </td>
-                            <td>
-                                <button class="button-85" onClick={() => DeleteKirja(kirja)}>Poista kirja </button>
-                                <button class="button-85" onClick={() => handleKirjaMuokkaus({ kirja })}>Muokkaa kirjaa</button>
-                            </td>
-                        </tr>
-                    ))}
-                </div>
+                <article>
+                    <div className="kirja-admin">
+                        <h1>Kirjat:</h1>
+                        {kirjat.map((kirja) => (
+                            <dl>
+                                <img src={parsePicturePath(kirja.image)} alt="img" className="card_img" />
+                                <dd>
+                                    Kirjanimi:
+                                    <br />
+                                    {kirja.title}
+                                </dd>
+                                <dd>
+                                    Kirjailija:
+                                    <br />
+                                    {kirja.author}
+                                </dd>
+                                <dd>
+                                    Julkaisuvuosi:
+                                    <br />
+                                    {kirja.published}
+                                </dd>
+                                <dd>
+                                    <button class="button" onClick={() => DeleteKirja(kirja)}>Poista kirja </button>
+                                    <button class="button" onClick={() => handleKirjaMuokkaus({ kirja })}>Muokkaa kirja</button>
+                                </dd>
+                            </dl>
+                        ))}
+                    </div>
+                </article>
             )}
             {kirjaMuokkausVisible && (
                 <div className="kirja-admin">
@@ -290,27 +308,5 @@ const Admin = () => {
         </div>
     )
 }
-// function Tallenna() {
-//     const newBook = {
-//         title: title,
-//         author: author,
-//         published: published,
-//         page: page,
-//         image: image,
-//         sarjaid: sarjaid
-//     };
-//     console.log("tähän tulee uusi kirja", newBook)
-//     fetch("http://localhost:5000/api/Kirja/Kirjat", {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify(newBook)
-//     })
-//         .then(response => response.json())
-//         .then(data => console.log(data))
-//         .catch(error => console.error(error));
-//         setShowmsg(true);
-// }
 
 export { Admin }
