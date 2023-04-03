@@ -121,11 +121,11 @@ const Kirjatlisaus = () => {
                     </label>
                     <label className='labels'>
                         Kansikuva:
-                        <input type="file" className='kirja-input'  onChange={handleImageChange}></input>
+                        <input type="file" className='kirja-input' onChange={handleImageChange}></input>
                     </label>
                     <label>
                         Kirja ei kuulu mihinkään sarjaan
-                    <input type="checkbox" checked={!showSelect} onChange={handleCheckboxChange} />
+                        <input type="checkbox" checked={!showSelect} onChange={handleCheckboxChange} />
                     </label>
                     {showSelect && (
                         <label>
@@ -147,13 +147,15 @@ const Kirjatlisaus = () => {
                     </Link>
                 </div>
             )}
-            <div>
-                <label>
-                    Alla näet kuvasi jonka aiot lisätä:
-                    <br/>
-                    <img src={file} />
+            {kirjauduttu && (
+                <div>
+                    <label>
+                        Alla näet kuvasi jonka aiot lisätä:
+                        <br />
+                        <img src={file} />
                     </label>
-            </div>
+                </div>
+            )}
         </div>
     )
 }
