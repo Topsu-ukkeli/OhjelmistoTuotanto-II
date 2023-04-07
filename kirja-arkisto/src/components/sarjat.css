@@ -9,6 +9,7 @@ body {
   align-items: center;
   color: white;
   width: 98%;
+
 }
 
 .sarjat-container input {
@@ -204,19 +205,36 @@ body {
 }
 
 /* Tässä laitetaan sarjan lisätiedoille data oikein */
-.Sarjatietoja {
+.sarjantiedot{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-gap: 10px;
+  align-items: center;
+}
+
+/* .avattu-sarja-container{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+} */
+
+.sarjankuva{
+  max-width: 400px;
+  max-height: 400px;
 }
 
-.Sarjatietoja img {
+.sarjatietoja img {
+  max-width: 100px;
+  max-height: 100px;
+}
+
+/* .Sarjatietoja img {
   width: 50%;
   height: auto;
   margin-right: 20px;
-}
+} */
 
 .Sarjatietoja h2 {
   font-size: 1.2rem;
