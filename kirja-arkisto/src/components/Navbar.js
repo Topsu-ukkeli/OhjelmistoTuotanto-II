@@ -60,7 +60,7 @@ export const Navbar = ({ login, adminlogged, setAdminlogged, setKirjauduttu, kir
                     <Link to="/Kirjat" className="nav-link">Kirjat</Link>
                 </li>
                 {adminlogged && (
-                    <li className='nav-item'>
+                    <li className='nav-item' id='nav-admin'>
                         <Link to="/admin" className="nav-link">ADMIN</Link>
                     </li>
                 )}

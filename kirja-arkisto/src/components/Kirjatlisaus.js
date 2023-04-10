@@ -97,35 +97,35 @@ const Kirjatlisaus = () => {
                     <p>Syötä tiedot alla oleviin kenttiin</p>
                     <label className='labels'>
                         Kirjan nimi:
-                        <input type="text" className='kirja-input' value={title} onChange={e => setTitle(e.target.value)}></input>
+                        <input id='name' type="text" className='kirja-input' value={title} onChange={e => setTitle(e.target.value)}></input>
                     </label>
                     <label className='labels'>
                         Kirjoittaja:
-                        <input type="text" className='kirja-input' value={author} onChange={e => setAuthor(e.target.value)}></input>
+                        <input id='author' type="text" className='kirja-input' value={author} onChange={e => setAuthor(e.target.value)}></input>
                     </label>
                     <label className='labels'>
                         Julkaisuvuosi:
-                        <input type="text" className='kirja-input' value={published} onChange={e => setPublished(e.target.value)}></input>
+                        <input id="releasedate" type="text" className='kirja-input' value={published} onChange={e => setPublished(e.target.value)}></input>
                     </label>
                     <label className='labels'>
                         Sivumäärä:
-                        <input type="text" className='kirja-input' value={page} onChange={e => setPages(e.target.value)}></input>
+                        <input id="pages" type="text" className='kirja-input' value={page} onChange={e => setPages(e.target.value)}></input>
                     </label>
                     <label className='labels'>
                         Kuvateksti:
-                        <input type="text" className='kirja-input' value={kuvateksti} onChange={e => setKuvateksti(e.target.value)}></input>
+                        <input id="text" type="text" className='kirja-input' value={kuvateksti} onChange={e => setKuvateksti(e.target.value)}></input>
                     </label>
                     <label className='labels'>
                         Kirjan piirtäjät:
-                        <input type="text" className='kirja-input' value={piirtajat} onChange={e => setPiirtajat(e.target.value)}></input>
+                        <input id="draw" type="text" className='kirja-input' value={piirtajat} onChange={e => setPiirtajat(e.target.value)}></input>
                     </label>
                     <label className='labels'>
                         Kansikuva:
-                        <input type="file" className='kirja-input' onChange={handleImageChange}></input>
+                        <input id="pic" type="file" className='kirja-input' onChange={handleImageChange}></input>
                     </label>
                     <label>
                         Kirja ei kuulu mihinkään sarjaan
-                        <input type="checkbox" checked={!showSelect} onChange={handleCheckboxChange} />
+                        <input id="cbseries" type="checkbox" checked={!showSelect} onChange={handleCheckboxChange} />
                     </label>
                     {showSelect && (
                         <label>
@@ -137,7 +137,7 @@ const Kirjatlisaus = () => {
                             </select>
                         </label>
                     )}
-                    <button onClick={Tallenna} type="submit">Tallenna uusi kirja</button>
+                    <button onClick={Tallenna} id="add" type="submit">Tallenna uusi kirja</button>
                 </form>
             ) : (
                 <div>

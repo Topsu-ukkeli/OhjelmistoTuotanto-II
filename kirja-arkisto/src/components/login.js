@@ -80,7 +80,7 @@ const Login = ({ setUserID, setAdminlogged, setKirjauduttu, kirjauduttu }) => {
                         <input type="password" id="password"
                             value={salasana} onChange={(event) => setSalasana(event.target.value)} />
                     </div>
-                        <button onClick={handleKirjaudu}>Kirjaudu sisään</button>
+                        <button id='login' onClick={handleKirjaudu}>Kirjaudu sisään</button>
                     <p className="">Mikäli sinulla ei ole vielä tunnuksia pääset rekisteröitymään <a><Link to="/register">tästä.</Link></a></p>
                         
                 </div>
@@ -90,7 +90,7 @@ const Login = ({ setUserID, setAdminlogged, setKirjauduttu, kirjauduttu }) => {
                     <h1>Hei {käyttäjä}!</h1>
                     <div className="napit">
                     <Link to="/oma-kirjasto">
-                        <button>Omaan kirjastoon</button>
+                        <button id='kirjastoon'>Omaan kirjastoon</button>
                     </Link>
                     <button onClick={handleKirjauduulos}>Kirjaudu ulos</button>
                     </div>

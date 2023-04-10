@@ -172,16 +172,16 @@ const Admin = () => {
     return (
         <div>
             <Link to="/Kirjalisaus">
-                <button class="button">Lisää kirja tietokantaan</button>
+                <button class="button" id='btn-lisaa-kirja'>Lisää kirja tietokantaan</button>
             </Link>
             <br />
             <br />
             <Link to="/Sarjalisaus">
-                <button class="button">Lisää uusi sarja tietokantaan</button>
+                <button class="button" id='btn-lisaa-sarja'>Lisää uusi sarja tietokantaan</button>
             </Link>
             <br />
             <br />
-            <button class="button" onClick={() => handleToggle()}>Poista kirja tai sarja tai muokkaa tietoja</button>
+            <button id="btn-poista-kirja" class="button" onClick={() => handleToggle()}>Poista kirja tai sarja tai muokkaa tietoja</button>
             <br />
             <br />
             {/* <Link to="/Kirjamuokkaus">
@@ -243,7 +243,7 @@ const Admin = () => {
                                     {kirja.published}
                                 </dd>
                                 <dd>
-                                    <button class="button" onClick={() => DeleteKirja(kirja)}>Poista kirja </button>
+                                    <button id ="btn-poista-tama-kirja" class="button" onClick={() => DeleteKirja(kirja)}>Poista kirja </button>
                                     <button class="button" onClick={() => handleKirjaMuokkaus({ kirja })}>Muokkaa kirja</button>
                                 </dd>
                             </dl>

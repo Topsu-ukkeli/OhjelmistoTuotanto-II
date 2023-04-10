@@ -73,22 +73,22 @@ const SarjatLisaus = () => {
                 <div className="inputs-container">
                     <label className='labels'>
                         Sarjan nimi:
-                        <input type="text" className='kirja-input' value={Sarjanimi} onChange={e => setSarjanimi(e.target.value)}></input>
+                        <input id='name' type="text" className='kirja-input' value={Sarjanimi} onChange={e => setSarjanimi(e.target.value)}></input>
                     </label>
                     <br />
                     <label className='labels'>
                         Kustantaja:
-                        <input type="text" className='kirja-input' value={Kustantaja} onChange={e => setKustantaja(e.target.value)}></input>
+                        <input id="publisher" type="text" className='kirja-input' value={Kustantaja} onChange={e => setKustantaja(e.target.value)}></input>
                     </label>
                     <br />
                     <label className='labels'>
                         Kuvaus:
-                        <input type="text" className='kirja-input' value={Kuvaus} onChange={e => setKuvaus(e.target.value)}></input>
+                        <input id="desc" type="text" className='kirja-input' value={Kuvaus} onChange={e => setKuvaus(e.target.value)}></input>
                     </label>
                     <br />
                     <label className='labels'>
                         Luokittelu:
-                        <select onChange={(e) => setLuokittelu(e.target.value)}>
+                        <select id="class" onChange={(e) => setLuokittelu(e.target.value)}>
                             {numbers.map((row) => (
                                 <option key={row.id} value={row.number}>{row.number}</option>
                             ))}
@@ -98,15 +98,15 @@ const SarjatLisaus = () => {
                     <br />
                     <label>
                         Luo sarjaid:
-                        <input type='number' onChange={(e) => setSerieid(e.target.value)}></input>
+                        <input id='idnum' type='number' onChange={(e) => setSerieid(e.target.value)}></input>
                     </label>
                     <br />
                     <label className='labels'>
                         Sarjan kansikuva:
-                        <input type="file" className='kirja-input' onChange={handleImageChange}></input>
+                        <input id="spic" type="file" className='kirja-input' onChange={handleImageChange}></input>
                     </label>
                     <br />
-                    <button onClick={Tallenna} type="submit">Tallenna uusi sarja</button>
+                    <button id='add-series' onClick={Tallenna} type="submit">Tallenna uusi sarja</button>
                 </div>
 
             ) : (
