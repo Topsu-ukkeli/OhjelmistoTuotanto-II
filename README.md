@@ -36,3 +36,15 @@ npm install multer
 
 Tämä kirja arkistoon:
 npm install --save react-toastify
+
+
+NIGHTWATCH TESTAUKSEEN:
+nw_test kansioon
+npm install
+
+//kaikki tarvittava on jo lisätty package.json tiedostoon
+//joten siksi ei tarvitse erikseen asentaa mitään
+
+NIGHTWATCH TESTIEN AJO:
+nw_test kansioon:
+npx nightwatch -e chrome
