@@ -1,10 +1,6 @@
 # OhjelmistoTuotantoII
 
-ADMIN TUNNUKSET MITÄ KÄYTETÄÄN!
-nimi: admin
-käyttäjänimi: admin
-salasana: administator123
-sähköposti: nootware@gmail.com
+
 
 
 Kirja-arkisto on ohjelmistotuotanto II projekti, jossa tarkoituksena oli luoda kirjasto, josta käyttäjä voi lainata kirjoja itselleen ja lisätä omia kirjojaan.
